@@ -681,5 +681,7 @@
     "resource/image/BatchUseDetector/ValleyIVDetector": "833a331a8a706e8c234212355b7ee66dcd18849db59c75d920458935268462d9",
     "resource/image/SceneManager/BackToMainMap": "35d5bf3e3a58fcffdd146f079f6fc9f0862bf3a1b713ce64f4edc225981fff8a",
     "resource/image/SceneManager/MapLayersOther": "aeef7c708df6e900b4e9863b2a3efe27c5c80432e3da73233972807a29c110ec",
-    "resource/image/SceneManager/MapLayersMain": "35d5bf3e3a58fcffdd146f079f6fc9f0862bf3a1b713ce64f4edc225981fff8a"
+    "resource/image/SceneManager/MapLayersMain": "35d5bf3e3a58fcffdd146f079f6fc9f0862bf3a1b713ce64f4edc225981fff8a",
+    "resource/image/AutoSell/TabSwitchElasticGoodsActive": "200e60f6d89224b408fceec9e429bd434a9cef47a531100d975cb90efd64aa12",
+    "resource/image/AutoSell/TabSwitchElasticGoods": "45ee0b27feec570a4f74b6c883aab99517f50eaf15f5643a3eead14b68ce033b"
 }
