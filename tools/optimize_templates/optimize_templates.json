@@ -683,5 +683,6 @@
     "resource/image/SceneManager/MapLayersOther": "aeef7c708df6e900b4e9863b2a3efe27c5c80432e3da73233972807a29c110ec",
     "resource/image/SceneManager/MapLayersMain": "35d5bf3e3a58fcffdd146f079f6fc9f0862bf3a1b713ce64f4edc225981fff8a",
     "resource/image/AutoSell/TabSwitchElasticGoodsActive": "200e60f6d89224b408fceec9e429bd434a9cef47a531100d975cb90efd64aa12",
-    "resource/image/AutoSell/TabSwitchElasticGoods": "45ee0b27feec570a4f74b6c883aab99517f50eaf15f5643a3eead14b68ce033b"
+    "resource/image/AutoSell/TabSwitchElasticGoods": "45ee0b27feec570a4f74b6c883aab99517f50eaf15f5643a3eead14b68ce033b",
+    "resource/image/AutoEcoFarm/AutoEcoFarmTarget": "0c5d200ceacbc6fa42715f1b0cd1cca6839ee0c62a7353c2bdddc7dd4731d209"
 }
