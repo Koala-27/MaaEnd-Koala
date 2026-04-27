@@ -684,5 +684,11 @@
     "resource/image/SceneManager/MapLayersMain": "35d5bf3e3a58fcffdd146f079f6fc9f0862bf3a1b713ce64f4edc225981fff8a",
     "resource/image/AutoSell/TabSwitchElasticGoodsActive": "200e60f6d89224b408fceec9e429bd434a9cef47a531100d975cb90efd64aa12",
     "resource/image/AutoSell/TabSwitchElasticGoods": "45ee0b27feec570a4f74b6c883aab99517f50eaf15f5643a3eead14b68ce033b",
-    "resource/image/AutoEcoFarm/AutoEcoFarmTarget": "0c5d200ceacbc6fa42715f1b0cd1cca6839ee0c62a7353c2bdddc7dd4731d209"
+    "resource/image/AutoEcoFarm/AutoEcoFarmTarget": "0c5d200ceacbc6fa42715f1b0cd1cca6839ee0c62a7353c2bdddc7dd4731d209",
+    "resource/image/SceneManager/MapWuling/MarkerStoneCoreLeftTop": "bc08c70b3f9024d433e20ab592ba588eb064d6a6b7ba56563f41b05a52a96a7b",
+    "resource/image/SceneManager/MapWuling/MarkerStoneCoreLeftBottom": "22ccb2035d6dfba3dddfc3bc2c9449b4100056eac816903e706c2fc688ff8885",
+    "resource/image/SceneManager/MapWuling/MarkerStone4Right": "80a4b70c39cbbe936dd41e74a991da82e567fe6f9cdf3d5bea697f9d3643bca2",
+    "resource/image/SceneManager/MapWuling/MarkerStoneCoreTopLeft": "e23d90b55d8a0db0bf419b0e02159237e7560bf58a49484f1798d6f827a00e0e",
+    "resource/image/SceneManager/MapWuling/MarkerStone4Top": "e3a4b52f2874a54dd2d875856c18c269731f283fc961c9f537e53f90a41d7707",
+    "resource/image/SceneManager/MapWuling/MarkerStone4Center": "13cc0c841011b132414cb569ed88c86f8fadb14b5f83a83b7dfe07d5249d443d"
 }
