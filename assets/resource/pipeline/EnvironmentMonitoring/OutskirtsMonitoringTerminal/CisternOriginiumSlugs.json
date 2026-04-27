@@ -151,14 +151,14 @@
         ]
     },
     "CisternOriginiumSlugsTrackOrGoTo": {
-        "desc": "在蓄水源石虫任务中，如果有开始追踪的按钮就点击追踪，没有就直接前往",
+        "desc": "在蓄水源石虫任务中，如果有开始追踪的按钮就点击追踪，已在追踪则继续",
         "recognition": "And",
         "all_of": [
             "InCisternOriginiumSlugsMission"
         ],
         "next": [
             "TrackCisternOriginiumSlugs",
-            "GoToCisternOriginiumSlugs"
+            "AlreadyTrackedCisternOriginiumSlugs"
         ]
     },
     "TrackCisternOriginiumSlugs": {
@@ -169,6 +169,17 @@
             "InCisternOriginiumSlugsMission"
         ],
         "action": "Click",
+        "next": [
+            "GoToCisternOriginiumSlugs"
+        ]
+    },
+    "AlreadyTrackedCisternOriginiumSlugs": {
+        "desc": "蓄水源石虫任务已经在追踪中",
+        "recognition": "And",
+        "all_of": [
+            "AlreadyTrackedMissionButton",
+            "InCisternOriginiumSlugsMission"
+        ],
         "next": [
             "GoToCisternOriginiumSlugs"
         ]

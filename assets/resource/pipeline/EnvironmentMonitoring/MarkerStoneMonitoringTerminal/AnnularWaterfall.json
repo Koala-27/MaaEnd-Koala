@@ -151,14 +151,14 @@
         ]
     },
     "AnnularWaterfallTrackOrGoTo": {
-        "desc": "在环形瀑布任务中，如果有开始追踪的按钮就点击追踪，没有就直接前往",
+        "desc": "在环形瀑布任务中，如果有开始追踪的按钮就点击追踪，已在追踪则继续",
         "recognition": "And",
         "all_of": [
             "InAnnularWaterfallMission"
         ],
         "next": [
             "TrackAnnularWaterfall",
-            "GoToAnnularWaterfall"
+            "AlreadyTrackedAnnularWaterfall"
         ]
     },
     "TrackAnnularWaterfall": {
@@ -169,6 +169,17 @@
             "InAnnularWaterfallMission"
         ],
         "action": "Click",
+        "next": [
+            "GoToAnnularWaterfall"
+        ]
+    },
+    "AlreadyTrackedAnnularWaterfall": {
+        "desc": "环形瀑布任务已经在追踪中",
+        "recognition": "And",
+        "all_of": [
+            "AlreadyTrackedMissionButton",
+            "InAnnularWaterfallMission"
+        ],
         "next": [
             "GoToAnnularWaterfall"
         ]

@@ -151,13 +151,14 @@
         ]
     },
     "CloudrestEcoSiteTrackOrGoTo": {
-        "desc": "在栖云生态点任务中，如果有开始追踪的按钮就点击追踪，没有就直接前往",
+        "desc": "在栖云生态点任务中，如果有开始追踪的按钮就点击追踪，已在追踪则继续",
         "recognition": "And",
         "all_of": [
             "InCloudrestEcoSiteMission"
         ],
         "next": [
-            "TrackCloudrestEcoSite"
+            "TrackCloudrestEcoSite",
+            "AlreadyTrackedCloudrestEcoSite"
         ]
     },
     "TrackCloudrestEcoSite": {
@@ -169,7 +170,18 @@
         ],
         "action": "Click",
         "next": [
-            "CloudrestEcoSiteNotAdapted"
+            "GoToCloudrestEcoSite"
+        ]
+    },
+    "AlreadyTrackedCloudrestEcoSite": {
+        "desc": "栖云生态点任务已经在追踪中",
+        "recognition": "And",
+        "all_of": [
+            "AlreadyTrackedMissionButton",
+            "InCloudrestEcoSiteMission"
+        ],
+        "next": [
+            "GoToCloudrestEcoSite"
         ]
     },
     "CloudrestEcoSiteNotAdapted": {
@@ -199,12 +211,12 @@
         "custom_recognition_param": {
             "expected": [
                 {
-                    "map_name": "^map\\d+_lv\\d+$",
+                    "map_name": "map02_lv004",
                     "target": [
-                        0,
-                        0,
-                        1,
-                        1
+                        604.3,
+                        422.8,
+                        42.7,
+                        39.4
                     ]
                 }
             ]
@@ -219,7 +231,7 @@
         "custom_action": "SubTask",
         "custom_action_param": {
             "sub": [
-                "SceneAnyEnterWorld"
+                "SceneEnterWorldWulingMarkerStoneCore"
             ]
         },
         "next": [
@@ -234,12 +246,12 @@
         "custom_recognition_param": {
             "expected": [
                 {
-                    "map_name": "^map\\d+_lv\\d+$",
+                    "map_name": "map02_lv004",
                     "target": [
-                        0,
-                        0,
-                        1,
-                        1
+                        604.3,
+                        422.8,
+                        42.7,
+                        39.4
                     ]
                 }
             ]
@@ -254,7 +266,7 @@
         "custom_action": "SubTask",
         "custom_action_param": {
             "sub": [
-                "SceneAnyEnterWorld"
+                "SceneEnterWorldWulingMarkerStoneCore"
             ]
         },
         "next": [
@@ -268,12 +280,12 @@
         "custom_recognition_param": {
             "expected": [
                 {
-                    "map_name": "^map\\d+_lv\\d+$",
+                    "map_name": "map02_lv004",
                     "target": [
-                        0,
-                        0,
-                        1,
-                        1
+                        604.3,
+                        422.8,
+                        42.7,
+                        39.4
                     ]
                 }
             ]
@@ -287,11 +299,87 @@
         "action": "Custom",
         "custom_action": "MapTrackerMove",
         "custom_action_param": {
-            "map_name": "^map\\d+_lv\\d+$",
+            "map_name": "map02_lv004",
             "path": [
                 [
-                    0,
-                    0
+                    608.1,
+                    435.7
+                ],
+                [
+                    565,
+                    434.7
+                ],
+                [
+                    522.5,
+                    452.3
+                ],
+                [
+                    525.2,
+                    460
+                ],
+                [
+                    514.2,
+                    466.7
+                ],
+                [
+                    517.5,
+                    473.5
+                ],
+                [
+                    512,
+                    476.8
+                ],
+                [
+                    511.2,
+                    481.7
+                ],
+                [
+                    502.2,
+                    486.8
+                ],
+                [
+                    485,
+                    482.2
+                ],
+                [
+                    477.3,
+                    475.6
+                ],
+                [
+                    453.8,
+                    473.5
+                ],
+                [
+                    447.5,
+                    473.5
+                ],
+                [
+                    443.2,
+                    476.6
+                ],
+                [
+                    440.7,
+                    482.1
+                ],
+                [
+                    438.4,
+                    487.6
+                ],
+                [
+                    438,
+                    493
+                ],
+                [
+                    437.9,
+                    499.3
+                ],
+                [
+                    438.1,
+                    504.3
+                ],
+                [
+                    438.1,
+                    510.1
                 ]
             ]
         },
@@ -305,7 +393,7 @@
     },
     "CloudrestEcoSiteAdjustCamera": {
         "desc": "栖云生态点任务中调整朝向",
-        "max_hit": 2,
+        "max_hit": 4,
         "next": [
             "EnvironmentMonitoringSwipeScreenUp"
         ]

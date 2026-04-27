@@ -151,14 +151,14 @@
         ]
     },
     "TreeOfTheOldCourtyardTrackOrGoTo": {
-        "desc": "在旧庭树任务中，如果有开始追踪的按钮就点击追踪，没有就直接前往",
+        "desc": "在旧庭树任务中，如果有开始追踪的按钮就点击追踪，已在追踪则继续",
         "recognition": "And",
         "all_of": [
             "InTreeOfTheOldCourtyardMission"
         ],
         "next": [
             "TrackTreeOfTheOldCourtyard",
-            "GoToTreeOfTheOldCourtyard"
+            "AlreadyTrackedTreeOfTheOldCourtyard"
         ]
     },
     "TrackTreeOfTheOldCourtyard": {
@@ -169,6 +169,17 @@
             "InTreeOfTheOldCourtyardMission"
         ],
         "action": "Click",
+        "next": [
+            "GoToTreeOfTheOldCourtyard"
+        ]
+    },
+    "AlreadyTrackedTreeOfTheOldCourtyard": {
+        "desc": "旧庭树任务已经在追踪中",
+        "recognition": "And",
+        "all_of": [
+            "AlreadyTrackedMissionButton",
+            "InTreeOfTheOldCourtyardMission"
+        ],
         "next": [
             "GoToTreeOfTheOldCourtyard"
         ]

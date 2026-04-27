@@ -151,14 +151,14 @@
         ]
     },
     "CleansingJadeTrackOrGoTo": {
-        "desc": "在漱玉任务中，如果有开始追踪的按钮就点击追踪，没有就直接前往",
+        "desc": "在漱玉任务中，如果有开始追踪的按钮就点击追踪，已在追踪则继续",
         "recognition": "And",
         "all_of": [
             "InCleansingJadeMission"
         ],
         "next": [
             "TrackCleansingJade",
-            "GoToCleansingJade"
+            "AlreadyTrackedCleansingJade"
         ]
     },
     "TrackCleansingJade": {
@@ -169,6 +169,17 @@
             "InCleansingJadeMission"
         ],
         "action": "Click",
+        "next": [
+            "GoToCleansingJade"
+        ]
+    },
+    "AlreadyTrackedCleansingJade": {
+        "desc": "漱玉任务已经在追踪中",
+        "recognition": "And",
+        "all_of": [
+            "AlreadyTrackedMissionButton",
+            "InCleansingJadeMission"
+        ],
         "next": [
             "GoToCleansingJade"
         ]

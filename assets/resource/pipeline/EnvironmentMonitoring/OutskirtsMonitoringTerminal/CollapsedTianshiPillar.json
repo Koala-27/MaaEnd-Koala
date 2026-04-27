@@ -151,14 +151,14 @@
         ]
     },
     "CollapsedTianshiPillarTrackOrGoTo": {
-        "desc": "在倒塌的天师桩任务中，如果有开始追踪的按钮就点击追踪，没有就直接前往",
+        "desc": "在倒塌的天师桩任务中，如果有开始追踪的按钮就点击追踪，已在追踪则继续",
         "recognition": "And",
         "all_of": [
             "InCollapsedTianshiPillarMission"
         ],
         "next": [
             "TrackCollapsedTianshiPillar",
-            "GoToCollapsedTianshiPillar"
+            "AlreadyTrackedCollapsedTianshiPillar"
         ]
     },
     "TrackCollapsedTianshiPillar": {
@@ -169,6 +169,17 @@
             "InCollapsedTianshiPillarMission"
         ],
         "action": "Click",
+        "next": [
+            "GoToCollapsedTianshiPillar"
+        ]
+    },
+    "AlreadyTrackedCollapsedTianshiPillar": {
+        "desc": "倒塌的天师桩任务已经在追踪中",
+        "recognition": "And",
+        "all_of": [
+            "AlreadyTrackedMissionButton",
+            "InCollapsedTianshiPillarMission"
+        ],
         "next": [
             "GoToCollapsedTianshiPillar"
         ]
