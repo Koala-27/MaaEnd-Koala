@@ -26,11 +26,10 @@
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
-            "CloseFastCollectProductionRewards",
-            "DijiangRewardsFastCollectProductionDoNothing"
+            "DijiangRewardsFastCollectProductionSuccess"
         ]
     },
-    "DijiangRewardsFastCollectProductionTarget": {
+    "DijiangRewardsFastCollectProductionSuccess": {
         "desc": "快速收取产物奖励界面识别目标，包含产物奖励界面特征元素的组合",
         "recognition": {
             "type": "OCR",
@@ -52,7 +51,11 @@
                     "培養室"
                 ]
             }
-        }
+        },
+        "next": [
+            "CloseFastCollectProductionRewards",
+            "InDijiangControlNexus"
+        ]
     },
     "CloseFastCollectProductionRewards": {
         "desc": "关闭快速收取产物奖励界面",
@@ -72,18 +75,6 @@
         },
         "post_delay": 0,
         "rate_limit": 0
-    },
-    "DijiangRewardsFastCollectProductionDoNothing": {
-        "desc": "什么都不做",
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "DijiangRewardsFastCollectProductionTarget",
-                    "InDijiangControlNexus"
-                ]
-            }
-        }
     },
     "DijiangRewardsFastCollectClues": {
         "desc": "快速收取线索",
@@ -112,11 +103,10 @@
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
-            "CloseFastCollectCluesRewards",
-            "DijiangRewardsFastCollectCluesDoNothing"
+            "DijiangRewardsFastCollectCluesSuccess"
         ]
     },
-    "DijiangRewardsFastCollectCluesTarget": {
+    "DijiangRewardsFastCollectCluesSuccess": {
         "desc": "快速收取线索奖励界面识别目标，包含线索奖励界面特征元素的组合",
         "recognition": {
             "type": "OCR",
@@ -134,19 +124,11 @@
                     "応接室"
                 ]
             }
-        }
-    },
-    "DijiangRewardsFastCollectCluesDoNothing": {
-        "desc": "什么都不做",
-        "recognition": {
-            "type": "And",
-            "param": {
-                "all_of": [
-                    "DijiangRewardsFastCollectCluesTarget",
-                    "InDijiangControlNexus"
-                ]
-            }
-        }
+        },
+        "next": [
+            "CloseFastCollectCluesRewards",
+            "InDijiangControlNexus"
+        ]
     },
     "CloseFastCollectCluesRewards": {
         "desc": "关闭快速收取线索奖励界面",
