@@ -29,8 +29,7 @@
             "SellProductZeroProductAfterChangeStillEmpty",
             "[Anchor]SellProductZeroMoneyHandler",
             "SellProductNeedSelectGoodsTryChangeGoods",
-            "SellProductClickBarRight",
-            "SellProductDragBar"
+            "[Anchor]SellProductBetterSliding"
         ]
     },
     "SellProductZeroProductColorMatch": {
@@ -180,68 +179,6 @@
             "Node.Recognition.Succeeded": "该据点调度券不足，过一会再来吧"
         }
     },
-    "SellProductClickBarRight": {
-        "desc": "点击进度条最右侧",
-        "recognition": "TemplateMatch",
-        "roi": [
-            1115,
-            507,
-            88,
-            103
-        ],
-        "template": [
-            "SellProduct/SellProductBarRight.png"
-        ],
-        "method": 10001,
-        "order_by": "Score",
-        "pre_delay": 0,
-        "action": "Click",
-        "target_offset": [
-            7,
-            16,
-            -21,
-            -32
-        ],
-        // 单击后需要等待一会儿再交易
-        "post_wait_freezes": 80,
-        "post_delay": 0,
-        "rate_limit": 0,
-        "next": [
-            "SellProductSell"
-        ]
-    },
-    "SellProductDragBar": {
-        "desc": "备选方案-滑动滑动条",
-        "recognition": "TemplateMatch",
-        "roi": [
-            1000,
-            500,
-            200,
-            150
-        ],
-        "template": [
-            "SellProduct/SellProductBar.png"
-        ],
-        "method": 10001,
-        "pre_delay": 0,
-        "action": "Swipe",
-        "end_offset": [
-            [
-                0,
-                0,
-                400,
-                0
-            ]
-        ],
-        "duration": [
-            500
-        ],
-        "post_delay": 0,
-        "rate_limit": 0,
-        "next": [
-            "SellProductSell"
-        ]
-    },
     "SellProductSell": {
         "desc": "交易",
         "recognition": "OCR",
@@ -304,6 +241,75 @@
         ],
         "focus": {
             "Node.Action.Succeeded": "成功完成一次交易"
+        }
+    },
+    "SellProductSellThenLoop": {
+        "desc": "交易，完成后直接进入下一次售卖尝试",
+        "recognition": "OCR",
+        "roi": [
+            975,
+            615,
+            300,
+            105
+        ],
+        "expected": [
+            "交易",
+            "(?i)Trade",
+            "取引",
+            "거래"
+        ],
+        "pre_delay": 0,
+        "action": "Click",
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSellCheckThenLoop"
+        ]
+    },
+    "SellProductSellCheckThenLoop": {
+        "desc": "交易后确认，直接进入下一次售卖尝试",
+        "recognition": "And",
+        "all_of": [
+            "CloseRewardsButton",
+            {
+                "recognition": "TemplateMatch",
+                "roi": [
+                    577,
+                    10,
+                    138,
+                    118
+                ],
+                "template": [
+                    "SellProduct/SellProductCheckHeader.png"
+                ]
+            }
+        ],
+        "pre_wait_freezes": 80,
+        "pre_delay": 0,
+        "action": "Click",
+        "anchor": {
+            "SellProductZeroMoneyHandler": "SellProductZeroMoney"
+        },
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSellLoop"
+        ],
+        "focus": {
+            "Node.Action.Succeeded": "成功完成一次交易"
+        }
+    },
+    "SellProductSkipToNextSellLoop": {
+        "desc": "保留数量大于等于当前库存，跳过本次交易尝试",
+        "enabled": false,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSellLoop"
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "保留数量大于等于当前库存，跳过本次交易尝试"
         }
     },
     "SellProductSellLoopEnd": {

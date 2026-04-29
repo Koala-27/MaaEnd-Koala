@@ -118,10 +118,20 @@
         "pre_delay": 0,
         "anchor": {
             "SellProductSelectNewGood": "SellProductRefugeeCampSelectItem1",
-            "SellProductPriorityGoodMissHandler": ""
+            "SellProductBetterSliding": "SellProductRefugeeCampBetterSliding1"
         },
         "post_delay": 0,
         "rate_limit": 0,
+        "next": [
+            "SellProductRefugeeCampSellAttempt1SetMissHandler"
+        ]
+    },
+    "SellProductRefugeeCampSellAttempt1SetMissHandler": {
+        "desc": "难民暂居处第1次尝试：设置优先物品未命中处理，此处 anchor 会被 task 选项覆盖",
+        "recognition": "DirectHit",
+        "anchor": {
+            "SellProductPriorityGoodMissHandler": ""
+        },
         "next": [
             "SellProductChangeGoods"
         ]
@@ -138,10 +148,20 @@
         "pre_delay": 0,
         "anchor": {
             "SellProductSelectNewGood": "SellProductRefugeeCampSelectItem2",
-            "SellProductPriorityGoodMissHandler": ""
+            "SellProductBetterSliding": "SellProductRefugeeCampBetterSliding2"
         },
         "post_delay": 0,
         "rate_limit": 0,
+        "next": [
+            "SellProductRefugeeCampSellAttempt2SetMissHandler"
+        ]
+    },
+    "SellProductRefugeeCampSellAttempt2SetMissHandler": {
+        "desc": "难民暂居处第2次尝试：设置优先物品未命中处理，此处 anchor 会被 task 选项覆盖",
+        "recognition": "DirectHit",
+        "anchor": {
+            "SellProductPriorityGoodMissHandler": ""
+        },
         "next": [
             "SellProductChangeGoods"
         ]
@@ -158,10 +178,20 @@
         "pre_delay": 0,
         "anchor": {
             "SellProductSelectNewGood": "SellProductRefugeeCampSelectItem3",
-            "SellProductPriorityGoodMissHandler": ""
+            "SellProductBetterSliding": "SellProductRefugeeCampBetterSliding3"
         },
         "post_delay": 0,
         "rate_limit": 0,
+        "next": [
+            "SellProductRefugeeCampSellAttempt3SetMissHandler"
+        ]
+    },
+    "SellProductRefugeeCampSellAttempt3SetMissHandler": {
+        "desc": "难民暂居处第3次尝试：设置优先物品未命中处理，此处 anchor 会被 task 选项覆盖",
+        "recognition": "DirectHit",
+        "anchor": {
+            "SellProductPriorityGoodMissHandler": ""
+        },
         "next": [
             "SellProductChangeGoods"
         ]
@@ -178,10 +208,20 @@
         "pre_delay": 0,
         "anchor": {
             "SellProductSelectNewGood": "SellProductRefugeeCampSelectItem4",
-            "SellProductPriorityGoodMissHandler": ""
+            "SellProductBetterSliding": "SellProductRefugeeCampBetterSliding4"
         },
         "post_delay": 0,
         "rate_limit": 0,
+        "next": [
+            "SellProductRefugeeCampSellAttempt4SetMissHandler"
+        ]
+    },
+    "SellProductRefugeeCampSellAttempt4SetMissHandler": {
+        "desc": "难民暂居处第4次尝试：设置优先物品未命中处理，此处 anchor 会被 task 选项覆盖",
+        "recognition": "DirectHit",
+        "anchor": {
+            "SellProductPriorityGoodMissHandler": ""
+        },
         "next": [
             "SellProductChangeGoods"
         ]
@@ -300,6 +340,162 @@
         "rate_limit": 0,
         "next": [
             "SellProductSelectNewGoodConfirm"
+        ]
+    },
+    "SellProductRefugeeCampBetterSliding1": {
+        "desc": "难民暂居处第1次尝试-使用 BetterSliding 设置售卖数量",
+        "pre_delay": 0,
+        "action": "Custom",
+        "custom_action": "BetterSliding",
+        "custom_action_param": {
+            "GreenMask": true,
+            "Target": 999999,
+            "ClampTargetToMax": true,
+            "MaxTarget": {
+                "Box": [
+                    1073,
+                    327,
+                    119,
+                    25
+                ],
+                "OnlyRec": true
+            },
+            "Quantity": {
+                "Box": [
+                    1107,
+                    535,
+                    74,
+                    29
+                ],
+                "OnlyRec": true
+            },
+            "Direction": "right",
+            "DecreaseButton": "SellProduct/DecreaseButton.png",
+            "IncreaseButton": "SellProduct/IncreaseButton.png",
+            "ExceedingOverrideEnable": "SellProductSkipToNextSellLoop"
+        },
+        "post_wait_freezes": 80,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSell"
+        ]
+    },
+    "SellProductRefugeeCampBetterSliding2": {
+        "desc": "难民暂居处第2次尝试-使用 BetterSliding 设置售卖数量",
+        "pre_delay": 0,
+        "action": "Custom",
+        "custom_action": "BetterSliding",
+        "custom_action_param": {
+            "GreenMask": true,
+            "Target": 999999,
+            "ClampTargetToMax": true,
+            "MaxTarget": {
+                "Box": [
+                    1073,
+                    327,
+                    119,
+                    25
+                ],
+                "OnlyRec": true
+            },
+            "Quantity": {
+                "Box": [
+                    1107,
+                    535,
+                    74,
+                    29
+                ],
+                "OnlyRec": true
+            },
+            "Direction": "right",
+            "DecreaseButton": "SellProduct/DecreaseButton.png",
+            "IncreaseButton": "SellProduct/IncreaseButton.png",
+            "ExceedingOverrideEnable": "SellProductSkipToNextSellLoop"
+        },
+        "post_wait_freezes": 80,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSell"
+        ]
+    },
+    "SellProductRefugeeCampBetterSliding3": {
+        "desc": "难民暂居处第3次尝试-使用 BetterSliding 设置售卖数量",
+        "pre_delay": 0,
+        "action": "Custom",
+        "custom_action": "BetterSliding",
+        "custom_action_param": {
+            "GreenMask": true,
+            "Target": 999999,
+            "ClampTargetToMax": true,
+            "MaxTarget": {
+                "Box": [
+                    1073,
+                    327,
+                    119,
+                    25
+                ],
+                "OnlyRec": true
+            },
+            "Quantity": {
+                "Box": [
+                    1107,
+                    535,
+                    74,
+                    29
+                ],
+                "OnlyRec": true
+            },
+            "Direction": "right",
+            "DecreaseButton": "SellProduct/DecreaseButton.png",
+            "IncreaseButton": "SellProduct/IncreaseButton.png",
+            "ExceedingOverrideEnable": "SellProductSkipToNextSellLoop"
+        },
+        "post_wait_freezes": 80,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSell"
+        ]
+    },
+    "SellProductRefugeeCampBetterSliding4": {
+        "desc": "难民暂居处第4次尝试-使用 BetterSliding 设置售卖数量",
+        "pre_delay": 0,
+        "action": "Custom",
+        "custom_action": "BetterSliding",
+        "custom_action_param": {
+            "GreenMask": true,
+            "Target": 999999,
+            "ClampTargetToMax": true,
+            "MaxTarget": {
+                "Box": [
+                    1073,
+                    327,
+                    119,
+                    25
+                ],
+                "OnlyRec": true
+            },
+            "Quantity": {
+                "Box": [
+                    1107,
+                    535,
+                    74,
+                    29
+                ],
+                "OnlyRec": true
+            },
+            "Direction": "right",
+            "DecreaseButton": "SellProduct/DecreaseButton.png",
+            "IncreaseButton": "SellProduct/IncreaseButton.png",
+            "ExceedingOverrideEnable": "SellProductSkipToNextSellLoop"
+        },
+        "post_wait_freezes": 80,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "SellProductSell"
         ]
     }
 }

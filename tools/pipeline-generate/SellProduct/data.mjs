@@ -134,6 +134,20 @@ const DOMAIN_REGION_PREFIX = {
     domain_2: "Wuling",
 };
 
+const REGION_PRIORITY = {
+    ValleyIV: 0,
+    Wuling: 1,
+};
+
+function compareRegionPrefix(a, b) {
+    const aOrder = REGION_PRIORITY[a] ?? Number.MAX_SAFE_INTEGER;
+    const bOrder = REGION_PRIORITY[b] ?? Number.MAX_SAFE_INTEGER;
+    if (aOrder !== bOrder) {
+        return aOrder - bOrder;
+    }
+    return a.localeCompare(b);
+}
+
 function buildSettlementTextExpected(settlementId, settlement) {
     const override = SETTLEMENT_OVERRIDE[settlementId]?.TextExpected;
     if (override) {
@@ -176,8 +190,8 @@ const SETTLEMENT_REGION_MAP = Object.entries(SETTLEMENT_MAP).reduce((acc, [, con
 }, {});
 
 // ===== 从 settlement 数据构建 LOCATIONS（取所有繁荣度等级的物品并集） =====
-const LOCATIONS = Object.entries(SETTLEMENT_MAP).map(
-    ([settlementId, config]) => {
+const LOCATIONS = Object.entries(SETTLEMENT_MAP)
+    .map(([settlementId, config]) => {
         const settlement = settlementData.settlements[settlementId];
         // 取所有 level 的 tradeItems 并集（按 itemId 去重），记录 rarity 和最高 unitPrice
         const itemMap = new Map();
@@ -207,21 +221,24 @@ const LOCATIONS = Object.entries(SETTLEMENT_MAP).map(
             LocationDesc: settlement.settlementName.CN,
             items,
         };
-    },
-);
+    })
+    .sort(
+        (a, b) =>
+            compareRegionPrefix(a.RegionPrefix, b.RegionPrefix) ||
+            a.LocationId.localeCompare(b.LocationId),
+    );
 
 // ===== 构建 cases 数组 =====
 function buildItemCases(nodePrefix, itemNum, itemIds) {
     const selectKey = `SellProduct${nodePrefix}SelectItem${itemNum}`;
-    const attemptKey = `SellProduct${nodePrefix}SellAttempt${itemNum}`;
+    const missHandlerKey = `SellProduct${nodePrefix}SellAttempt${itemNum}SetMissHandler`;
     const cases = [
         {
             name: "无",
             pipeline_override: {
                 [selectKey]: { enabled: false },
-                [attemptKey]: {
+                [missHandlerKey]: {
                     anchor: {
-                        SellProductSelectNewGood: selectKey,
                         SellProductPriorityGoodMissHandler: "",
                     },
                 },
@@ -237,9 +254,8 @@ function buildItemCases(nodePrefix, itemNum, itemIds) {
                     enabled: true,
                     expected: item.expected,
                 },
-                [attemptKey]: {
+                [missHandlerKey]: {
                     anchor: {
-                        SellProductSelectNewGood: selectKey,
                         SellProductPriorityGoodMissHandler:
                             "SellProductPriorityGoodMissWarning",
                     },
@@ -254,12 +270,23 @@ function buildItemCases(nodePrefix, itemNum, itemIds) {
     return cases;
 }
 
+// ===== BetterSliding Quantity.Box（Win 端 / ADB 端） =====
+// 改这里就够了，模板里 4 个 BetterSliding 节点会自动同步
+const QUANTITY_BOX = [1107, 535, 74, 29];
+const QUANTITY_BOX_ADB = [1065, 499, 78, 36];
+const MAX_QUANTITY_BOX = [1073, 327, 119, 25];
+const MAX_QUANTITY_BOX_ADB = [1041, 239, 131, 32];
+
 export const settlementFlatRows = LOCATIONS.map((loc) => ({
     RegionPrefix: loc.RegionPrefix,
     SellOptions: SETTLEMENT_REGION_MAP[loc.RegionPrefix],
     LocationId: loc.LocationId,
     LocationDesc: loc.LocationDesc,
     TextExpected: loc.TextExpected,
+    QuantityBox: QUANTITY_BOX,
+    QuantityBoxAdb: QUANTITY_BOX_ADB,
+    MaxTargetBox: MAX_QUANTITY_BOX,
+    MaxTargetBoxAdb: MAX_QUANTITY_BOX_ADB,
     ItemCases1: buildItemCases(loc.LocationId, 1, loc.items),
     ItemCases2: buildItemCases(loc.LocationId, 2, loc.items),
     ItemCases3: buildItemCases(loc.LocationId, 3, loc.items),
