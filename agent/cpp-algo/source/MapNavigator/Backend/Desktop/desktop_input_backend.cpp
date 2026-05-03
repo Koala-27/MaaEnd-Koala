@@ -5,6 +5,7 @@
 
 #include <MaaUtils/Logger.h>
 
+#include "MapNavigator/controller_info_utils.h"
 #include "../../navi_config.h"
 #include "desktop_input_backend.h"
 
@@ -20,6 +21,17 @@ constexpr int32_t kDesktopDefaultHoverAnchorY = kDesktopReferenceFrameHeight / 2
 constexpr int32_t kDesktopHoverTouchContactId = 0;
 constexpr int32_t kDesktopPrimaryTouchContactId = 1;
 constexpr int32_t kDesktopDefaultTouchPressure = 0;
+
+bool IsMouseLockFollowSupported(MaaController* ctrl)
+{
+#ifdef _WIN32
+    MaaWin32InputMethod method = MaaWin32InputMethod_None;
+    return TryGetWin32MouseInputMethod(ctrl, &method) && IsMessageInputMethod(method);
+#else
+    (void)ctrl;
+    return false;
+#endif
+}
 
 bool TrySetMouseLockFollow(MaaController* ctrl, bool enabled)
 {
@@ -81,8 +93,13 @@ DesktopInputBackend::DesktopInputBackend(
         return;
     }
 
-    mouse_lock_follow_enabled_ = TrySetMouseLockFollow(ctrl_, true);
-    LogInfo << backend_name_ << " backend mouse lock follow." << VAR(controller_type_) << VAR(mouse_lock_follow_enabled_);
+    if (IsMouseLockFollowSupported(ctrl_)) {
+        mouse_lock_follow_enabled_ = TrySetMouseLockFollow(ctrl_, true);
+        LogInfo << backend_name_ << " backend mouse lock follow." << VAR(controller_type_) << VAR(mouse_lock_follow_enabled_);
+    }
+    else {
+        LogInfo << backend_name_ << " backend mouse lock follow skipped." << VAR(controller_type_);
+    }
 
     const std::vector<int32_t> managed_keys {
         key_codes_.move_forward, key_codes_.move_left, key_codes_.move_backward,
