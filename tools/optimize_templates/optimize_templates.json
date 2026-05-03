@@ -477,7 +477,7 @@
     "resource/image/Common/Button/YellowConfirmButtonType2": "c8881af5ff9983d9f590f583e161bdc4cb3e4984de766a6f774fc98b583ddcea",
     "resource/image/Common/Button/CloseRewardButton": "c838dfd7eff5519f17dd6fc87d6dc60361fb6a355c4c0461964163cacda30ea0",
     "resource/image/Common/Button/CancelButtonType2": "cd3dd555bea834295f4fac8d9056d26da15ec332e2cf811ce92aa91b318f7d96",
-    "resource/image/Common/Button/RegionalDevelopmentButton": "7c8961fb24d7947ed9185198d408301188a1e8be05208b52399cc48923a7b3b8",
+    "resource/image/Common/Button/RegionalDevelopmentButton": "fc843e5d2916e7dd259a4e2687357b2c28da1353c1eb521ad44dfad95f7e4c0d",
     "resource/image/Common/Button/ChangeRegionButton": "3bdd552321b527b2dac55509d1ae5a3eabbff28273fabcb0c684c3b6c3c2d5db",
     "resource/image/Common/Button/WhiteConfirmButtonType2Hover": "b9c14165607f8cc944b49c1e4ca3779dc3add5ca94229319f646e13e6e9ba617",
     "resource/image/Common/Button/EnterCameraModeButton": "85097cedc9dd62f3f0c60b6072e2641ebbd0d60d6ed7b7586a445dd3fb99f55a",
@@ -703,5 +703,6 @@
     "resource/image/InScene/NoticeRewardsIcon": "9272147a68beaf091d1356e6cab5fb45bbed18e755866a06ee6b8c88ffb98b51",
     "resource/image/SceneManager/MapWuling/MarkerStone4Right1": "14438dcca0a2ed8fe4999b3422b81da11384ee1590d281c2309eac369bad78f2",
     "resource/image/SceneManager/MapWuling/MarkerStone4Center1": "8d5a51c351b1a18a6f582a9319d3634d35a0e61b96919c3f6a89dc6b4fb8cbf2",
-    "resource/image/SceneManager/MapWuling/MarkerStone4Top1": "1c6fe8eeac5a3cd9273b9dc3b707fd5dc435ed91a2f4e46e83dbc90ed013ea26"
+    "resource/image/SceneManager/MapWuling/MarkerStone4Top1": "1c6fe8eeac5a3cd9273b9dc3b707fd5dc435ed91a2f4e46e83dbc90ed013ea26",
+    "resource/image/Common/Button/RegionalDevelopmentButton1": "3f147d9a53c5c657997fd278f9921c44b0e711df8a5edce4d468ef5879afe59f"
 }
