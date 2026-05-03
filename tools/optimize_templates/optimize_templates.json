@@ -700,5 +700,8 @@
     "resource/image/Common/Button/MapTrackButton": "f8a9b93847feee57039b63590ff3dc113055c2172a00f2cb1dc12ee2b2b43617",
     "resource/image/InScene/NoticeRewardsIcon2": "485a262b36a49b06d153fa5eaddfc70c93ec1033aa9f734f4e5e5d1785e130ca",
     "resource/image/InScene/NoticeRewardsIcon3": "994abde3377303188ddc42dea28ef7921ab634915b75edb44843a5825eba1a55",
-    "resource/image/InScene/NoticeRewardsIcon": "9272147a68beaf091d1356e6cab5fb45bbed18e755866a06ee6b8c88ffb98b51"
+    "resource/image/InScene/NoticeRewardsIcon": "9272147a68beaf091d1356e6cab5fb45bbed18e755866a06ee6b8c88ffb98b51",
+    "resource/image/SceneManager/MapWuling/MarkerStone4Right1": "14438dcca0a2ed8fe4999b3422b81da11384ee1590d281c2309eac369bad78f2",
+    "resource/image/SceneManager/MapWuling/MarkerStone4Center1": "8d5a51c351b1a18a6f582a9319d3634d35a0e61b96919c3f6a89dc6b4fb8cbf2",
+    "resource/image/SceneManager/MapWuling/MarkerStone4Top1": "1c6fe8eeac5a3cd9273b9dc3b707fd5dc435ed91a2f4e46e83dbc90ed013ea26"
 }
