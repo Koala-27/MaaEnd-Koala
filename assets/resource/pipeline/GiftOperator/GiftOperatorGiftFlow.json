@@ -62,10 +62,6 @@
                 ]
             }
         },
-        "action": {
-            "type": "Click"
-        },
-        "post_wait_freezes": 200,
         "pre_wait_freezes": {
             "time": 200,
             "target": [
@@ -76,6 +72,10 @@
             ]
         },
         "pre_delay": 0,
+        "action": {
+            "type": "Click"
+        },
+        "post_wait_freezes": 200,
         "next": [
             "GiftOperatorReceiveDialog",
             "GiftOperatorBagFull"

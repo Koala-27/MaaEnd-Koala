@@ -25,8 +25,8 @@
         ]
     },
     "GiftOperatorContacSortOrder": {
-        "max_hit": 1,
         "desc": "选择排序方式",
+        "max_hit": 1,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -69,8 +69,8 @@
         }
     },
     "GiftOperatorContacSortBy": {
-        "max_hit": 1,
         "desc": "选择升序",
+        "max_hit": 1,
         "recognition": {
             "type": "OCR",
             "param": {
