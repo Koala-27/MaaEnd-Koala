@@ -34,10 +34,10 @@ Suggested reading order:
 
 ### Tier 1 — Quick start
 
-| Document | Description |
-| --- | --- |
+| Document                                                  | Description                                                                            |
+| --------------------------------------------------------- | -------------------------------------------------------------------------------------- |
 | [Super basic introduction](./super-basic-introduction.md) | For absolute beginners: what Git, terminal, VS Code, and JSON are, and how to use them |
-| [Getting started](./getting-started.md) | Set up the environment, run the app, and ship a first change/PR in ~10 minutes |
+| [Getting started](./getting-started.md)                   | Set up the environment, run the app, and ship a first change/PR in ~10 minutes         |
 
 ### Tier 2 — Reference
 
@@ -92,14 +92,14 @@ Only when you maintain the matching task.
 
 ## Quick lookup
 
-| I want to… | Read this |
-| --- | --- |
-| Start from absolute zero, don't understand the jargon | [super-basic-introduction.md](./super-basic-introduction.md) |
-| Start from zero | [getting-started.md](./getting-started.md) |
-| Understand architecture | [components-guide.md](./components-guide.md) |
-| Change Pipeline nodes | [components-guide.md](./components-guide.md) → [common-buttons.md](./common-buttons.md) / [in-scene.md](./in-scene.md) / [scene-manager.md](./scene-manager.md) |
-| Write or debug Go Service | [components-guide.md](./components-guide.md) → [custom.md](./custom.md) |
-| Coding standards | [coding-standards.md](./coding-standards.md) |
+| I want to…                                            | Read this                                                                                                                                                       |
+| ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Start from absolute zero, don't understand the jargon | [super-basic-introduction.md](./super-basic-introduction.md)                                                                                                    |
+| Start from zero                                       | [getting-started.md](./getting-started.md)                                                                                                                      |
+| Understand architecture                               | [components-guide.md](./components-guide.md)                                                                                                                    |
+| Change Pipeline nodes                                 | [components-guide.md](./components-guide.md) → [common-buttons.md](./common-buttons.md) / [in-scene.md](./in-scene.md) / [scene-manager.md](./scene-manager.md) |
+| Write or debug Go Service                             | [components-guide.md](./components-guide.md) → [custom.md](./custom.md)                                                                                         |
+| Coding standards                                      | [coding-standards.md](./coding-standards.md)                                                                                                                    |
 
 ## Community
 

@@ -12,11 +12,11 @@
 
 ## Chapter 0 · Figure Out What Kind of Beginner You Are
 
-| Your situation | Where to go |
-| --- | --- |
-| I just want to **use** MaaEnd for auto-farming, not here to write code | → [Official website](https://maaend.com/), you don't need developer docs |
-| I want to help write Pipeline (JSON config, no coding required) | → Finish this guide → [getting-started.md](./getting-started.md) |
-| I want to write Go Service / modify core logic | → Finish this guide → Learn Go basics → [getting-started.md](./getting-started.md) |
+| Your situation                                                         | Where to go                                                                        |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| I just want to **use** MaaEnd for auto-farming, not here to write code | → [Official website](https://maaend.com/), you don't need developer docs           |
+| I want to help write Pipeline (JSON config, no coding required)        | → Finish this guide → [getting-started.md](./getting-started.md)                   |
+| I want to write Go Service / modify core logic                         | → Finish this guide → Learn Go basics → [getting-started.md](./getting-started.md) |
 
 **The vast majority of contributors only take the Pipeline route. No programming needed, no Go code required.**
 
@@ -26,21 +26,21 @@
 
 Before we start, let's explain common terms in plain language. No need for precision — just enough to get things done.
 
-| Term | Plain English |
-| --- | --- |
-| **Git** | A "save system" for code. Every save can have a note, and you can go back to any old version anytime |
-| **GitHub** | A website that "puts Git saves online" so everyone can collaborate |
-| **Terminal / Command Line** | That black box. You type instead of clicking to control the computer |
-| **VS Code** | A notepad on steroids, built for writing code and config files |
-| **JSON** | A form-filling format. `{}` is a record, `[]` is a list |
-| **Pipeline** | An assembly line. In order: recognize screen → act → recognize screen → act... like following a recipe |
-| **Fork** | Copy someone else's repository to your own account |
-| **Clone** | Download code from the internet to your computer |
-| **Branch** | A separate line of work — make your changes without messing up others' |
-| **Commit** | Save. Take a snapshot of your changes, write a note |
-| **Push** | Upload your local saves to GitHub |
-| **PR** | Pull Request. Submit your changes to the project maintainers for review |
-| **Template Matching** | Finding a small image inside a bigger one. Like "find this button on the screen" |
+| Term                        | Plain English                                                                                          |
+| --------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Git**                     | A "save system" for code. Every save can have a note, and you can go back to any old version anytime   |
+| **GitHub**                  | A website that "puts Git saves online" so everyone can collaborate                                     |
+| **Terminal / Command Line** | That black box. You type instead of clicking to control the computer                                   |
+| **VS Code**                 | A notepad on steroids, built for writing code and config files                                         |
+| **JSON**                    | A form-filling format. `{}` is a record, `[]` is a list                                                |
+| **Pipeline**                | An assembly line. In order: recognize screen → act → recognize screen → act... like following a recipe |
+| **Fork**                    | Copy someone else's repository to your own account                                                     |
+| **Clone**                   | Download code from the internet to your computer                                                       |
+| **Branch**                  | A separate line of work — make your changes without messing up others'                                 |
+| **Commit**                  | Save. Take a snapshot of your changes, write a note                                                    |
+| **Push**                    | Upload your local saves to GitHub                                                                      |
+| **PR**                      | Pull Request. Submit your changes to the project maintainers for review                                |
+| **Template Matching**       | Finding a small image inside a bigger one. Like "find this button on the screen"                       |
 
 ---
 
@@ -258,13 +258,13 @@ After pushing, open your browser to `https://github.com/your-username/MaaEnd`. T
 
 This project follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/). See [getting-started.md § 0. Commit Conventions](./getting-started.md) for details. Here's a quick reference:
 
-| Prefix | When to Use |
-| --- | --- |
-| `feat:` | New feature (Pipeline nodes, recognition templates, etc.) |
-| `fix:` | Bug fix |
-| `docs:` | Documentation-only changes |
-| `style:` | Formatting/whitespace (no code meaning changes) |
-| `chore:` | Build, dependencies, misc. |
+| Prefix   | When to Use                                               |
+| -------- | --------------------------------------------------------- |
+| `feat:`  | New feature (Pipeline nodes, recognition templates, etc.) |
+| `fix:`   | Bug fix                                                   |
+| `docs:`  | Documentation-only changes                                |
+| `style:` | Formatting/whitespace (no code meaning changes)           |
+| `chore:` | Build, dependencies, misc.                                |
 
 Examples: `feat(SellProduct): add sell button recognition template`, `fix: resolve startup crash`.
 
@@ -303,7 +303,11 @@ Examples: `feat(SellProduct): add sell button recognition template`, `fix: resol
 ```json
 {
     "name": "Jane Smith",
-    "skills": ["eating", "sleeping", "coding"]
+    "skills": [
+        "eating",
+        "sleeping",
+        "coding"
+    ]
 }
 ```
 
@@ -321,7 +325,10 @@ Examples: `feat(SellProduct): add sell button recognition template`, `fix: resol
     "action": {
         "type": "Click"
     },
-    "next": ["SellItem", "Exit"]
+    "next": [
+        "SellItem",
+        "Exit"
+    ]
 }
 ```
 
@@ -420,7 +427,12 @@ Every Pipeline node does three things:
             "type": "TemplateMatch",
             "param": {
                 "template": "SellProduct/RegionalDevelopmentEntry.png",
-                "roi": [400, 200, 480, 320],
+                "roi": [
+                    400,
+                    200,
+                    480,
+                    320
+                ],
                 "threshold": 0.7,
                 "green_mask": true
             }
@@ -441,19 +453,19 @@ Every Pipeline node does three things:
 
 Translating each field into plain English:
 
-| Field | Plain English |
-| --- | --- |
-| `"desc"` | A human-readable comment — the machine ignores it |
-| `"recognition"` → `"type": "TemplateMatch"` | Recognition method: Template Matching (find a small image on screen) |
-| `"template"` | Where the template image is stored |
-| `"roi"` | Only search within this box — `[top-left x, top-left y, width, height]`, origin is top-left of screen |
-| `"threshold": 0.7` | 70% similarity counts as a match |
-| `"green_mask": true` | Green mask: if true, paint unwanted regions in the image green RGB: (0, 255, 0) — matching skips green areas |
-| `"action"` → `"type": "Click"` | If recognized, click it — defaults to clicking the recognized position |
-| `"pre_delay": 0` | How many ms to wait after recognition before performing the action. Entry node, screen is stable, so 0 |
-| `"post_delay": 0` | How many ms to wait after action before recognizing `next`. Using `post_wait_freezes` instead here |
-| `"post_wait_freezes": 100` | After action, wait until the screen stops changing, then wait 100 ms more. More reliable than fixed `post_delay` |
-| `"next": ["SellProductLoop"]` | After finishing, try each node in `next` in order — execute the first one that matches |
+| Field                                       | Plain English                                                                                                    |
+| ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `"desc"`                                    | A human-readable comment — the machine ignores it                                                                |
+| `"recognition"` → `"type": "TemplateMatch"` | Recognition method: Template Matching (find a small image on screen)                                             |
+| `"template"`                                | Where the template image is stored                                                                               |
+| `"roi"`                                     | Only search within this box — `[top-left x, top-left y, width, height]`, origin is top-left of screen            |
+| `"threshold": 0.7`                          | 70% similarity counts as a match                                                                                 |
+| `"green_mask": true`                        | Green mask: if true, paint unwanted regions in the image green RGB: (0, 255, 0) — matching skips green areas     |
+| `"action"` → `"type": "Click"`              | If recognized, click it — defaults to clicking the recognized position                                           |
+| `"pre_delay": 0`                            | How many ms to wait after recognition before performing the action. Entry node, screen is stable, so 0           |
+| `"post_delay": 0`                           | How many ms to wait after action before recognizing `next`. Using `post_wait_freezes` instead here               |
+| `"post_wait_freezes": 100`                  | After action, wait until the screen stops changing, then wait 100 ms more. More reliable than fixed `post_delay` |
+| `"next": ["SellProductLoop"]`               | After finishing, try each node in `next` in order — execute the first one that matches                           |
 
 > Delay fields are only used when necessary: `pre_delay` waits for a screen to appear, `post_delay` waits for an animation to finish, `post_wait_freezes` waits for the screen to stabilize. Most nodes can stay at 0. SellProductMain is a task entry point where the screen is already stable, so both pre/post_delay are 0.
 >
@@ -461,13 +473,13 @@ Translating each field into plain English:
 
 ### 5.3 Common Recognition Methods Quick Reference
 
-| Method | Keyword | When to Use |
-| --- | --- | --- |
-| Template Matching | `TemplateMatch` | Finding fixed icons/buttons — provide an image, find it on screen |
-| OCR (Text) | `OCR` | Reading text on screen — e.g. confirming which screen you're on |
-| Color Matching | `ColorMatch` | Detecting the color at a specific point |
-| All Of (AND) | `And` + `all_of` | Multiple conditions must all match |
-| Any Of (OR) | `Or` + `any_of` | Matching any one condition is enough |
+| Method            | Keyword          | When to Use                                                       |
+| ----------------- | ---------------- | ----------------------------------------------------------------- |
+| Template Matching | `TemplateMatch`  | Finding fixed icons/buttons — provide an image, find it on screen |
+| OCR (Text)        | `OCR`            | Reading text on screen — e.g. confirming which screen you're on   |
+| Color Matching    | `ColorMatch`     | Detecting the color at a specific point                           |
+| All Of (AND)      | `And` + `all_of` | Multiple conditions must all match                                |
+| Any Of (OR)       | `Or` + `any_of`  | Matching any one condition is enough                              |
 
 ### 5.4 Next-Jump Logic
 
@@ -526,17 +538,17 @@ Click the branch name in the bottom-left corner → "Create new branch" → `fea
 
 Pick whichever method you prefer:
 
-| Method | How |
-| --- | --- |
-| VS Code UI | `Ctrl + Shift + G` → Click `+` to stage → Write commit message → Click `✓` |
-| Terminal (Chapter 3 Route B) | `git add .` then `git commit -m "feat(task-name): what you did"` |
+| Method                       | How                                                                        |
+| ---------------------------- | -------------------------------------------------------------------------- |
+| VS Code UI                   | `Ctrl + Shift + G` → Click `+` to stage → Write commit message → Click `✓` |
+| Terminal (Chapter 3 Route B) | `git add .` then `git commit -m "feat(task-name): what you did"`           |
 
 ### Step 6: Push
 
-| Method | How |
-| --- | --- |
-| VS Code UI | Click the "Sync Changes" button at the bottom left |
-| Terminal (Chapter 3 Route B) | `git push -u origin feat/add-template-xxx` |
+| Method                       | How                                                |
+| ---------------------------- | -------------------------------------------------- |
+| VS Code UI                   | Click the "Sync Changes" button at the bottom left |
+| Terminal (Chapter 3 Route B) | `git push -u origin feat/add-template-xxx`         |
 
 ### Step 7: Open a PR (In the Browser)
 
@@ -590,15 +602,14 @@ Wait for approval ✅
 
 After finishing this introduction, continue in order:
 
-| Order | Document | What You'll Learn |
-| --- | --- | --- |
-| 1 | [getting-started.md](./getting-started.md) | Set up the environment, get it running, complete a full Pipeline task |
-| 2 | [components-guide.md](./components-guide.md) | Project architecture, reusable nodes |
-| 3 | [tools-and-debug.md](./tools-and-debug.md) | Debugging tools, Maa Pipeline Support usage |
-| 4 | [coding-standards.md](./coding-standards.md) | Coding conventions — must-read before submitting |
+| Order | Document                                     | What You'll Learn                                                     |
+| ----- | -------------------------------------------- | --------------------------------------------------------------------- |
+| 1     | [getting-started.md](./getting-started.md)   | Set up the environment, get it running, complete a full Pipeline task |
+| 2     | [components-guide.md](./components-guide.md) | Project architecture, reusable nodes                                  |
+| 3     | [tools-and-debug.md](./tools-and-debug.md)   | Debugging tools, Maa Pipeline Support usage                           |
+| 4     | [coding-standards.md](./coding-standards.md) | Coding conventions — must-read before submitting                      |
 
-> [!NOTE]
-> **External resources**
+> [!NOTE] > **External resources**
 >
 > These links point to separate projects or third-party services outside of MaaEnd, provided for reference.
 
@@ -620,8 +631,7 @@ When you hit something you don't understand, don't panic and don't rush to ask a
 
 ---
 
-> [!NOTE]
-> **Final Words**
+> [!NOTE] > **Final Words**
 >
 > You don't need to learn everything from start to finish before you begin. The best way to learn:
 >

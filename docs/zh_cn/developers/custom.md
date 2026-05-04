@@ -183,12 +183,12 @@ Recognition 节点用于执行自定义识别。常见写法如下：
 
 写 Pipeline 时，内置的 `TemplateMatch` / `OCR` / `Click` / `Swipe` 能解决绝大多数需求。遇到它们搞不定的——比如要比较两个 OCR 数值、运行时动态调参数、批量跑子任务——再来查这篇，看有没有现成的 Custom 能用。
 
-| 场景 | 用什么 |
-| --- | --- |
-| 按顺序跑一组子任务 | `SubTask` |
-| 清零某节点的命中计数 | `ClearHitCount` |
-| 运行时改节点参数 | `PipelineOverride` |
+| 场景                          | 用什么                        |
+| ----------------------------- | ----------------------------- |
+| 按顺序跑一组子任务            | `SubTask`                     |
+| 清零某节点的命中计数          | `ClearHitCount`               |
+| 运行时改节点参数              | `PipelineOverride`            |
 | 把关键词拼成正则写回 OCR 节点 | `AttachToExpectedRegexAction` |
-| 计算 OCR 数值表达式 | `ExpressionRecognition` |
+| 计算 OCR 数值表达式           | `ExpressionRecognition`       |
 
 所有 Custom 的 Go 代码实现在 `agent/go-service/` 下，Pipeline 作者不需要关心，照文档参数写 JSON 就行。

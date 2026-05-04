@@ -189,12 +189,12 @@ Notes:
 
 When writing Pipeline, the built-in `TemplateMatch` / `OCR` / `Click` / `Swipe` cover the vast majority of needs. Come back to this doc when they fall short — for example, comparing two OCR values, adjusting parameters at runtime, or running subtasks in batch — to see if an existing Custom fits the bill.
 
-| Scenario | Use |
-| --- | --- |
-| Run a sequence of subtasks | `SubTask` |
-| Clear a node's hit count | `ClearHitCount` |
-| Change node parameters at runtime | `PipelineOverride` |
+| Scenario                                                            | Use                           |
+| ------------------------------------------------------------------- | ----------------------------- |
+| Run a sequence of subtasks                                          | `SubTask`                     |
+| Clear a node's hit count                                            | `ClearHitCount`               |
+| Change node parameters at runtime                                   | `PipelineOverride`            |
 | Build a regex whitelist from keywords and write it into an OCR node | `AttachToExpectedRegexAction` |
-| Evaluate OCR numeric expressions | `ExpressionRecognition` |
+| Evaluate OCR numeric expressions                                    | `ExpressionRecognition`       |
 
 All Custom Go implementations live under `agent/go-service/`. Pipeline authors don't need to touch them — just write JSON according to the documented parameters.

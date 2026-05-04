@@ -34,10 +34,10 @@ flowchart TD
 
 ### Tier 1 — 快速上手
 
-| 文档 | 说明 |
-| --- | --- |
+| 文档                                        | 说明                                                  |
+| ------------------------------------------- | ----------------------------------------------------- |
 | [超基础入门](./super-basic-introduction.md) | 给完全零基础：Git、终端、VS Code、JSON 是什么，怎么用 |
-| [快速开始](./getting-started.md) | 10 分钟内搭环境、跑程序、完成第一次改动和PR |
+| [快速开始](./getting-started.md)            | 10 分钟内搭环境、跑程序、完成第一次改动和PR           |
 
 ### Tier 2 — 参考手册
 
@@ -92,14 +92,14 @@ flowchart TD
 
 ## 快速跳转
 
-| 我想做什么 | 该看哪里 |
-| --- | --- |
-| 完全零基础，术语都看不懂 | [super-basic-introduction.md](./super-basic-introduction.md) |
-| 第一次参与，从零开始 | [getting-started.md](./getting-started.md) |
-| 了解项目架构 | [components-guide.md](./components-guide.md) |
-| 改 Pipeline 节点 | [components-guide.md](./components-guide.md) → [common-buttons.md](./common-buttons.md) / [in-scene.md](./in-scene.md) / [scene-manager.md](./scene-manager.md) |
-| 写或调 Go Service | [components-guide.md](./components-guide.md) → [custom.md](./custom.md) |
-| 查阅编码规范 | [coding-standards.md](./coding-standards.md) |
+| 我想做什么               | 该看哪里                                                                                                                                                        |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 完全零基础，术语都看不懂 | [super-basic-introduction.md](./super-basic-introduction.md)                                                                                                    |
+| 第一次参与，从零开始     | [getting-started.md](./getting-started.md)                                                                                                                      |
+| 了解项目架构             | [components-guide.md](./components-guide.md)                                                                                                                    |
+| 改 Pipeline 节点         | [components-guide.md](./components-guide.md) → [common-buttons.md](./common-buttons.md) / [in-scene.md](./in-scene.md) / [scene-manager.md](./scene-manager.md) |
+| 写或调 Go Service        | [components-guide.md](./components-guide.md) → [custom.md](./custom.md)                                                                                         |
+| 查阅编码规范             | [coding-standards.md](./coding-standards.md)                                                                                                                    |
 
 ## 交流
 
