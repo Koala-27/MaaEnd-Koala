@@ -704,5 +704,7 @@
     "resource/image/SceneManager/MapWuling/MarkerStone4Right1": "14438dcca0a2ed8fe4999b3422b81da11384ee1590d281c2309eac369bad78f2",
     "resource/image/SceneManager/MapWuling/MarkerStone4Center1": "8d5a51c351b1a18a6f582a9319d3634d35a0e61b96919c3f6a89dc6b4fb8cbf2",
     "resource/image/SceneManager/MapWuling/MarkerStone4Top1": "1c6fe8eeac5a3cd9273b9dc3b707fd5dc435ed91a2f4e46e83dbc90ed013ea26",
-    "resource/image/Common/Button/RegionalDevelopmentButton1": "3f147d9a53c5c657997fd278f9921c44b0e711df8a5edce4d468ef5879afe59f"
+    "resource/image/Common/Button/RegionalDevelopmentButton1": "3f147d9a53c5c657997fd278f9921c44b0e711df8a5edce4d468ef5879afe59f",
+    "resource/image/SceneManager/WorldMenuProtocolPass1": "a673d72ea274d143de8f8196ba712e93744ddbafed4994233af2190e4eeb2f55",
+    "resource/image/SceneManager/WorldMenuOperationalManual1": "9ed18c8e09a758839fcc779ccece74f4b7e7f8d62c0b2b0f8dde03daba06fc5e"
 }
