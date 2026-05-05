@@ -115,8 +115,8 @@
                     255,
                     255
                 ],
-                "count": 10,
-                "connected": true
+                "connected": true,
+                "count": 10
             }
         }
     },
@@ -136,8 +136,8 @@
                     52,
                     52
                 ],
-                "count": 10,
-                "connected": true
+                "connected": true,
+                "count": 10
             }
         }
     },
@@ -347,18 +347,7 @@
                     4,
                     5
                 ],
-                "upper": [
-                    [
-                        27,
-                        255,
-                        255
-                    ],
-                    [
-                        180,
-                        255,
-                        255
-                    ]
-                ],
+                "method": 40,
                 "lower": [
                     [
                         0,
@@ -371,7 +360,18 @@
                         0
                     ]
                 ],
-                "method": 40,
+                "upper": [
+                    [
+                        27,
+                        255,
+                        255
+                    ],
+                    [
+                        180,
+                        255,
+                        255
+                    ]
+                ],
                 "connected": true,
                 "count": 100,
                 "order_by": "Vertical"
@@ -399,9 +399,6 @@
     },
     "GiftOperatorTrustFull": {
         "desc": "干员信赖已满",
-        "focus": {
-            "focus.Node.Recognition.Succeeded": "$task.GiftOperator.focus.all_full"
-        },
         "recognition": {
             "type": "And",
             "param": {
@@ -410,6 +407,9 @@
                     "GiftOperatorTrustValueFull"
                 ]
             }
+        },
+        "focus": {
+            "focus.Node.Recognition.Succeeded": "$task.GiftOperator.focus.all_full"
         }
     },
     "GiftOperatorSelectOp1": {

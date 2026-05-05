@@ -197,7 +197,7 @@
         "next": [
             "AutoCollectRoute7AssertLocation3"
         ]
-    },    
+    },
     "AutoCollectRoute7GotoFindLine2": {
         "desc": "过升降机",
         "action": "Custom",
@@ -222,7 +222,7 @@
                     383.6
                 ]
             ]
-        }       
+        }
     },
     "AutoCollectRoute7GotoFindLine3": {
         "desc": "寻路至血菌",
@@ -481,7 +481,7 @@
         "next": [
             "AutoCollectRoute7FindButtonUsing"
         ]
-    },     
+    },
     "AutoCollectRoute7GotoFindLine4": {
         "desc": "从血菌出发前往武陵石采集点",
         "action": "Custom",
@@ -534,7 +534,6 @@
     },
     "AutoCollectRoute7FindButtonUsing": {
         "desc": "点击使用按钮",
-        "pre_wait_freezes": 300,
         "recognition": {
             "type": "OCR",
             "param": {
@@ -550,6 +549,7 @@
                 ]
             }
         },
+        "pre_wait_freezes": 300,
         "action": {
             "type": "Custom",
             "param": {
@@ -575,7 +575,7 @@
         "next": [
             "AutoCollectRoute7AssertLocation5"
         ]
-    }, 
+    },
     "AutoCollectRoute7GotoFindLine5": {
         "action": "Custom",
         "custom_action": "MapTrackerMove",
