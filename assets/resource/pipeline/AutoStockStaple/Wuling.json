@@ -53,8 +53,7 @@
                 "all_of": [
                     "AutoStockInStapleItem",
                     "AutoStockInStapleItemName_Expected",
-                    "AutoStockInStapleItemDiscountsWuling",
-                    "AutoStockTargetCanBuy"
+                    "AutoStockInStapleItemDiscountsWuling"
                 ],
                 "box_index": 2
             }
