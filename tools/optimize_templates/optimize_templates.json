@@ -748,5 +748,7 @@
     "resource/image/GiftOperator/Operators/ChenQianyu": "1dd23f022051c854324ccfd155cfc03ea3b725458e1bc65f673f10a7ff4d84fa",
     "resource/image/GiftOperator/Operators/Tangtang": "3d7c5fcdfb25a33e606c27b8c0ee053bb6dd6605195bdac3f93c13ac37a69634",
     "resource/image/GiftOperator/Operators/Gilberta": "dba900c2e741963f5b4da431d08f028da8309b13a2323c0fff78191e83d3c6f9",
-    "resource/image/GiftOperator/Operators/Rossi": "ae5ec3d046c0a8bb8588a2f4dad104929f9884c81804b68f8f5a90257e1decf0"
+    "resource/image/GiftOperator/Operators/Rossi": "ae5ec3d046c0a8bb8588a2f4dad104929f9884c81804b68f8f5a90257e1decf0",
+    "resource/image/SceneManager/MenuAICPlan": "7b2d35a16448586532decc3eaa48a4fef11d25a2003411b5879aee9d7dd87849",
+    "resource/image/SceneManager/MenuAICPlan2": "470d7805ec62c523e739286614c0472a5895e6f50522cacdb1a3496adba44ce2"
 }
