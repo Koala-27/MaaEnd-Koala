@@ -32,11 +32,11 @@
     },
     "GiftOperatorMoveFail": {
         "desc": "移动未能接触到干员，炸掉程序",
+        "action": "Custom",
+        "custom_action": "ERROR", //引发一个错误来结束当前任务并留下截图
         "focus": {
             "Node.Recognition.Succeeded": "$task.GiftOperator.focus.move_fail"
-        },
-        "action": "Custom",
-        "custom_action": "ERROR" //引发一个错误来结束当前任务并留下截图
+        }
     },
     "GiftOperatorMoveLocation1": {
         "desc": "转向270度(正西)尝试接触到干员(预设位置1)",
@@ -59,16 +59,6 @@
     "GiftOperatorMoveLocation1Move": {
         "desc": "移动尝试接触到干员(预设位置1)",
         "max_hit": 1,
-        "post_wait_freezes": {
-            "time": 150,
-            "target": [
-                807,
-                420,
-                70,
-                121
-            ],
-            "timeout": 2000
-        },
         "action": {
             "type": "Custom",
             "param": {
@@ -84,6 +74,16 @@
                     ]
                 }
             }
+        },
+        "post_wait_freezes": {
+            "time": 150,
+            "target": [
+                807,
+                420,
+                70,
+                121
+            ],
+            "timeout": 2000
         }
     },
     "GiftOperatorMoveLocation2": {
@@ -107,16 +107,6 @@
     "GiftOperatorMoveLocation2Move": {
         "desc": "移动尝试接触到干员(预设位置2)",
         "max_hit": 1,
-        "post_wait_freezes": {
-            "time": 150,
-            "target": [
-                807,
-                420,
-                70,
-                121
-            ],
-            "timeout": 2000
-        },
         "action": {
             "type": "Custom",
             "param": {
@@ -132,6 +122,16 @@
                     ]
                 }
             }
+        },
+        "post_wait_freezes": {
+            "time": 150,
+            "target": [
+                807,
+                420,
+                70,
+                121
+            ],
+            "timeout": 2000
         }
     },
     "GiftOperatorMoveLocation3": {
@@ -155,16 +155,6 @@
     "GiftOperatorMoveLocation3Move": {
         "desc": "移动尝试接触到干员(预设位置3)",
         "max_hit": 1,
-        "post_wait_freezes": {
-            "time": 150,
-            "target": [
-                807,
-                420,
-                70,
-                121
-            ],
-            "timeout": 2000
-        },
         "action": {
             "type": "Custom",
             "param": {
@@ -180,6 +170,16 @@
                     ]
                 }
             }
+        },
+        "post_wait_freezes": {
+            "time": 150,
+            "target": [
+                807,
+                420,
+                70,
+                121
+            ],
+            "timeout": 2000
         }
     },
     "GiftOperatorMoveMapTracker": {
