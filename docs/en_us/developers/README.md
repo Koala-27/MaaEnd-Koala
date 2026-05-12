@@ -94,8 +94,8 @@ Only when you maintain the matching task.
 
 Defines format specifications for files written by MaaEnd, for reliable consumption by external tools (data dashboards, web frontends, etc.).
 
-| Document                                                                                 | Description                                                   |
-| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| Document                                                                                 | Description                                                        |
+| ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
 | [AutoStockpile Daily Price Records](../protocol/autostockpile-daily-storage/protocol.md) | `ElasticGoodsPrices.json` format, path resolution, and write rules |
 
 ## Quick lookup

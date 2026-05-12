@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	maa "github.com/MaaXYZ/maa-framework-go/v4"
 	"github.com/MaaXYZ/MaaEnd/agent/go-service/pkg/levenshtein"
+	maa "github.com/MaaXYZ/maa-framework-go/v4"
 	"github.com/rs/zerolog/log"
 )
 

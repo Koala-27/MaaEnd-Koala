@@ -17,9 +17,9 @@ type ItemTransferOCRAction struct{}
 var _ maa.CustomActionRunner = &ItemTransferOCRAction{}
 
 type ocrActionParams struct {
-	ItemName   string `json:"item_name"`
-	Descending bool   `json:"descending"`
-	Side       string `json:"side"`
+	ItemName    string `json:"item_name"`
+	Descending  bool   `json:"descending"`
+	Side        string `json:"side"`
 	MaxDistance int    `json:"max_distance"`
 }
 
