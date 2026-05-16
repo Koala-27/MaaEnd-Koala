@@ -759,5 +759,8 @@
     "resource/image/SceneManager/MapWuling/MarkerStoneCoreTop": "e518558a5611e6f6c0fd7e380b575cd4ff78c1c27461dc85745f4aa42905e1ac",
     "resource/image/SceneManager/MapWuling/MarkerStoneCoreLeft": "8f04839d36b097fa2662d41b0c62007aacb57c9bdc960fd2fbebde5a4701f493",
     "resource/image/GiftOperator/SportBag": "2e730b0f984900d958e2949ffaf59fe00174fe7709c3aaaf7f2de0f0f948d21b",
-    "resource/image/GiftOperator/Consumable": "e748af09731fd938d5ce4d058fcb9c59ff6825cf0c599250dc67d3ead1e97443"
+    "resource/image/GiftOperator/Consumable": "e748af09731fd938d5ce4d058fcb9c59ff6825cf0c599250dc67d3ead1e97443",
+    "resource/image/StashBackpack/QuickStash": "29997d7db35b8bccc30ff44d15f4cc20ee0b181d06cd79c178c0ff1b4e77385f",
+    "resource/image/StashBackpack/UsableItems": "e748af09731fd938d5ce4d058fcb9c59ff6825cf0c599250dc67d3ead1e97443",
+    "resource/image/SceneManager/MenuBackpack": "f77be11a18781f1efbbb58acbc79bfd05996573343dff7493b3ea597b51fde9e"
 }
