@@ -770,5 +770,12 @@
     "resource/image/MapLocator/Wuling/Lv005Tier316": "3ffaace496ce0555746fc23b0a294fb9670756fd151bcfc474d4af2c5e8b6acb",
     "resource/image/MapLocator/Wuling/Lv005Tier322": "b6e8d014b3f10729b8c7e01877e5bae957c61729f1aae53edd147562aca571c2",
     "resource/image/MapLocator/Wuling/Lv005Tier326": "957808b78268d678facbc22bec397aa4c478121aac4cd68ccab1b60762c16356",
-    "resource/image/MapLocator/Wuling/Lv005Tier319": "5ca957a6c7f3535a9bf9b06c13cbc489ca7c0ad87ec937bff3da8b2cef13e8ca"
+    "resource/image/MapLocator/Wuling/Lv005Tier319": "5ca957a6c7f3535a9bf9b06c13cbc489ca7c0ad87ec937bff3da8b2cef13e8ca",
+    "resource/image/MapTracker/StuckMitigator/CloseUnknownDeviceButton": "284cce594e1f5b72fa11560c40c831c5cca342219ed9d15db175e3edcd16f757",
+    "resource/image/MapTracker/StuckMitigator/AICCoreDialog": "764f9e913b26896401d687afab40a112c2dae1fa9aeb6f4defdff6bf9ba3305f",
+    "resource/image/MapTracker/StuckMitigator/MoveAICCoreButton": "4212f92411ea320e27d950b2dc0efeb6447e1454df4d49fca8b2eb527f8018c2",
+    "resource/image/MapTracker/StuckMitigator/ChatDialog": "fed212b230695bcc1ed8f761aae183dc123d67e6908ebc865344b697622c40e2",
+    "resource/image/MapTracker/StuckMitigator/BagDialog": "b9d88c1707672c037396c04f10ea4b3bb3fe04e974d58b06dabd8f5274df94f0",
+    "resource/image/MapTracker/StuckMitigator/CloseBagDialogButton": "bb8899d0ebb72a8c4cbe702715e6257c84fbf594a0b9f070e2a524bfcb15e7f8",
+    "resource/image/MapTracker/StuckMitigator/SkipChatButton": "78d27fbe907bbfced80af2076b5e321eba8a370c27772daf1261dc3056581bb9"
 }
