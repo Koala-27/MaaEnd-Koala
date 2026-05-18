@@ -24,6 +24,7 @@
         "custom_action": "SubTask",
         "custom_action_param": {
             "sub": [
+                "StashBackpackSubTask",
                 "AutoCollectRoute1Sub",
                 "AutoCollectRoute2Sub",
                 "AutoCollectRoute3Sub",
@@ -37,7 +38,8 @@
                 "AutoCollectRoute11Sub",
                 "AutoCollectRoute12Sub",
                 "AutoCollectRoute13Sub",
-                "AutoCollectRoute14Sub"
+                "AutoCollectRoute14Sub",
+                "StashBackpackSubTask"
             ],
             "continue": true,
             "strict": true
