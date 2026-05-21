@@ -6,7 +6,7 @@ This document explains how to use **MapNavigator**-related nodes, and how to rec
 
 **MapNavigator** is MaaEnd's current high-precision automatic navigation Action module. It continuously obtains the player's current zone, global coordinates, and facing direction from the underlying localization capability, then drives the character point by point along the developer-provided `path`, executing sprint, jump, interaction, and zone-transition actions at key points.
 
-In addition to the traditional recorded-path workflow, MapNavigator now also supports BNAV v2-based `NAVMESH` semantic routing. The GUI can load `base.nav.gz` directly for triangle-based A* preview, and the runtime expands `NAVMESH` nodes into ordinary `RUN` waypoints so preview, copy, and execution all share the same BaseNav data.
+In addition to the traditional recorded-path workflow, MapNavigator now also supports BNAV v2-based `NAVMESH` semantic routing. The GUI can load `base.nav.gz` directly for triangle-based A\* preview, and the runtime expands `NAVMESH` nodes into ordinary `RUN` waypoints so preview, copy, and execution all share the same BaseNav data.
 
 ### Scope and Limitations
 
@@ -156,7 +156,7 @@ This is a **BaseNav semantic routing node**. It does not carry `zone_id`, `navme
 
 1. The runtime first loads `assets/resource/model/map/navmesh/base.nav.gz`, and falls back to `base.nav` if needed.
 2. It infers the current BaseNav zone from the localization context.
-3. It runs A* on the `.nav` triangle graph and only follows BaseNav links.
+3. It runs A\* on the `.nav` triangle graph and only follows BaseNav links.
 4. It expands the result into ordinary `RUN` waypoints before handing control to the old movement execution chain.
 
 In the GUI, clicking `Load BaseNav` enters the same BaseNav preview flow, and `Copy NAVMESH` copies exactly this node shape to the clipboard.
@@ -264,7 +264,7 @@ It supports:
 4. Importing existing JSON / JSONC files, recursively searching recognizable `path` data, and continuing editing.
 5. One-click copying of the canonical `path` that can be pasted directly into `custom_action_param.path`.
 6. A separate `Assert Mode` for manually selecting a map and drawing a rectangle, then exporting a `MapLocateAssertLocation` node.
-7. A BaseNav A* mode that loads `.nav.gz` / `.nav`, previews routes on the red triangle overlay, and copies `NAVMESH` nodes.
+7. A BaseNav A\* mode that loads `.nav.gz` / `.nav`, previews routes on the red triangle overlay, and copies `NAVMESH` nodes.
 
 One extra note: the current GUI editor mainly round-trips coordinate-bearing path points, plus the `ZONE` declarations derived from zone information.  
 Positionless control nodes such as `HEADING`, and semantic routing nodes such as `NAVMESH`, are not part of the normal GUI point-editing workflow. It is safer to add or maintain `HEADING` manually after exporting the `path`, while `NAVMESH` can be generated directly through `Copy NAVMESH`.

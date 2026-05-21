@@ -6,7 +6,7 @@
 
 **MapNavigator** 是 MaaEnd 当前的高精度自动导航 Action 模块。它依赖底层定位能力持续获取角色当前所处区域、全局坐标与朝向，然后按照开发者提供的 `path` 路径点序列，驱动角色逐点移动，并在关键点执行冲刺、跳跃、交互、过图等动作。
 
-除了传统的录制路径外，MapNavigator 现在还支持基于 BNAV v2 的 `NAVMESH` 语义寻路。GUI 可以直接加载 `base.nav.gz` 做三角面 A* 预览，运行时会把 `NAVMESH` 节点展开成普通 `RUN` 路径点，从而让预览、复制和执行都走同一套 BaseNav 数据。
+除了传统的录制路径外，MapNavigator 现在还支持基于 BNAV v2 的 `NAVMESH` 语义寻路。GUI 可以直接加载 `base.nav.gz` 做三角面 A\* 预览，运行时会把 `NAVMESH` 节点展开成普通 `RUN` 路径点，从而让预览、复制和执行都走同一套 BaseNav 数据。
 
 ### 边界说明
 
@@ -156,7 +156,7 @@ MapNavigator 负责的是“**已知目标路径后，稳定把人带过去**”
 
 1. 运行时优先加载 `assets/resource/model/map/navmesh/base.nav.gz`，不存在时回退 `base.nav`。
 2. 根据当前定位区域推断 BaseNav zone。
-3. 在 `.nav` 三角图上执行 A*，只走 BaseNav 自身的连边。
+3. 在 `.nav` 三角图上执行 A\*，只走 BaseNav 自身的连边。
 4. 将规划结果展开成普通 `RUN` waypoints，再交给旧的移动执行链路。
 
 在 GUI 里点击 `加载 BaseNav` 后，工具会进入同一套 BaseNav 预览逻辑；点击 `复制 NAVMESH` 后复制到剪贴板的就是这种节点。
@@ -264,7 +264,7 @@ MapNavigator 负责的是“**已知目标路径后，稳定把人带过去**”
 4. 导入已有 JSON / JSONC，递归搜索可识别的 `path` 并继续编辑。
 5. 一键复制可直接粘贴到 `custom_action_param.path` 的 canonical `path`。
 6. 通过独立的 `Assert 模式` 手动选择底图并框出矩形区域，导出 `MapLocateAssertLocation` 节点。
-7. 进入 BaseNav A* 模式，加载 `.nav.gz` / `.nav`，在红色三角面 overlay 上预览路径，并复制 `NAVMESH` 节点。
+7. 进入 BaseNav A\* 模式，加载 `.nav.gz` / `.nav`，在红色三角面 overlay 上预览路径，并复制 `NAVMESH` 节点。
 
 需要额外说明的是，当前 GUI 编辑器主要 round-trip 带坐标的路径点，以及由区域信息派生出来的 `ZONE` 声明。  
 像 `HEADING` 这类无坐标控制节点，以及 `NAVMESH` 这类语义寻路节点，不属于 GUI 的常规点编辑对象，`HEADING` 建议在导出 `path` 后再手工补回或维护，`NAVMESH` 则可以直接用 `复制 NAVMESH` 生成。
