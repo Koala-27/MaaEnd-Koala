@@ -70,29 +70,34 @@ Currently, the map data and map images are sourced from zmdmap. You can update t
 The complete steps for using the tool scripts are as follows:
 
 1. Pull the latest map data from zmdmap:
-   ```bash
-   python tools/map_tracker/map_fetcher.py json -o tools/map_tracker/data
-   ```
+
+    ```bash
+    python tools/map_tracker/map_fetcher.py json -o tools/map_tracker/data
+    ```
 
 2. Pull the latest Region map raw images from zmdmap (and slice them into Level images), and pull the latest Tier map raw images:
-   ```bash
-   python tools/map_tracker/map_fetcher.py image -i tools/map_tracker/data -o tools/map_tracker/images
-   ```
+
+    ```bash
+    python tools/map_tracker/map_fetcher.py image -i tools/map_tracker/data -o tools/map_tracker/images
+    ```
 
 3. Re-assign overlapping regions for all Level images:
-   ```bash
-   python tools/map_tracker/map_generator.py distinguish_levels -i tools/map_tracker/images -o tools/map_tracker/final --layout-dir tools/map_tracker/data
-   ```
+
+    ```bash
+    python tools/map_tracker/map_generator.py distinguish_levels -i tools/map_tracker/images -o tools/map_tracker/final --layout-dir tools/map_tracker/data
+    ```
 
 4. Expand the canvas and overlay backgrounds for all Tier images:
-   ```bash
-   python tools/map_tracker/map_generator.py tidy_tiers -i tools/map_tracker/images -o tools/map_tracker/final
-   ```
+
+    ```bash
+    python tools/map_tracker/map_generator.py tidy_tiers -i tools/map_tracker/images -o tools/map_tracker/final
+    ```
 
 5. Generate BBox data for the final map images:
-   ```bash
-   python tools/map_tracker/map_generator.py bbox -i tools/map_tracker/final -o tools/map_tracker/final
-   ```
+
+    ```bash
+    python tools/map_tracker/map_generator.py bbox -i tools/map_tracker/final -o tools/map_tracker/final
+    ```
 
 6. The images and BBox data under `tools/map_tracker/final` are the latest map image library.
 
@@ -118,9 +123,10 @@ If zmdmap becomes unavailable, map image updates are still possible as long as y
 
 1. Map data: Names and geometry data for all Regions and Levels.
 
-2. Region map unpacked images: The game stores maps using a 600*600 tile grid (original size). You may need to stitch these tiles to obtain a full Region map image.
-   > [!TIP]
-   >
-   > In the 720P PC game, the minimap scale is 0.1625 of the original map size.
+2. Region map unpacked images: The game stores maps using a 600\*600 tile grid (original size). You may need to stitch these tiles to obtain a full Region map image.
+
+    > [!TIP]
+    >
+    > In the 720P PC game, the minimap scale is 0.1625 of the original map size.
 
 3. Tier map unpacked images and Tier ownership metadata.
