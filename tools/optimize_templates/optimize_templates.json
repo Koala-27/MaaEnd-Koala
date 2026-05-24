@@ -789,5 +789,10 @@
     "resource/image/ProtocolSpace/LevelCompleted": "6147b11ee1904ec01ba05f293529306d429b0e6a9fef18b70ecf03e615518c2b",
     "resource/image/ProtocolSpace/LevelCommonParts": "a05f5806553675e786068b26796b4d36b5214413026d898018ca9122c47a68e1",
     "resource/image/ProtocolSpace/LevelLocked": "fc3f5b465c28cae624c889d435918c57d3fc09c0b7151d9ca82d9cecff9db741",
-    "resource/image/ProtocolSpace/LevelUncompleted": "c542fb8c301d2475320000f075eb73915ab9549c7b75a0c877e832349eb82e88"
+    "resource/image/ProtocolSpace/LevelUncompleted": "c542fb8c301d2475320000f075eb73915ab9549c7b75a0c877e832349eb82e88",
+    "resource/image/AccountSwitch/LogoutButton": "254b2a176bd7c773bd089618ab010bf2155ebcd2a3e80dfd2f5dfb70b4f0dbe0",
+    "resource/image/AccountSwitch/ConfirmButton": "ebc3cb497313f3a314d93093be027ebf9b77f74f9f5998ceb3edbc8112d1111d",
+    "resource/image/AccountSwitch/DropdownButton": "2167684b4accd9d441425473aaca6fe727b5ba2a6ee573e9511bbef800a6f3bf",
+    "resource/image/SceneManager/MapOverviewEnterHover": "83d628befd9d45f6027ca930551f1eefa3ba3c1c64eea150a5e3d0939f707e9d",
+    "resource/image/SceneManager/MenuExit": "76899e2aef09825b42c69fca7154fec818619b12c49cb68bed6bcacbf47ac8db"
 }
