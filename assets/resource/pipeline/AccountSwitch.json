@@ -22,16 +22,16 @@
                 ]
             }
         },
-        "post_wait_freezes": 400,
         "next": [
             "__AccountSwitchCheckInitState"
         ]
     },
     "__AccountSwitchCheckInitState": {
         "desc": "中继节点：检查是否已退出",
-        "recognition": {
-            "type": "TemplateMatch",
-            "param": {
+        "recognition": "Or",
+        "any_of": [
+            {
+                "recognition": "TemplateMatch",
                 "roi": [
                     -300,
                     60,
@@ -42,8 +42,20 @@
                     "AccountSwitch/LogoutButton.png"
                 ],
                 "threshold": 0.6
+            },
+            {
+                "recognition": "TemplateMatch",
+                "roi": [
+                    651,
+                    130,
+                    466,
+                    495
+                ],
+                "template": [
+                    "AccountSwitch/DropdownButton.png"
+                ]
             }
-        },
+        ],
         "next": [
             "__AccountSwitchClickLogout",
             "__AccountSwitchFocusFormBeforeDropdown"
@@ -135,22 +147,17 @@
             "type": "TemplateMatch",
             "param": {
                 "roi": [
-                    755,
-                    325,
-                    300,
-                    300
+                    651,
+                    130,
+                    466,
+                    495
                 ],
                 "template": [
                     "AccountSwitch/DropdownButton.png"
                 ]
             }
         },
-        "action": "Custom",
-        "custom_action": "AccountSwitchWindowAction",
-        "custom_action_param": {
-            "op": "click",
-            "window": "form"
-        },
+        "action": "Click",
         "post_wait_freezes": 500,
         "next": [
             "__AccountSwitchOCRSelectAccount"
@@ -216,10 +223,28 @@
     },
     "__AccountSwitchCheckAccount": {
         "desc": "中继节点：路由检查",
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    470,
+                    311,
+                    300,
+                    300
+                ],
+                "expected": [
+                    // @i18n-skip
+                    ".*[*\\d]\\s*\\d{4}\\s*(?:最近)?.*",
+                    ".*\\d{4}\\s*(?:最近)?.*",
+                    "\\d{4}",
+                    "\\d{4}$"
+                ]
+            }
+        },
         "max_hit": 3,
         "next": [
             "__AccountSwitchVerifySelected",
-            "__AccountSwitchClickDropdown"
+            "__AccountSwitchFocusFormBeforeDropdown"
         ]
     },
     "__AccountSwitchVerifySelected": {
@@ -267,12 +292,7 @@
                 ]
             }
         },
-        "action": "Custom",
-        "custom_action": "AccountSwitchWindowAction",
-        "custom_action_param": {
-            "op": "click",
-            "window": "form"
-        },
+        "action": "Click",
         "next": [
             "__AccountSwitchLoginSuccess"
         ]
