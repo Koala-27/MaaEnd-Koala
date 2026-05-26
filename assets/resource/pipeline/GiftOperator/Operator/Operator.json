@@ -11,10 +11,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Perlica.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -51,10 +51,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Yvonne.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -91,10 +91,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Ardelia.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -131,10 +131,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Gilberta.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -171,10 +171,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/ChenQianyu.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -211,10 +211,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Wulfgard.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -251,10 +251,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Antal.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -291,10 +291,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Xaihi.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -331,10 +331,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Lifeng.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -371,10 +371,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Catcher.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -411,10 +411,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Arclight.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -451,10 +451,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Avywenna.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -491,10 +491,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Laevatain.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -531,10 +531,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Alesh.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -571,10 +571,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Pogranichnik.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -611,10 +611,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/LastRite.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -651,10 +651,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Ember.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -691,10 +691,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Snowshine.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -731,10 +731,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/DaPan.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -771,10 +771,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Fluorite.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -811,10 +811,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Akekuri.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -851,10 +851,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Estella.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -891,10 +891,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Rossi.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -931,10 +931,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/Tangtang.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
@@ -971,10 +971,10 @@
                     165,
                     128
                 ],
-                "green_mask": true,
                 "template": [
                     "GiftOperator/Operators/ZhuangFangyi.png"
-                ]
+                ],
+                "green_mask": true
             }
         },
         "action": {
