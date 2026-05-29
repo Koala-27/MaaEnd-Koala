@@ -51,8 +51,8 @@ It is recommended to read in the following order:
 
 ### Tier 3 — Standards & Constraints
 
-| Document                                  | Description                                                          |
-| ----------------------------------------- | -------------------------------------------------------------------- |
+| Document                                              | Description                                                          |
+| ----------------------------------------------------- | -------------------------------------------------------------------- |
 | [Coding Standards (Must-read)](./coding-standards.md) | Pipeline / Go / Cpp coding rules, pre-commit checks, common pitfalls |
 
 ### Pipeline Basic Components
