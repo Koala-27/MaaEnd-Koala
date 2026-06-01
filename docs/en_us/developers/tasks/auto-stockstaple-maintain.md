@@ -6,23 +6,23 @@ This document uses **Valley IV** as the main example for introduction. Wuling's 
 
 ## File Overview
 
-| Module               | Path                                                                 | Purpose                                                                |
-| -------------------- | -------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Project Interface Mount       | `assets/interface.json`                                              | Mount `tasks/AutoStockStaple.json` to the task group                 |
-| Task and Option Definition    | `assets/tasks/AutoStockStaple.json`                                  | Define task entry, region switches, item checkboxes, quantity limits, discount strategy, `pipeline_override` |
-| Task Entry           | `assets/resource/pipeline/AutoStockStaple/Main.json`                 | Scheduling cycle, main entry initialization, Valley IV/Wuling sub-task entries |
-| Region Scan Loop     | `assets/resource/pipeline/AutoStockStaple/ValleyIV.json`             | Valley IV staple item list scan, purchase click, swipe                 |
-| Region Scan Loop     | `assets/resource/pipeline/AutoStockStaple/Wuling.json`               | Wuling staple item list scan (structure symmetric with Valley IV)    |
-| Item List Recognition        | `assets/resource/pipeline/AutoStockStaple/General/Item.json`         | Anchor, item name, discount, BetterSliding, confirm purchase, etc.  |
-| Purchase Popup Item Recognition | `assets/resource/pipeline/AutoStockStaple/General/Goods.json`         | OCR recognition of items in the purchase popup                       |
-| Owned Quantity Recognition   | `assets/resource/pipeline/AutoStockStaple/General/GoodsCountValidate.json` | Popup top-right current owned quantity OCR + each item Buy/Exclude expression validation |
-| Quantity Control     | `assets/resource/pipeline/AutoStockStaple/General/QuantityControl.json` | Branch dispatch after purchase popup opens, exclude items, confirm purchase |
-| General Template     | `assets/resource/pipeline/AutoStockStaple/General/Template.json`     | Sold out, dispatch ticket OCR, confirm purchase text, etc.             |
-| Scene Recognition    | `assets/resource/pipeline/Interface/InScene/StockStaple.json`        | `InValleyIVText`, `InWulingText`, `InStapleColor`                    |
-| Go Quantity Control Action | `agent/go-service/autostockstaple/action.go`                         | Calculate required purchase quantity and override BetterSliding `Target` |
-| Go Regex Initialization      | `agent/go-service/common/attachregex/action.go`                      | `AttachToExpectedRegexAction`: Merge attach keywords into an OCR whitelist regex |
-| Node Code Generation         | `tools/pipeline-generate/AutoStockStaple/General/`                   | Batch generate `Goods.json`, `GoodsCountValidate.json`, `QuantityControl.json` |
-| Multilingual Text    | `assets/locales/interface/*.json`                                    | Task names, options, and focus text                                  |
+| Module                          | Path                                                                       | Purpose                                                                                                      |
+| ------------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| Project Interface Mount         | `assets/interface.json`                                                    | Mount `tasks/AutoStockStaple.json` to the task group                                                         |
+| Task and Option Definition      | `assets/tasks/AutoStockStaple.json`                                        | Define task entry, region switches, item checkboxes, quantity limits, discount strategy, `pipeline_override` |
+| Task Entry                      | `assets/resource/pipeline/AutoStockStaple/Main.json`                       | Scheduling cycle, main entry initialization, Valley IV/Wuling sub-task entries                               |
+| Region Scan Loop                | `assets/resource/pipeline/AutoStockStaple/ValleyIV.json`                   | Valley IV staple item list scan, purchase click, swipe                                                       |
+| Region Scan Loop                | `assets/resource/pipeline/AutoStockStaple/Wuling.json`                     | Wuling staple item list scan (structure symmetric with Valley IV)                                            |
+| Item List Recognition           | `assets/resource/pipeline/AutoStockStaple/General/Item.json`               | Anchor, item name, discount, BetterSliding, confirm purchase, etc.                                           |
+| Purchase Popup Item Recognition | `assets/resource/pipeline/AutoStockStaple/General/Goods.json`              | OCR recognition of items in the purchase popup                                                               |
+| Owned Quantity Recognition      | `assets/resource/pipeline/AutoStockStaple/General/GoodsCountValidate.json` | Popup top-right current owned quantity OCR + each item Buy/Exclude expression validation                     |
+| Quantity Control                | `assets/resource/pipeline/AutoStockStaple/General/QuantityControl.json`    | Branch dispatch after purchase popup opens, exclude items, confirm purchase                                  |
+| General Template                | `assets/resource/pipeline/AutoStockStaple/General/Template.json`           | Sold out, dispatch ticket OCR, confirm purchase text, etc.                                                   |
+| Scene Recognition               | `assets/resource/pipeline/Interface/InScene/StockStaple.json`              | `InValleyIVText`, `InWulingText`, `InStapleColor`                                                            |
+| Go Quantity Control Action      | `agent/go-service/autostockstaple/action.go`                               | Calculate required purchase quantity and override BetterSliding `Target`                                     |
+| Go Regex Initialization         | `agent/go-service/common/attachregex/action.go`                            | `AttachToExpectedRegexAction`: Merge attach keywords into an OCR whitelist regex                             |
+| Node Code Generation            | `tools/pipeline-generate/AutoStockStaple/General/`                         | Batch generate `Goods.json`, `GoodsCountValidate.json`, `QuantityControl.json`                               |
+| Multilingual Text               | `assets/locales/interface/*.json`                                          | Task names, options, and focus text                                                                          |
 
 > [!NOTE]
 > Under the ADB controller, some ROI offsets are located in `assets/resource_adb/pipeline/AutoStockStaple/`. When maintaining Win32 and ADB, both need to be checked simultaneously.
@@ -40,13 +40,13 @@ The task entry is `AutoStockStapleMain` in `Main.json`:
 
 Options in `assets/tasks/AutoStockStaple.json` directly modify node fields through `pipeline_override`, typically including:
 
-| Option Type           | Override Target Example                                      | Purpose                                      |
-| --------------------- | ------------------------------------------------------------ | -------------------------------------------- |
-| Region Switch         | `AutoStockStapleValleyIV.enabled`                            | Whether to execute Valley IV purchase          |
-| Dispatch Ticket Reserve Threshold | `AutoStockTargetCompareValleyIV`'s `expression` | Stop purchasing when remaining dispatch tickets fall below threshold |
-| Selected Purchase Items | `AutoStockInStapleItemName.attach.{slug}`                  | Write item names in various languages to attach for initialization merge |
-| Item Holding Limit    | `AutoStockStapleGoods{Item}Validate`, etc.                 | Override `{Limit} > {AutoStockStapleGoodsCountValidate}` |
-| Discount Strategy     | `AutoStockInStapleItemDiscountsValleyIV`                    | Override discount OCR `expected` or change to ColorMatch |
+| Option Type                       | Override Target Example                         | Purpose                                                                  |
+| --------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------ |
+| Region Switch                     | `AutoStockStapleValleyIV.enabled`               | Whether to execute Valley IV purchase                                    |
+| Dispatch Ticket Reserve Threshold | `AutoStockTargetCompareValleyIV`'s `expression` | Stop purchasing when remaining dispatch tickets fall below threshold     |
+| Selected Purchase Items           | `AutoStockInStapleItemName.attach.{slug}`       | Write item names in various languages to attach for initialization merge |
+| Item Holding Limit                | `AutoStockStapleGoods{Item}Validate`, etc.      | Override `{Limit} > {AutoStockStapleGoodsCountValidate}`                 |
+| Discount Strategy                 | `AutoStockInStapleItemDiscountsValleyIV`        | Override discount OCR `expected` or change to ColorMatch                 |
 
 The initialization action **does not** directly read user-input strings, but relies on content already written to the target node's `attach` via interface; the Go side then converts it into an OCR regex.
 
@@ -61,12 +61,12 @@ AutoStockTargetCanNotBuyValleyIV
   -> [JumpBack]AutoStockSwipeValleyIV
 ```
 
-| Order | Node                               | Meaning                                                        |
-| ----- | ---------------------------------- | -------------------------------------------------------------- |
+| Order | Node                               | Meaning                                                                                         |
+| ----- | ---------------------------------- | ----------------------------------------------------------------------------------------------- |
 | 1     | `AutoStockTargetCanNotBuyValleyIV` | Whether current remaining dispatch tickets are **lower than** user-configured reserve threshold |
-| 2     | `AutoStockBuyItemValleyIVTask`     | Whether a **purchasable target item** is recognized              |
-| 3     | `SoldOut`                          | Whether a **sold out** sign is seen; after hit, the task stops scanning further in this region |
-| 4     | `AutoStockSwipeValleyIV`           | Swipe down the list to continue searching for items (`max_hit: 25`) |
+| 2     | `AutoStockBuyItemValleyIVTask`     | Whether a **purchasable target item** is recognized                                             |
+| 3     | `SoldOut`                          | Whether a **sold out** sign is seen; after hit, the task stops scanning further in this region  |
+| 4     | `AutoStockSwipeValleyIV`           | Swipe down the list to continue searching for items (`max_hit: 25`)                             |
 
 The recognition condition for `AutoStockInStapleValleyIV` is: `InValleyIVText` + `InStapleColor` + `InStockStaple`, ensuring we are currently on the Valley IV staple item page.
 
@@ -131,9 +131,9 @@ The `AutoStockUseDiscountsValleyIV` option can override this node:
 
 Unlike the credit shop, the staple item list scan **does not** have a separate "unit price ColorMatch / CanAfford" node. Whether you can afford it is handled in two layers:
 
-| Stage        | Mechanism                                                                |
-| ------------ | ----------------------------------------------------------------------- |
-| Before List Scan | `AutoStockTargetCanNotBuyValleyIV`: Whether remaining dispatch tickets are still above the reserve threshold |
+| Stage                 | Mechanism                                                                                                            |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| Before List Scan      | `AutoStockTargetCanNotBuyValleyIV`: Whether remaining dispatch tickets are still above the reserve threshold         |
 | Inside Purchase Popup | `AutoStockStapleGoodsStockBillInsufficientValidate`: Recognize the bottom red "Insufficient dispatch tickets" prompt |
 
 Therefore, the `And` conditions for `AutoStockBuyItemValleyIVTask` are:
@@ -224,10 +224,10 @@ The Exclude branch **does not** purchase; it only removes "target reached" items
 
 This task has two types of runtime overrides; do not confuse them during maintenance:
 
-| Action                           | Trigger Location                                           | Purpose                                        |
-| -------------------------------- | ---------------------------------------------------------- | ---------------------------------------------- |
-| `AttachToExpectedRegexAction`    | `AutoStockStapleMain` entry; Exclude post-reset node       | Merge attach keywords → OCR whitelist regex       |
-| `PipelineOverrideAction`         | Each item `{Item}RemoveFilter`                           | Set specified attach key to `false`, exclude the item |
+| Action                                 | Trigger Location                                     | Purpose                                                  |
+| -------------------------------------- | ---------------------------------------------------- | -------------------------------------------------------- |
+| `AttachToExpectedRegexAction`          | `AutoStockStapleMain` entry; Exclude post-reset node | Merge attach keywords → OCR whitelist regex              |
+| `PipelineOverrideAction`               | Each item `{Item}RemoveFilter`                       | Set specified attach key to `false`, exclude the item    |
 | `AutoStockStapleQuantityControlAction` | Each item `{Item}Buy`                                | Calculate difference and override BetterSliding `Target` |
 
 `attach` semantics (see `attachregex/action.go`):
@@ -273,23 +273,23 @@ Wuling's existing implementation is a mirror of Valley IV; you can directly diff
 
 ## Debugging Suggestions
 
-| Symptom                                  | Priority Check                                                                 |
-| ---------------------------------------- | ----------------------------------------------------------------------------- |
-| Target item not recognized in list       | `expected` regex in `AttachToExpectedRegexAction` in `go-service.log`; whether anchor `AutoStockInStapleItem` hits |
-| Item recognized but not purchased        | Whether quantity control went to `Exclude` or `StockBillInsufficient`; `AutoStockStapleQuantityControl{Item}Buy/Exclude` in `maafw*.log` |
-| Incorrect purchase quantity              | `threshold/current_count/target` in `AutoStockStapleQuantityControlAction` logs; BetterSliding ROI |
-| Stops scanning despite sufficient tickets | `AutoStockTargetCompareValleyIV` expression and user-input `{ReserveValleyIV}` |
-| Repeatedly clicks same target-reached item | Whether `{Item}RemoveFilter` and `ResetRecognitionParams` executed after Exclude |
+| Symptom                                    | Priority Check                                                                                                                           |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Target item not recognized in list         | `expected` regex in `AttachToExpectedRegexAction` in `go-service.log`; whether anchor `AutoStockInStapleItem` hits                       |
+| Item recognized but not purchased          | Whether quantity control went to `Exclude` or `StockBillInsufficient`; `AutoStockStapleQuantityControl{Item}Buy/Exclude` in `maafw*.log` |
+| Incorrect purchase quantity                | `threshold/current_count/target` in `AutoStockStapleQuantityControlAction` logs; BetterSliding ROI                                       |
+| Stops scanning despite sufficient tickets  | `AutoStockTargetCompareValleyIV` expression and user-input `{ReserveValleyIV}`                                                           |
+| Repeatedly clicks same target-reached item | Whether `{Item}RemoveFilter` and `ResetRecognitionParams` executed after Exclude                                                         |
 
 Log analysis can refer to the skill: `.claude/skills/autostockstaple-log-analysis/SKILL.md`.
 
 ## Difference from AutoStockpile
 
-| Item           | AutoStockStaple (Staple Demand Items)   | AutoStockpile (Flexible Demand Item Stockpiling) |
-| -------------- | --------------------------------------- | ----------------------------------------------- |
-| Decision Maker | Pipeline + few Go Custom                | Go Service dominates recognition and decision   |
-| Item Location  | List page remaining time anchor + OCR offset chain | Template matching + OCR mapping                 |
-| Quantity Control | In-popup BetterSliding + expression validation | Go side parses detail page and adjusts quantity |
-| Maintenance Doc | This document                           | [auto-stockpile-maintain.md](./auto-stockpile-maintain.md) |
+| Item             | AutoStockStaple (Staple Demand Items)              | AutoStockpile (Flexible Demand Item Stockpiling)           |
+| ---------------- | -------------------------------------------------- | ---------------------------------------------------------- |
+| Decision Maker   | Pipeline + few Go Custom                           | Go Service dominates recognition and decision              |
+| Item Location    | List page remaining time anchor + OCR offset chain | Template matching + OCR mapping                            |
+| Quantity Control | In-popup BetterSliding + expression validation     | Go side parses detail page and adjusts quantity            |
+| Maintenance Doc  | This document                                      | [auto-stockpile-maintain.md](./auto-stockpile-maintain.md) |
 
 Both enter the "Item Dispatch" interface, but purchase logic is completely independent; do not mix log analysis procedures when troubleshooting.

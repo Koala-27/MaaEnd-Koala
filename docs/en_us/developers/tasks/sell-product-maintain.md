@@ -12,25 +12,25 @@ The core feature of `SellProduct` is **zmdmap data-driven + Pipeline template ge
 
 The core maintenance points for SellProduct are as follows:
 
-| Module | Path | Function |
-| ------------------ | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| zmdmap cache data | `tools/pipeline-generate/data/settlement_trade.json` | Raw data for outposts, prosperity, tradeable items, multilingual names, rarity, unit price, etc. |
-| Data assembly | `tools/pipeline-generate/SellProduct/data.mjs` | Converts zmdmap data into `settlementFlatRows` consumable by templates |
-| Outpost Pipeline template | `tools/pipeline-generate/SellProduct/pipeline-template.jsonc` | Generates each outpost sell node for the Win resource pack |
-| ADB outpost template | `tools/pipeline-generate/SellProduct/pipeline-adb-template.jsonc` | Generates each outpost sell node for the ADB resource pack, mainly differing in the quantity OCR region |
-| Task options template | `tools/pipeline-generate/SellProduct/task-template.jsonc` | Generates region, outpost, sell attempts, priority items, and reserve quantity options in `assets/tasks/SellProduct.json` |
-| Win outpost generation config | `tools/pipeline-generate/SellProduct/pipeline-config.json` | Output to `assets/resource/pipeline/SellProduct/Outposts/${LocationId}.json` |
-| ADB outpost generation config | `tools/pipeline-generate/SellProduct/pipeline-adb-config.json` | Output to `assets/resource_adb/pipeline/SellProduct/Outposts/${LocationId}.json` |
-| Task options generation config | `tools/pipeline-generate/SellProduct/task-config.json` | Output to `assets/tasks/SellProduct.json` |
-| Task entry point | `assets/resource/pipeline/SellProduct.json` | `ScheduleAction`, main loop, region entry; manually maintained |
-| Region sell entry point | `assets/resource/pipeline/SellProduct/Sell.json` | `next` list from region to outposts; manually maintained |
-| Common sell core | `assets/resource/pipeline/SellProduct/SellCore.json` | Sell loop, handling for out-of-stock/insufficient dispatch coupons/exceeded redemption limits, final transaction process |
-| Common exchange process | `assets/resource/pipeline/SellProduct/ChangeGoods.json` | Enter item selection interface, select priority item or default item |
-| Common outpost recognition | `assets/resource/pipeline/SellProduct/EnterOutpost.json` | Outpost interface, region outpost page, and outpost management text recognition |
-| ADB common sell core | `assets/resource_adb/pipeline/SellProduct/SellCore.json` | Common sell core under ADB resource pack |
-| Priority item custom recognition | `agent/go-service/sellproduct/normalized_match.go` | `SellProductNormalizedItemMatch`, anti-noise exact matching for OCR results and candidate names |
-| Multilingual text | `assets/locales/interface/*.json` | `SellProduct` task text, outpost names, item labels |
-| Generation entry point | `package.json`'s `generate:SellProduct` / `fetch:zmdmap` | Updates zmdmap cache and re-renders generated artifacts |
+| Module                           | Path                                                              | Function                                                                                                                  |
+| -------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| zmdmap cache data                | `tools/pipeline-generate/data/settlement_trade.json`              | Raw data for outposts, prosperity, tradeable items, multilingual names, rarity, unit price, etc.                          |
+| Data assembly                    | `tools/pipeline-generate/SellProduct/data.mjs`                    | Converts zmdmap data into `settlementFlatRows` consumable by templates                                                    |
+| Outpost Pipeline template        | `tools/pipeline-generate/SellProduct/pipeline-template.jsonc`     | Generates each outpost sell node for the Win resource pack                                                                |
+| ADB outpost template             | `tools/pipeline-generate/SellProduct/pipeline-adb-template.jsonc` | Generates each outpost sell node for the ADB resource pack, mainly differing in the quantity OCR region                   |
+| Task options template            | `tools/pipeline-generate/SellProduct/task-template.jsonc`         | Generates region, outpost, sell attempts, priority items, and reserve quantity options in `assets/tasks/SellProduct.json` |
+| Win outpost generation config    | `tools/pipeline-generate/SellProduct/pipeline-config.json`        | Output to `assets/resource/pipeline/SellProduct/Outposts/${LocationId}.json`                                              |
+| ADB outpost generation config    | `tools/pipeline-generate/SellProduct/pipeline-adb-config.json`    | Output to `assets/resource_adb/pipeline/SellProduct/Outposts/${LocationId}.json`                                          |
+| Task options generation config   | `tools/pipeline-generate/SellProduct/task-config.json`            | Output to `assets/tasks/SellProduct.json`                                                                                 |
+| Task entry point                 | `assets/resource/pipeline/SellProduct.json`                       | `ScheduleAction`, main loop, region entry; manually maintained                                                            |
+| Region sell entry point          | `assets/resource/pipeline/SellProduct/Sell.json`                  | `next` list from region to outposts; manually maintained                                                                  |
+| Common sell core                 | `assets/resource/pipeline/SellProduct/SellCore.json`              | Sell loop, handling for out-of-stock/insufficient dispatch coupons/exceeded redemption limits, final transaction process  |
+| Common exchange process          | `assets/resource/pipeline/SellProduct/ChangeGoods.json`           | Enter item selection interface, select priority item or default item                                                      |
+| Common outpost recognition       | `assets/resource/pipeline/SellProduct/EnterOutpost.json`          | Outpost interface, region outpost page, and outpost management text recognition                                           |
+| ADB common sell core             | `assets/resource_adb/pipeline/SellProduct/SellCore.json`          | Common sell core under ADB resource pack                                                                                  |
+| Priority item custom recognition | `agent/go-service/sellproduct/normalized_match.go`                | `SellProductNormalizedItemMatch`, anti-noise exact matching for OCR results and candidate names                           |
+| Multilingual text                | `assets/locales/interface/*.json`                                 | `SellProduct` task text, outpost names, item labels                                                                       |
+| Generation entry point           | `package.json`'s `generate:SellProduct` / `fetch:zmdmap`          | Updates zmdmap cache and re-renders generated artifacts                                                                   |
 
 ## Generated Artifacts vs. Hand-Maintained Files
 
@@ -44,11 +44,11 @@ The following files are rendered by `@joebao/maa-pipeline-generate` and will be 
 
 The sources for these files are:
 
-| Artifact | Template | Data Source |
-| ------------------------------- | ----------------------------- | ------------------------ |
-| `assets/tasks/SellProduct.json` | `task-template.jsonc` | `data.mjs` + zmdmap cache |
-| Win outpost Pipeline | `pipeline-template.jsonc` | `data.mjs` + zmdmap cache |
-| ADB outpost Pipeline | `pipeline-adb-template.jsonc` | `data.mjs` + zmdmap cache |
+| Artifact                        | Template                      | Data Source               |
+| ------------------------------- | ----------------------------- | ------------------------- |
+| `assets/tasks/SellProduct.json` | `task-template.jsonc`         | `data.mjs` + zmdmap cache |
+| Win outpost Pipeline            | `pipeline-template.jsonc`     | `data.mjs` + zmdmap cache |
+| ADB outpost Pipeline            | `pipeline-adb-template.jsonc` | `data.mjs` + zmdmap cache |
 
 ### Hand-Maintained Files
 
@@ -102,13 +102,13 @@ When adding a new region, do not directly rely on default fallback names like `d
 
 Currently generated outposts are:
 
-| zmdmap settlementId | Region | LocationId | Outpost Name |
-| ------------------- | -------- | --------------------------- | ------------ |
-| `stm_tundra_1` | ValleyIV | `RefugeeCamp` | Refugee Temporary Camp |
-| `stm_tundra_2` | ValleyIV | `InfrastructureOutpost` | Infrastructure Outpost |
-| `stm_tundra_3` | ValleyIV | `ReconstructionCommand` | Reconstruction Command |
-| `stm_hongs_1` | Wuling | `SkyKingFlats` | Sky King Flats Aid Station |
-| `stm_hongs_2` | Wuling | `CardiacRemediationStation` | Cardiac Remediation Station |
+| zmdmap settlementId | Region   | LocationId                  | Outpost Name                |
+| ------------------- | -------- | --------------------------- | --------------------------- |
+| `stm_tundra_1`      | ValleyIV | `RefugeeCamp`               | Refugee Temporary Camp      |
+| `stm_tundra_2`      | ValleyIV | `InfrastructureOutpost`     | Infrastructure Outpost      |
+| `stm_tundra_3`      | ValleyIV | `ReconstructionCommand`     | Reconstruction Command      |
+| `stm_hongs_1`       | Wuling   | `SkyKingFlats`              | Sky King Flats Aid Station  |
+| `stm_hongs_2`       | Wuling   | `CardiacRemediationStation` | Cardiac Remediation Station |
 
 ## Automatic Generation Mechanism
 
@@ -277,11 +277,11 @@ Key points:
 
 ### Top-Level Options
 
-| Option | Behavior |
-| --------------------- | -------------------------------------------------------------- |
-| `SellProductSchedule` | Writes weekday booleans to `SellProductSchedule.attach` |
-| `SellBeyondAidQuota` | Controls whether to stop the task or automatically confirm to continue trading when exceeding the outpost's redeemable dispatch coupon limit |
-| `{RegionPrefix}Sell` | Controls whether the region entry node `SellProduct{RegionPrefix}` is enabled |
+| Option                | Behavior                                                                                                                                     |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SellProductSchedule` | Writes weekday booleans to `SellProductSchedule.attach`                                                                                      |
+| `SellBeyondAidQuota`  | Controls whether to stop the task or automatically confirm to continue trading when exceeding the outpost's redeemable dispatch coupon limit |
+| `{RegionPrefix}Sell`  | Controls whether the region entry node `SellProduct{RegionPrefix}` is enabled                                                                |
 
 ### Outposts and Sell Attempts
 
@@ -382,12 +382,12 @@ Default parameters:
 
 Quantity regions are uniformly maintained in `data.mjs`:
 
-| Constant | Purpose |
-| ---------------------- | -------------------------- |
-| `QUANTITY_BOX` | Win resource pack current transaction quantity OCR |
-| `MAX_QUANTITY_BOX` | Win resource pack maximum sellable quantity OCR |
-| `QUANTITY_BOX_ADB` | ADB resource pack current transaction quantity OCR |
-| `MAX_QUANTITY_BOX_ADB` | ADB resource pack maximum sellable quantity OCR |
+| Constant               | Purpose                                            |
+| ---------------------- | -------------------------------------------------- |
+| `QUANTITY_BOX`         | Win resource pack current transaction quantity OCR |
+| `MAX_QUANTITY_BOX`     | Win resource pack maximum sellable quantity OCR    |
+| `QUANTITY_BOX_ADB`     | ADB resource pack current transaction quantity OCR |
+| `MAX_QUANTITY_BOX_ADB` | ADB resource pack maximum sellable quantity OCR    |
 
 If the game UI adjusts quantity positions, only these constants need to be changed, then regenerated to synchronize all outposts and 4 attempts.
 
