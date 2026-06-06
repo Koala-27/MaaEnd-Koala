@@ -48,11 +48,11 @@ assets/resource/image/AutoStockpile/Goods/{Region}/{BaseName}.Tier{N}.png
 | 四号谷地 | `ValleyIV` |
 | 武陵     | `Wuling`   |
 
-| 档位 | 价格波动幅度 |
-| --- | --- |
-| `Tier1` | 适中 |
-| `Tier2` | 较大 |
-| `Tier3` | 极大 |
+| 档位    | 价格波动幅度 |
+| ------- | ------------ |
+| `Tier1` | 适中         |
+| `Tier2` | 较大         |
+| `Tier3` | 极大         |
 
 ## 添加商品
 
@@ -135,9 +135,9 @@ assets/resource/image/AutoStockpile/Goods/{Region}/{BaseName}.Tier{N}.png
 
 1. 在 `AutoStockpileStart` 的 `next` 列表中加入 `"[JumpBack]AutoStockpileElastic{NewRegion}"`。
 2. 新增 `AutoStockpileElastic{NewRegion}` 节点，参照 `AutoStockpileElasticValleyIV` 的结构：
-   - `action.param.custom_action_param.sub` 中填入对应的场景导航子任务名称。
-   - `anchor` 设置 `"AutoStockpileDecision": "AutoStockpileDecision{NewRegion}"`。
-   - `focus` 中填入地区中文名。
+    - `action.param.custom_action_param.sub` 中填入对应的场景导航子任务名称。
+    - `anchor` 设置 `"AutoStockpileDecision": "AutoStockpileDecision{NewRegion}"`。
+    - `focus` 中填入地区中文名。
 
 #### DecisionLoop.json
 
@@ -165,10 +165,10 @@ var regionBases = map[string]int{
 
 在所有语言的 `assets/locales/interface/*.json` 中补充以下字段：
 
-| 字段键 | 用途 |
-| ------ | ---- |
-| `global.region.{NewRegion}` | 地区全局显示名 |
-| `task.AutoStockpile.option.AutoStockpileElastic{NewRegion}.label` | 任务选项标签 |
+| 字段键                                                            | 用途           |
+| ----------------------------------------------------------------- | -------------- |
+| `global.region.{NewRegion}`                                       | 地区全局显示名 |
+| `task.AutoStockpile.option.AutoStockpileElastic{NewRegion}.label` | 任务选项标签   |
 
 需补充的语言文件：`zh_cn.json`、`en_us.json`、`ja_jp.json`、`ko_kr.json`、`zh_tw.json`。
 

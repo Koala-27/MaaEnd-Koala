@@ -5,21 +5,21 @@
 
 ## 文件路径
 
-| 路径 | 作用 |
-| --- | --- |
-| `assets/interface.json` | 任务挂载（`dijiang_ship` 组） |
-| `assets/tasks/GiftOperator.json` | 任务入口与界面选项 |
-| `assets/resource/pipeline/GiftOperator/GiftOperatorMain.json` | 入口、帝江号定位 |
-| `assets/resource/pipeline/GiftOperator/GiftOperatorNavigation.json` | 寻路与联络台接触 |
-| `assets/resource/pipeline/GiftOperator/GiftOperatorContact.json` | 联络界面选人 |
-| `assets/resource/pipeline/GiftOperator/GiftOperatorGiftFlow.json` | 对话中的送礼 / 收礼 |
-| `assets/resource/pipeline/GiftOperator/GiftOperatorBagFull.json` | 背包已满处理 |
-| `assets/resource/pipeline/GiftOperator/Operator/Operator.json` | 只收礼物模式的干员识别 |
-| `assets/resource/image/GiftOperator/` | Win32 识别图片 |
-| `assets/resource_adb/image/GiftOperator/` | ADB 识别图片 |
-| `assets/resource_adb/pipeline/GiftOperator/` | ADB Pipeline 镜像 |
-| `tools/gift_operator/fill_gift_operator_green_box.py` | 干员头像 green_mask 格式化 |
-| `assets/locales/interface/*.json` | 任务、选项与干员名称文案 |
+| 路径                                                                | 作用                          |
+| ------------------------------------------------------------------- | ----------------------------- |
+| `assets/interface.json`                                             | 任务挂载（`dijiang_ship` 组） |
+| `assets/tasks/GiftOperator.json`                                    | 任务入口与界面选项            |
+| `assets/resource/pipeline/GiftOperator/GiftOperatorMain.json`       | 入口、帝江号定位              |
+| `assets/resource/pipeline/GiftOperator/GiftOperatorNavigation.json` | 寻路与联络台接触              |
+| `assets/resource/pipeline/GiftOperator/GiftOperatorContact.json`    | 联络界面选人                  |
+| `assets/resource/pipeline/GiftOperator/GiftOperatorGiftFlow.json`   | 对话中的送礼 / 收礼           |
+| `assets/resource/pipeline/GiftOperator/GiftOperatorBagFull.json`    | 背包已满处理                  |
+| `assets/resource/pipeline/GiftOperator/Operator/Operator.json`      | 只收礼物模式的干员识别        |
+| `assets/resource/image/GiftOperator/`                               | Win32 识别图片                |
+| `assets/resource_adb/image/GiftOperator/`                           | ADB 识别图片                  |
+| `assets/resource_adb/pipeline/GiftOperator/`                        | ADB Pipeline 镜像             |
+| `tools/gift_operator/fill_gift_operator_green_box.py`               | 干员头像 green_mask 格式化    |
+| `assets/locales/interface/*.json`                                   | 任务、选项与干员名称文案      |
 
 ## 路线一：默认（送礼 + 收礼）
 
@@ -92,7 +92,7 @@
    匹配成功后，临时把后续对话阶段使用的干员名称 OCR 白名单改成这名干员的多语言名字。  
    这一步写在 `Operator/Operator.json`，每名干员各一条；新增干员时必须同步维护。
 
-   > **举例**：联络列表里礼物行旁二次匹配到 `Operators/Gilberta.png`，白名单即收窄为「洁尔佩塔 / Gilberta / …」仅这名干员。呼唤后在大世界等待对话时，须同时看到对话图标且名称 OCR 命中该白名单才会点击；场上出现佩丽卡、伊冯等其他干员时，名称对不上，**不会误点**。
+    > **举例**：联络列表里礼物行旁二次匹配到 `Operators/Gilberta.png`，白名单即收窄为「洁尔佩塔 / Gilberta / …」仅这名干员。呼唤后在大世界等待对话时，须同时看到对话图标且名称 OCR 命中该白名单才会点击；场上出现佩丽卡、伊冯等其他干员时，名称对不上，**不会误点**。
 
 3. **第三步：确认选中态**  
    复用上方[选中态校验](#选中态校验)逻辑，确认列表行高亮且序号为 `1`，再点击黄色确认按钮呼唤。
@@ -111,11 +111,11 @@
 
 修正顺序固定为三组预设，每组各尝试一次（任务开头会清零计数，避免上轮残留）：
 
-| 次序 | 朝向 | 移动目标 |
-| --- | --- | --- |
-| 1 | 正西（270°） | (186.6, 175.0) |
-| 2 | 正北（0°） | (188.0, 175.3) |
-| 3 | 正东（90°） | (188.6, 176.2) |
+| 次序 | 朝向         | 移动目标       |
+| ---- | ------------ | -------------- |
+| 1    | 正西（270°） | (186.6, 175.0) |
+| 2    | 正北（0°）   | (188.0, 175.3) |
+| 3    | 正东（90°）  | (188.6, 176.2) |
 
 每组都是「先转向 → 再短距离移动 → 等待角色停稳」，然后重新尝试寻找对话按钮。
 

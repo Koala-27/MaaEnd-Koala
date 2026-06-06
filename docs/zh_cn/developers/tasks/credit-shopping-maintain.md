@@ -6,20 +6,20 @@
 
 ## 文件路径
 
-| 路径 | 作用 |
-| --- | --- |
-| `assets/interface.json` | 任务挂载（`other_menu` / `daily` 组） |
-| `assets/tasks/CreditShopping.json` | 任务入口、三档购买、保留阈值、刷新与补信用选项 |
-| `assets/resource/pipeline/CreditShopping/GoToShop.json` | 进入商店并切到信用交易所页签 |
-| `assets/resource/pipeline/CreditShopping/ClaimCredit.json` | 领取待收取信用 |
-| `assets/resource/pipeline/CreditShopping/Shopping.json` | 初始化、扫描决策、购买/刷新/结束 |
-| `assets/resource/pipeline/CreditShopping/Item.json` | 商品锚点、售罄、价格、名称、折扣识别链 |
-| `assets/resource/pipeline/CreditShopping/BuyItem.json` | 购买弹窗确认与失败处理 |
-| `assets/resource/pipeline/CreditShopping/BuyItemFocus.json` | 弹窗内商品 OCR 与购买 focus 记录 |
-| `assets/resource/pipeline/CreditShopping/Reflash.json` | 刷新按钮、花费、无法刷新状态 |
-| `assets/resource/pipeline/DijiangRewards/NeedCredit.json` | 信用不足时回基建补信用（线索交流/赠予） |
-| `agent/go-service/common/attachregex/action.go` | attach 关键词合并为 OCR 白名单正则 |
-| `assets/locales/interface/*.json` | 任务、选项与 focus 文案 |
+| 路径                                                        | 作用                                           |
+| ----------------------------------------------------------- | ---------------------------------------------- |
+| `assets/interface.json`                                     | 任务挂载（`other_menu` / `daily` 组）          |
+| `assets/tasks/CreditShopping.json`                          | 任务入口、三档购买、保留阈值、刷新与补信用选项 |
+| `assets/resource/pipeline/CreditShopping/GoToShop.json`     | 进入商店并切到信用交易所页签                   |
+| `assets/resource/pipeline/CreditShopping/ClaimCredit.json`  | 领取待收取信用                                 |
+| `assets/resource/pipeline/CreditShopping/Shopping.json`     | 初始化、扫描决策、购买/刷新/结束               |
+| `assets/resource/pipeline/CreditShopping/Item.json`         | 商品锚点、售罄、价格、名称、折扣识别链         |
+| `assets/resource/pipeline/CreditShopping/BuyItem.json`      | 购买弹窗确认与失败处理                         |
+| `assets/resource/pipeline/CreditShopping/BuyItemFocus.json` | 弹窗内商品 OCR 与购买 focus 记录               |
+| `assets/resource/pipeline/CreditShopping/Reflash.json`      | 刷新按钮、花费、无法刷新状态                   |
+| `assets/resource/pipeline/DijiangRewards/NeedCredit.json`   | 信用不足时回基建补信用（线索交流/赠予）        |
+| `agent/go-service/common/attachregex/action.go`             | attach 关键词合并为 OCR 白名单正则             |
+| `assets/locales/interface/*.json`                           | 任务、选项与 focus 文案                        |
 
 ## 执行流程
 
@@ -84,11 +84,11 @@ Go 只负责参数装配；何时买、怎么买由 Pipeline 决定。
 
 三档结构相同，默认策略不同（`CreditShopping.json`）：
 
-| 档位 | 默认「无条件购买」 | 默认「自动补信用」 | 典型用途 |
-| --- | --- | --- | --- |
-| 优先购买 1 | 开 | 开 | 信用快见底也值得买的刚需 |
-| 优先购买 2 | 关 | 关 | 需满足保留阈值才买 |
-| 优先购买 3 | 关 | 关 | 同上，更低优先级 |
+| 档位       | 默认「无条件购买」 | 默认「自动补信用」 | 典型用途                 |
+| ---------- | ------------------ | ------------------ | ------------------------ |
+| 优先购买 1 | 开                 | 开                 | 信用快见底也值得买的刚需 |
+| 优先购买 2 | 关                 | 关                 | 需满足保留阈值才买       |
+| 优先购买 3 | 关                 | 关                 | 同上，更低优先级         |
 
 每档可独立配置：勾选商品、最低折扣、是否跳过保留阈值、买不起时是否允许补信用。  
 三档都未命中后，才由统一的保留阈值节点负责兜底退出。
@@ -119,11 +119,11 @@ Go 只负责参数装配；何时买、怎么买由 Pipeline 决定。
 
 三档均未命中后的兜底，由 `CreditShoppingForce` 决定：
 
-| 策略 | 行为 |
-| --- | --- |
-| 退出 | 不买任意品、不刷新，直接结束 |
-| 忽略黑名单 | 购买任意买得起且未售罄的商品 |
-| 刷新 | 尝试刷新货架；可展开「稳健刷新」 |
+| 策略       | 行为                             |
+| ---------- | -------------------------------- |
+| 退出       | 不买任意品、不刷新，直接结束     |
+| 忽略黑名单 | 购买任意买得起且未售罄的商品     |
+| 刷新       | 尝试刷新货架；可展开「稳健刷新」 |
 
 **稳健刷新**：若「当前信用 − 刷新花费 < 稳健刷新阈值」且架上仍有可买品，则不刷新、改为直接购买。  
 该阈值与「保留信用点」是两套独立条件，不要混用。
@@ -140,12 +140,12 @@ Go 只负责参数装配；何时买、怎么买由 Pipeline 决定。
 
 ## 维护要点
 
-| 现象 | 优先查 |
-| --- | --- |
-| 识别不到目标商品 | attach 合并后的正则；识别链黑→粉逐层 |
-| 买得起却不买 | 该档保留阈值 / 无条件购买开关 |
-| 买不起不补信用 | 该档 AutoGetCredits 开关；买不起侧白名单与折扣 |
-| 刷新行为异常 | `CreditShoppingForce`；稳健刷新阈值 |
+| 现象             | 优先查                                                          |
+| ---------------- | --------------------------------------------------------------- |
+| 识别不到目标商品 | attach 合并后的正则；识别链黑→粉逐层                            |
+| 买得起却不买     | 该档保留阈值 / 无条件购买开关                                   |
+| 买不起不补信用   | 该档 AutoGetCredits 开关；买不起侧白名单与折扣                  |
+| 刷新行为异常     | `CreditShoppingForce`；稳健刷新阈值                             |
 | 选项间行为不一致 | `CreditShopping.json` 的 `pipeline_override` 与扫描 `next` 顺序 |
 
 维护时分四层定位：入口（进商店领信用）→ 扫描决策（买/停/补/刷新）→ 识别链（`Item.json`）→ 参数装配（任务选项 + Go）。
