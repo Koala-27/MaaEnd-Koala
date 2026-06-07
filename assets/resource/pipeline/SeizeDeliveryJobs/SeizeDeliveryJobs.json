@@ -251,9 +251,6 @@
             }
         ],
         "box_index": 4,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.wulingCityFound"
-        },
         "action": "Click",
         "post_wait_freezes": {
             "time": 2000,
@@ -267,7 +264,10 @@
         "next": [
             "isSeizeDeliveryJobsInWorldAfterAccept",
             "SeizeDeliveryJobsRetryClickAccept"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.wulingCityFound"
+        }
     },
     "isSeizeDeliveryJobsInWorldAfterAccept": {
         "desc": "点击接取后检查是否已进入大世界",

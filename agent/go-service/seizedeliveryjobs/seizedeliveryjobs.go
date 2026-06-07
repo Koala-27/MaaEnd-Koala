@@ -52,6 +52,7 @@ func (a *SeizeDeliveryJobsResetScanStateAction) Run(ctx *maa.Context, arg *maa.C
 
 // SeizeDeliveryJobsScanTargetRecognition scans the delivery job list once and caches OCR results for subsequent ScanTarget iterations.
 type SeizeDeliveryJobsScanTargetRecognition struct{}
+
 func (r *SeizeDeliveryJobsScanTargetRecognition) Run(ctx *maa.Context, arg *maa.CustomRecognitionArg) (*maa.CustomRecognitionResult, bool) {
 	// Subsequent calls: already have scanned data, just hit
 	if scannedJobItems != nil {
@@ -137,6 +138,7 @@ func (r *SeizeDeliveryJobsScanTargetRecognition) Run(ctx *maa.Context, arg *maa.
 
 // SeizeDeliveryJobsScanTargetAction overrides pipeline click targets for the current scanned job item and advances the scan index.
 type SeizeDeliveryJobsScanTargetAction struct{}
+
 func (a *SeizeDeliveryJobsScanTargetAction) Run(ctx *maa.Context, arg *maa.CustomActionArg) bool {
 	// All items exhausted → on_error: ScanExhausted → Refresh
 	if scannedJobItems == nil || currentIndex >= len(scannedJobItems) {

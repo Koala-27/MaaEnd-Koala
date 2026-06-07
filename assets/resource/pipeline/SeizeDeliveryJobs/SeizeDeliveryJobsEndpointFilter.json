@@ -69,12 +69,12 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterOwl.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointOwl"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointOwl"
+        }
     },
     "SeizeDeliveryJobsEndpointFilterMaterialResearchInstitute": {
         "desc": "材料研究所（左下）",
@@ -88,12 +88,12 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterMaterialResearchInstitute.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointMaterialResearchInstitute"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointMaterialResearchInstitute"
+        }
     },
     "SeizeDeliveryJobsEndpointFilterObservatory": {
         "desc": "观测站（右上）",
@@ -107,12 +107,12 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterObservatory.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointObservatory"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointObservatory"
+        }
     },
     "SeizeDeliveryJobsEndpointFilterTechProductionOffice": {
         "desc": "技术生产办公室（左上）",
@@ -126,12 +126,12 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterTechProductionOffice.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointTechProductionOffice"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointTechProductionOffice"
+        }
     },
     "SeizeDeliveryJobsEndpointFilterNo1TypeCAnchorArea": {
         "desc": "一号丙型辅桩区（左上）",
@@ -145,12 +145,12 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterNo1TypeCAnchorArea.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointNo1TypeCAnchorArea"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointNo1TypeCAnchorArea"
+        }
     },
     "SeizeDeliveryJobsEndpointFilterNo3TypeCAnchorArea": {
         "desc": "三号丙型辅桩区（右上）",
@@ -164,12 +164,12 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterNo3TypeCAnchorArea.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointNo3TypeCAnchorArea"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointNo3TypeCAnchorArea"
+        }
     },
     "SeizeDeliveryJobsEndpointFilterJingweiFieldArea": {
         "desc": "经纬田区（右）",
@@ -183,19 +183,19 @@
         ],
         "template": "SeizeDeliveryJobs/SeizeDeliveryJobsEndpointFilterJingweiFieldArea.png",
         "threshold": 0.9,
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointJingweiFieldArea"
-        },
         "next": [
             "SeizeDeliveryJobsEndpointMatched"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointJingweiFieldArea"
+        }
     },
     "SeizeDeliveryJobsEndpointMatched": {
         "desc": "终点匹配成功，重置Go扫描状态",
         "pre_delay": 0,
-        "post_delay": 0,
         "action": "Custom",
         "custom_action": "SeizeDeliveryJobsResetScanStateAction",
+        "post_delay": 0,
         "next": [
             "SeizeDeliveryJobsPressEscAfterMatch"
         ]
@@ -228,12 +228,12 @@
     },
     "SeizeDeliveryJobsEndpointNotMatched": {
         "desc": "终点未匹配，继续扫描下一个委托",
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointNotMatched"
-        },
         "next": [
             "SeizeDeliveryJobsPressEscAfterNotMatch"
-        ]
+        ],
+        "focus": {
+            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.endpointNotMatched"
+        }
     },
     "SeizeDeliveryJobsPressEscAfterNotMatch": {
         "desc": "终点未匹配后按ESC关闭地图",

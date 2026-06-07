@@ -31,8 +31,8 @@
                 "upper": [
                     100
                 ],
-                "count": 10,
-                "connected": true
+                "connected": true,
+                "count": 10
             }
         }
     },
