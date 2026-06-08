@@ -804,5 +804,14 @@
     "resource/image/DailyRewards/Event/LimitedTimeEventClaim": "35c5bc25c8df8544514d4bee8c3557ece8db6afc9953f56871d2c490d8d3d38d",
     "resource/image/ProtocolSpace/SpaceResart": "e95d0cb35b0dfee3fd403403b53e2e8539a103aa75a316d581974d5b48a41b56",
     "resource/image/AutoStockpile/Goods/Wuling/AerialReceptionists.Tier2": "7cb0345d317b64dac9257c2aa473cd20a3f1b27dd80b0216db9a8abdd78cc4e9",
-    "resource/image/MapTracker/map/map02_lv006": "b37263480b9c4c6abb790c43f79ba9cb36a70abb235f3d7fe6f71428ab31a175"
+    "resource/image/MapTracker/map/map02_lv006": "b37263480b9c4c6abb790c43f79ba9cb36a70abb235f3d7fe6f71428ab31a175",
+    "resource/image/SeizeDeliveryJobs/FetchGoods": "e9f1906c47c4e74bb2ca8122b0b499b8b28b0bb527158265541dc2845af8cbb9",
+    "resource/image/SeizeDeliveryJobs/WulingToken": "c182326fae8503a6959dcf466a0ebf8623004a3fbeb01493ce1367a2de242f60",
+    "resource/image/SeizeDeliveryJobs/Destinations/TechProductionOffice": "0dd08c7f3eae859ae53c7ac7e9d144e5b63618d7bd33af315fc6ab8c36f31ab5",
+    "resource/image/SeizeDeliveryJobs/Destinations/No1TypeCAnchorArea": "4ae59107b3a420f73019526f32826e13d3a2d1e25379183aa29c33c926a6e14d",
+    "resource/image/SeizeDeliveryJobs/Destinations/Observatory": "a0a58b6abdfbb86889f1b15c66b29c2babcb38b7061d8d2a6e326d2e6f987686",
+    "resource/image/SeizeDeliveryJobs/Destinations/Owl": "de4f50ce07bdc8dc6cf79c6cbbfa1d7762cb46ff09064b6e7df11f86e427a283",
+    "resource/image/SeizeDeliveryJobs/Destinations/No3TypeCAnchorArea": "675d763f23a10c996ef82b9c41c2747b26aa782a4aee41480188cc38df356ff9",
+    "resource/image/SeizeDeliveryJobs/Destinations/JingweiFieldArea": "11eb00773f810319eb5d3fa47aec5941c842717ce017d6e18026c8a7bda0d852",
+    "resource/image/SeizeDeliveryJobs/Destinations/MaterialResearchInstitute": "9aa75549915d34ca58b135756b2deddf391a0cb7e7485717f520720fa647e083"
 }
