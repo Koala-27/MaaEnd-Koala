@@ -26,7 +26,7 @@
                     "name": "WulingCity",
                     "label": "$task.SeizeDeliveryJobsCommissionSource.cases.WulingCity.label",
                     "option": [
-                        "SeizeDeliveryJobsisGoDepotNodeWorld",
+                        "SeizeDeliveryJobsPostProcessing",
                         "SeizeDeliveryJobsSpecifyDeliveryPointWulingCity"
                     ]
                 },
@@ -34,11 +34,14 @@
                     "name": "TestArea",
                     "label": "$task.SeizeDeliveryJobsCommissionSource.cases.TestArea.label",
                     "option": [
+                        "SeizeDeliveryJobsPostProcessing",
                         "SeizeDeliveryJobsSpecifyDeliveryPointTestArea"
                     ],
                     "pipeline_override": {
-                        "SeizeDeliveryJobsGoDepotNode": {
-                            "enabled": false
+                        "SeizeDeliveryJobsPostProcessingEntry": {
+                            "next": [
+                                "SeizeDeliveryJobsTestAreaDeparture"
+                            ]
                         },
                         "SeizeDeliveryJobsFindTarget": {
                             "all_of": [
@@ -134,86 +137,64 @@
                 }
             ]
         },
-        "SeizeDeliveryJobsisGoDepotNodeWorld": {
-            "type": "switch",
-            "label": "$task.SeizeDeliveryJobsisGoDepotNodeWorld.label",
-            "description": "$task.SeizeDeliveryJobsisGoDepotNodeWorld.description",
-            "cases": [
-                {
-                    "name": "No",
-                    "pipeline_override": {
-                        "SeizeDeliveryJobsGoDepotNode": {
-                            "enabled": false
-                        }
-                    }
-                },
-                {
-                    "name": "Yes",
-                    "option": [
-                        "SeizeDeliveryJobsSelectDestination"
-                    ],
-                    "pipeline_override": {
-                        "SeizeDeliveryJobsGoDepotNode": {
-                            "enabled": true
-                        }
-                    }
-                }
-            ]
-        },
-        "SeizeDeliveryJobsisWalkingToDepotNode": {
-            "type": "switch",
-            "label": "$task.SeizeDeliveryJobsisWalkingToDepotNode.label",
-            "description": "$task.SeizeDeliveryJobsisWalkingToDepotNode.description",
-            "cases": [
-                {
-                    "name": "No",
-                    "pipeline_override": {
-                        "SeizeDeliveryJobsWalkingToDepotNode": {
-                            "enabled": false
-                        }
-                    }
-                },
-                {
-                    "name": "Yes",
-                    "pipeline_override": {
-                        "SeizeDeliveryJobsWalkingToDepotNode": {
-                            "enabled": true
-                        }
-                    }
-                }
-            ],
-            "controller": [
-                "Win32-Front",
-                "Wlroots"
-            ]
-        },
-        "SeizeDeliveryJobsSelectDestination": {
+        "SeizeDeliveryJobsPostProcessing": {
             "type": "select",
-            "label": "选择要传送到的锚点",
-            "description": "",
+            "default_case": "Disable",
+            "label": "$task.SeizeDeliveryJobsPostProcessing.label",
             "cases": [
                 {
-                    "name": "仓储节点上方锚点",
-                    "option": [
-                        "SeizeDeliveryJobsisWalkingToDepotNode"
-                    ],
+                    "name": "Disable",
+                    "label": "$task.SeizeDeliveryJobsPostProcessing.cases.Disable.label",
                     "pipeline_override": {
-                        "isSeizeDeliveryJobsInMap": {
+                        "SeizeDeliveryJobsPostProcessingEntry": {
+                            "enabled": false
+                        }
+                    }
+                },
+                {
+                    "name": "Tele",
+                    "label": "$task.SeizeDeliveryJobsPostProcessing.cases.Tele.label",
+                    "pipeline_override": {
+                        "SeizeDeliveryJobsPostProcessingEntry": {
+                            "enabled": true
+                        },
+                        "SeizeDeliveryJobsTeleportWulingCityNorth": {
                             "next": [
-                                "isSeizeDeliveryJobsInWolrld",
-                                "[JumpBack]SceneEnterWorldWulingWulingCity5"
+                                "SeizeDeliveryJobsStopTask1"
+                            ]
+                        },
+                        "SeizeDeliveryJobsTeleportTestArea": {
+                            "next": [
+                                "SeizeDeliveryJobsStopTask1"
                             ]
                         }
                     }
                 },
                 {
-                    "name": "仓储节点左侧锚点",
+                    "name": "TeleWalk",
+                    "label": "$task.SeizeDeliveryJobsPostProcessing.cases.TeleWalk.label",
                     "pipeline_override": {
-                        "isSeizeDeliveryJobsInMap": {
+                        "SeizeDeliveryJobsPostProcessingEntry": {
+                            "enabled": true
+                        },
+                        "SeizeDeliveryJobsWalkToDepotNodeWulingCity": {
                             "next": [
-                                "isSeizeDeliveryJobsInWolrld",
-                                "[JumpBack]SceneEnterWorldWulingWulingCity6"
+                                "SeizeDeliveryJobsStopTask1"
                             ]
+                        },
+                        "SeizeDeliveryJobsWalkToDepotNodeTestArea": {
+                            "next": [
+                                "SeizeDeliveryJobsStopTask1"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "TeleWalkFetch",
+                    "label": "$task.SeizeDeliveryJobsPostProcessing.cases.TeleWalkFetch.label",
+                    "pipeline_override": {
+                        "SeizeDeliveryJobsPostProcessingEntry": {
+                            "enabled": true
                         }
                     }
                 }
