@@ -8,9 +8,11 @@
 #include "MapNavigator/MapNavigator.h"
 #include "MapNavigator/MapNavigatorCompatible.h"
 #include "RealTimeTask/RealTimeTaskAction.h"
+#include "RecoGrid/RecoGridRecognition.h"
 #include "my_reco_1/my_reco_1.h"
 #include "Test/test.h"
 #include "utils.h"
+#include "WeaponInventoryScan/WeaponInventoryScan.h"
 
 int main(int argc, char** argv)
 {
@@ -41,6 +43,11 @@ int main(int argc, char** argv)
     MaaAgentServerRegisterCustomRecognition(
         "MapNavigatorAssertLocationCompatible",
         mapnavigator::MapNavigatorAssertLocationCompatibleRun,
+        nullptr);
+    MaaAgentServerRegisterCustomRecognition("RecoGridRecognition", recogrid::RecoGridRecognitionRun, nullptr);
+    MaaAgentServerRegisterCustomRecognition(
+        "WeaponInventoryScanRecognition",
+        weaponinventoryscan::WeaponInventoryScanRecognitionRun,
         nullptr);
     MaaAgentServerRegisterCustomAction("MapNavigateAction", mapnavigator::MapNavigateActionRun, nullptr);
     MaaAgentServerRegisterCustomAction("MapNavigatorCompatible", mapnavigator::MapNavigatorCompatibleRun, nullptr);
