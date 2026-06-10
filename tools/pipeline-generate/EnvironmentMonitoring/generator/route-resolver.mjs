@@ -8,6 +8,7 @@ export const ROUTE_CONFIG_FIELDS = [
     "MapAssert",
     "MapPath",
     "MapTarget",
+    "MapGoal",
     "CameraSwipeDirection",
     "CameraMaxHit",
     "Heading",
@@ -38,6 +39,7 @@ const UNREACHABLE_ROUTE_PLACEHOLDER = {
         ],
     ],
     MapTarget: null,
+    MapGoal: null,
     CameraSwipeDirection: "EnvironmentMonitoringSwipeScreenUp",
 };
 
@@ -93,9 +95,20 @@ function normalizeHeading(headingRaw, mission, missionName, warn) {
     };
 }
 
-function buildNavigationParams({MapName, MapAssert, MapPath, MapTarget, NoEnsureInitialMovementState, hasMapTarget}) {
-    const MapNavigationAction = hasMapTarget ? "MapNavigateAction" : "MapTrackerMove";
+function buildNavigationParams({
+    MapName,
+    MapAssert,
+    MapPath,
+    MapTarget,
+    MapGoal,
+    NoEnsureInitialMovementState,
+    hasMapTarget,
+    hasMapGoal,
+    heading,
+}) {
+    const MapNavigationAction = hasMapTarget ? "MapNavigateAction" : hasMapGoal ? "MapTrackerGoal" : "MapTrackerMove";
     const MapAssertRecognition = hasMapTarget ? "MapLocateAssertLocation" : "MapTrackerAssertLocation";
+    const navigationHeading = hasMapTarget && heading.HasHeading;
     const MapAssertParam =
         MapAssertRecognition === "MapLocateAssertLocation"
             ? {
@@ -115,26 +128,37 @@ function buildNavigationParams({MapName, MapAssert, MapPath, MapTarget, NoEnsure
             ? {
                   path: [
                       {
-                          action: "ZONE",
-                          zone_id: MapName,
-                      },
-                      {
                           action: "NAVMESH",
                           target: MapTarget,
                       },
+                      ...(navigationHeading
+                          ? [
+                                {
+                                    action: "HEADING",
+                                    angle: heading.Heading,
+                                },
+                            ]
+                          : []),
                   ],
               }
-            : {
-                  map_name: MapName,
-                  path: MapPath,
-                  ...(NoEnsureInitialMovementState ? {no_ensure_initial_movement_state: true} : {}),
-              };
+            : MapNavigationAction === "MapTrackerGoal"
+              ? {
+                    map_name: MapName,
+                    target: MapGoal,
+                    ...(NoEnsureInitialMovementState ? {no_ensure_initial_movement_state: true} : {}),
+                }
+              : {
+                    map_name: MapName,
+                    path: MapPath,
+                    ...(NoEnsureInitialMovementState ? {no_ensure_initial_movement_state: true} : {}),
+                };
 
     return {
         MapAssertRecognition,
         MapAssertParam,
         MapNavigationAction,
         MapNavigationParam,
+        HasNavigationHeading: navigationHeading,
     };
 }
 
@@ -161,17 +185,28 @@ export function createRouteResolver(routeConfig, options = {}) {
 
             const hasMapPath = !isFieldMissing(override?.MapPath);
             const hasMapTarget = !isFieldMissing(override?.MapTarget);
-            if (!hasMapPath && !hasMapTarget) {
-                missingFields.push("MapPath/MapTarget");
+            const hasMapGoal = !isFieldMissing(override?.MapGoal);
+            const navigationConfigCount = [
+                hasMapPath,
+                hasMapTarget,
+                hasMapGoal,
+            ].filter(Boolean).length;
+            if (navigationConfigCount === 0) {
+                missingFields.push("MapPath/MapTarget/MapGoal");
             }
-            if (hasMapPath && hasMapTarget) {
-                missingFields.push("MapPath/MapTarget 二选一");
+            if (navigationConfigCount > 1) {
+                missingFields.push("MapPath/MapTarget/MapGoal 三选一");
             }
 
             const {EnterMap, MapName, MapAssert, CameraSwipeDirection} = resolved;
-            const MapPath = hasMapPath && !hasMapTarget ? override.MapPath : UNREACHABLE_ROUTE_PLACEHOLDER.MapPath;
+            const MapPath =
+                navigationConfigCount === 1 && hasMapPath ? override.MapPath : UNREACHABLE_ROUTE_PLACEHOLDER.MapPath;
             const MapTarget =
-                hasMapTarget && !hasMapPath ? override.MapTarget : UNREACHABLE_ROUTE_PLACEHOLDER.MapTarget;
+                navigationConfigCount === 1 && hasMapTarget
+                    ? override.MapTarget
+                    : UNREACHABLE_ROUTE_PLACEHOLDER.MapTarget;
+            const MapGoal =
+                navigationConfigCount === 1 && hasMapGoal ? override.MapGoal : UNREACHABLE_ROUTE_PLACEHOLDER.MapGoal;
             const CameraMaxHit = override?.CameraMaxHit ?? CAMERA_MAX_HIT_DEFAULT;
             const NoEnsureInitialMovementState = override?.NoEnsureInitialMovementState ?? false;
             const heading = normalizeHeading(override?.Heading, mission, missionName, warn);
@@ -198,6 +233,7 @@ export function createRouteResolver(routeConfig, options = {}) {
                 MapAssert,
                 MapPath,
                 MapTarget,
+                MapGoal,
                 CameraSwipeDirection,
                 CameraMaxHit,
                 NoEnsureInitialMovementState,
@@ -207,8 +243,11 @@ export function createRouteResolver(routeConfig, options = {}) {
                     MapAssert,
                     MapPath,
                     MapTarget,
+                    MapGoal,
                     NoEnsureInitialMovementState,
-                    hasMapTarget: hasMapTarget && !hasMapPath,
+                    hasMapTarget: navigationConfigCount === 1 && hasMapTarget,
+                    hasMapGoal: navigationConfigCount === 1 && hasMapGoal,
+                    heading,
                 }),
             };
         },
