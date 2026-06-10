@@ -346,14 +346,14 @@ Rationale:
 
 ### StageTaskSetting and the four phase toggles
 
-| Option                 | Overridden node           | Override                 | Rationale                                                          |
-| ---------------------- | ------------------------- | ------------------------ | ------------------------------------------------------------------ |
-| `StageTaskSetting=Yes` | None directly in Pipeline | Only expands sub-options | Folds "advanced phase control" so casual users are not overwhelmed |
-| `FastCollect`          | `DijiangRewardsFastCollectProduction`, `DijiangRewardsFastCollectClues` | `enabled=true/false` | Whether to run one-click product/clue harvest from Control Nexus |
-| `RecoveryEmotionStage` | `RecoveryEmotionMain`     | `enabled=true/false`     | Whether to run the mood recovery phase                             |
-| `ReceptionRoomStage`   | `ReceptionRoomMain`       | `enabled=true/false`     | Whether to run the reception room phase                            |
-| `ManufacturingStage`   | `MFGCabinMain`            | `enabled=true/false`     | Whether to run the manufacturing bay phase                         |
-| `GrowthChamberStage`   | `GrowthChamberMain`       | `enabled=true/false`     | Whether to run the growth chamber phase                            |
+| Option                 | Overridden node                                                         | Override                 | Rationale                                                          |
+| ---------------------- | ----------------------------------------------------------------------- | ------------------------ | ------------------------------------------------------------------ |
+| `StageTaskSetting=Yes` | None directly in Pipeline                                               | Only expands sub-options | Folds "advanced phase control" so casual users are not overwhelmed |
+| `FastCollect`          | `DijiangRewardsFastCollectProduction`, `DijiangRewardsFastCollectClues` | `enabled=true/false`     | Whether to run one-click product/clue harvest from Control Nexus   |
+| `RecoveryEmotionStage` | `RecoveryEmotionMain`                                                   | `enabled=true/false`     | Whether to run the mood recovery phase                             |
+| `ReceptionRoomStage`   | `ReceptionRoomMain`                                                     | `enabled=true/false`     | Whether to run the reception room phase                            |
+| `ManufacturingStage`   | `MFGCabinMain`                                                          | `enabled=true/false`     | Whether to run the manufacturing bay phase                         |
+| `GrowthChamberStage`   | `GrowthChamberMain`                                                     | `enabled=true/false`     | Whether to run the growth chamber phase                            |
 
 Rationale:
 
