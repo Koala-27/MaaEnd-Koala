@@ -35,13 +35,13 @@ pnpm install
 
 **`setup_workspace.py` 常用参数：**
 
-| 参数 | 说明 |
-| ---- | ---- |
-| （无参数） | 首次初始化，已安装的组件自动跳过 |
-| `--update` | 强制更新所有已安装的依赖到最新版本 |
-| `--clean-cache` | 清理下载缓存目录 |
-| `--cpp-algo-pr <N>` | 从指定 PR 的最新成功 CI run 下载 cpp-algo（用于快速测试尚未合并的 PR 改动） |
-| `--cpp-algo-run <ID>` | 从指定 workflow run ID 下载 cpp-algo |
+| 参数                  | 说明                                                                        |
+| --------------------- | --------------------------------------------------------------------------- |
+| （无参数）            | 首次初始化，已安装的组件自动跳过                                            |
+| `--update`            | 强制更新所有已安装的依赖到最新版本                                          |
+| `--clean-cache`       | 清理下载缓存目录                                                            |
+| `--cpp-algo-pr <N>`   | 从指定 PR 的最新成功 CI run 下载 cpp-algo（用于快速测试尚未合并的 PR 改动） |
+| `--cpp-algo-run <ID>` | 从指定 workflow run ID 下载 cpp-algo                                        |
 
 > `--cpp-algo-pr` 和 `--cpp-algo-run` 互斥，二选一。不指定时默认从 v2 分支的最新 push 构建下载。
 

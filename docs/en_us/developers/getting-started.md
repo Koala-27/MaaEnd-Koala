@@ -35,13 +35,13 @@ pnpm install
 
 **Common `setup_workspace.py` options:**
 
-| Option | Description |
-| ------ | ----------- |
-| (no args) | First-time setup — skips already-installed components automatically |
-| `--update` | Force update all installed dependencies to the latest version |
-| `--clean-cache` | Clean the download cache directory |
-| `--cpp-algo-pr <N>` | Download cpp-algo from a specific PR's latest successful CI run (useful for quickly testing unmerged PR changes) |
-| `--cpp-algo-run <ID>` | Download cpp-algo from a specific workflow run ID |
+| Option                | Description                                                                                                      |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| (no args)             | First-time setup — skips already-installed components automatically                                              |
+| `--update`            | Force update all installed dependencies to the latest version                                                    |
+| `--clean-cache`       | Clean the download cache directory                                                                               |
+| `--cpp-algo-pr <N>`   | Download cpp-algo from a specific PR's latest successful CI run (useful for quickly testing unmerged PR changes) |
+| `--cpp-algo-run <ID>` | Download cpp-algo from a specific workflow run ID                                                                |
 
 > `--cpp-algo-pr` and `--cpp-algo-run` are mutually exclusive. When neither is specified, the default behavior downloads from the latest successful push build on the v2 branch.
 

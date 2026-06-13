@@ -559,7 +559,7 @@
             "param": {}
         },
         "post_wait_freezes": 400,
-        "next": [   
+        "next": [
             "ProdManualConfirmReward"
         ],
         "focus": {
