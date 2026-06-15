@@ -1,6 +1,6 @@
 {
     "configs": {
-        "name": "一键售卖产品，测试派驻干员列表",
+        "name": "一键售卖产品，测试联络干员列表",
         "resource": "官服",
         "controller": [
             "Win32",
@@ -9,10 +9,15 @@
     },
     "cases": [
         {
+            "image": "四号谷地_地区建设_据点_难民暂居处.png",
+            "hits": [
+                "SellProductOpenOperatorLiaisonButton"
+            ]
+        },
+        {
             "image": "四号谷地_地区建设_据点_联络干员_派驻.png",
             "hits": [
                 "SellProductInOperatorLiaison",
-                "CloseButtonType1",
                 "SellProductInfrastructureOutpostConfirmTargetOperator",
                 "SellProductInfrastructureOutpostConfirmRestoreOperator",
                 "SellProductInfrastructureOutpostCloseTargetOperatorLiaison",
@@ -23,7 +28,6 @@
             "image": "四号谷地_地区建设_据点_联络干员_撤下.png",
             "hits": [
                 "SellProductInOperatorLiaison",
-                "CloseButtonType1",
                 "SellProductInfrastructureOutpostCloseTargetOperatorLiaison",
                 "SellProductInfrastructureOutpostCloseRestoreOperatorLiaison"
             ]
@@ -32,7 +36,6 @@
             "image": "武陵_地区建设_据点_联络干员_撤下.png",
             "hits": [
                 "SellProductInOperatorLiaison",
-                "CloseButtonType1",
                 "SellProductInfrastructureOutpostCloseTargetOperatorLiaison",
                 "SellProductInfrastructureOutpostCloseRestoreOperatorLiaison"
             ]
