@@ -162,12 +162,8 @@ func (aca *ADBControlAdaptor) PlayerJump() {
 	aca.TouchClick(jumpButtonContact, JUMP_BUTTON_X, JUMP_BUTTON_Y, defaultTouchActionDelayMillis*4, 0)
 }
 
-func (aca *ADBControlAdaptor) ResetCamera() {
-	// ADB has no need to reset camera
-}
-
-func (aca *ADBControlAdaptor) AggressivelyResetCamera() {
-	// ADB has no need to reset camera aggressively
+func (aca *ADBControlAdaptor) ResetCursor(_ CursorResetPolicy) {
+	// ADB has no need to reset cursor
 }
 
 func (aca *ADBControlAdaptor) AggressivelyResetPlayerMovement() {
@@ -192,5 +188,5 @@ const (
 	cameraContact                 = 1
 	sprintButtonContact           = 2
 	jumpButtonContact             = 3
-	defaultTouchActionDelayMillis = 50
+	defaultTouchActionDelayMillis = 60
 )
