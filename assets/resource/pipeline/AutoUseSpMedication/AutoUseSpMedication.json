@@ -37,10 +37,11 @@
         ]
     },
     "AutoUseSpMedicationSelectGreenDeadlineEmergencySanityBooster": {
-        "desc": "选择绿色时限应急理智加强剂",
+        "desc": "选择任意时限应急理智加强剂",
         "enabled": true,
-        "recognition": "And",
-        "all_of": [
+        "recognition": "Or",
+        "any_of": [
+            "AutoUseSpMedicationFindRedDeadlineEmergencySanityBooster",
             "AutoUseSpMedicationFindGreenDeadlineEmergencySanityBooster"
         ],
         "action": "Click",
@@ -60,7 +61,6 @@
             "ColorRecognitionGreenEmergencySanityBooster"
         ]
     },
-
     "FindGreenDeadlineEmergencySanityBooster": {
         "recognition": {
             "type": "TemplateMatch",
@@ -100,11 +100,12 @@
                     90,
                     255,
                     255
-                ]
+                ],
+                "count": 100,
+                "connected": true
             }
         }
     },
-
     "AutoUseSpMedicationSelectRedDeadlineEmergencySanityBooster": {
         "desc": "选择红色时限应急理智加强剂",
         "enabled": true,
@@ -143,7 +144,7 @@
                     940,
                     560
                 ],
-                "template": "Valuables/EmergencySpBoosterExpireSoon.png",
+                "template": "Valuables/EmergencySpBooster.png",
                 "green_mask": true,
                 "threshold": 0.84,
                 "order_by": "Score"
@@ -172,7 +173,9 @@
                     191,
                     255,
                     255
-                ]
+                ],
+                "count": 100,
+                "connected": true
             }
         }
     },
