@@ -879,5 +879,11 @@
     "resource/image/SceneManager/FriendsAdd1": "ba548c8256ae580f911a2b0340668bb9590e158b3cfa912596097c816b91262f",
     "resource/image/SceneManager/FriendsProfile1": "b1d6838404be0ceb58a971b98f2240eee767e364eaab81eb0a498c9e800eba5a",
     "resource/image/SceneManager/FriendsProfile2": "298a7ea0d899048453305fd0e16ca2c8f4b018760eb9201a9c1de2b309f74e0e",
-    "resource/image/SceneManager/FriendsList1": "6ac664dcb26f4532741494f463278b89194653f0935aa979014325732ec50f01"
+    "resource/image/SceneManager/FriendsList1": "6ac664dcb26f4532741494f463278b89194653f0935aa979014325732ec50f01",
+    "resource/image/TrialOfSwordmancy/Point2": "32e26be5e49992e3e02e6988c1431a806568318b985f7deacce73c93a11b77d7",
+    "resource/image/TrialOfSwordmancy/Point5": "5eb7df9b8662feb67b601492ba15832dbd59bb2a415dcb56a339b4d9fd1ee695",
+    "resource/image/TrialOfSwordmancy/Point1": "968e5609e1d5b74f01203af910bec9b39610268df8ae967cf4efac0dd42dd8b1",
+    "resource/image/TrialOfSwordmancy/Point3": "4d85ec14d4721a1bda48c1dd74f9f3e94fbfb21e6d36303cb1497cda975c3d47",
+    "resource/image/TrialOfSwordmancy/Point4": "674ff5da70161a9a26e0c1c2319e3c3dde605d41211d457ddc96b20df28c2e94",
+    "resource/image/TrialOfSwordmancy/DoubleRewardSelected": "05c942eee1f284c003a7358bc7a260d4b21c28956d26ae3c639b15412f2a1dce"
 }
