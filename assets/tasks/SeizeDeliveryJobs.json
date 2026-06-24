@@ -316,16 +316,10 @@
                         "SeizeDeliveryJobsFindTarget": {
                             "enabled": false
                         },
-                        "SeizeDeliveryJobsFindTargetPrimary": {
-                            "enabled": false
-                        },
                         "SeizeDeliveryJobsFindTargetFallback": {
                             "enabled": false
                         },
                         "SeizeDeliveryJobsScanTarget": {
-                            "enabled": true
-                        },
-                        "SeizeDeliveryJobsScanTargetPrimary": {
                             "enabled": true
                         },
                         "SeizeDeliveryJobsScanTargetFallback": {

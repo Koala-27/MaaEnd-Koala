@@ -188,8 +188,8 @@
             "stage": "Primary"
         },
         "next": [
-            "SeizeDeliveryJobsFindTargetPrimary",
-            "SeizeDeliveryJobsScanTargetPrimary",
+            "SeizeDeliveryJobsFindTarget",
+            "SeizeDeliveryJobsScanTarget",
             "SeizeDeliveryJobsRefresh"
         ]
     },
@@ -218,33 +218,6 @@
         ],
         "focus": {
             "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.timedFallbackStop"
-        }
-    },
-    "SeizeDeliveryJobsFindTargetPrimary": {
-        "desc": "限时降级策略：第一阶段，仅匹配武陵城 16.3 万委托",
-        "recognition": "Or",
-        "any_of": [
-            "__SeizeDeliveryJobsFindTarget16_3"
-        ],
-        "action": "Click",
-        "post_wait_freezes": {
-            "time": 2000,
-            "target": [
-                2,
-                164,
-                264,
-                103
-            ]
-        },
-        "timeout": 5000, // 断言能在短时间内弹出接取成功动画
-        "next": [
-            "SeizeDeliveryJobsIsSeizeSuccess"
-        ],
-        "on_error": [
-            "SeizeDeliveryJobsRefresh"
-        ],
-        "focus": {
-            "Node.Recognition.Succeeded": "$task.SeizeDeliveryJobs.focus.wulingCityFound"
         }
     },
     "SeizeDeliveryJobsFindTargetFallback": {

@@ -13,23 +13,6 @@
             "SeizeDeliveryJobsScanExhausted"
         ]
     },
-    "SeizeDeliveryJobsScanTargetPrimary": {
-        "desc": "限时降级策略：第一阶段委托目标扫描入口点",
-        "enabled": false,
-        "recognition": "Custom",
-        "custom_recognition": "SeizeDeliveryJobsScanTargetRecognition",
-        "custom_recognition_param": {
-            "reward_node": "SeizeDeliveryJobsFindTargetPrimary"
-        },
-        "action": "Custom",
-        "custom_action": "SeizeDeliveryJobsScanTargetAction",
-        "next": [
-            "SeizeDeliveryJobsFoundTargetViewLocationClick"
-        ],
-        "on_error": [
-            "SeizeDeliveryJobsScanExhausted"
-        ]
-    },
     "SeizeDeliveryJobsScanTargetFallback": {
         "desc": "限时降级策略：第二阶段委托目标扫描入口点",
         "enabled": false,
