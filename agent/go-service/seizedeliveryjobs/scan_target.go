@@ -21,6 +21,8 @@ type scanTargetParam struct {
 	RewardNode string `json:"reward_node"`
 }
 
+const seizeDeliveryJobsDefaultRewardNode = "SeizeDeliveryJobsFindTarget"
+
 // filteredDetail holds the parsed OCR sub-recognition result.
 // The Text field is only populated for origin (index 1); others leave it zero.
 type filteredDetail struct {
@@ -151,7 +153,7 @@ func (r *SeizeDeliveryJobsScanTargetRecognition) Run(ctx *maa.Context, arg *maa.
 
 func parseScanTargetParam(raw string) scanTargetParam {
 	param := scanTargetParam{
-		RewardNode: "SeizeDeliveryJobsFindTarget",
+		RewardNode: seizeDeliveryJobsDefaultRewardNode,
 	}
 	if raw == "" {
 		return param
@@ -161,10 +163,10 @@ func parseScanTargetParam(raw string) scanTargetParam {
 			Str("component", "SeizeDeliveryJobs").
 			Str("step", "scan_target").
 			Msg("parse custom recognition param failed, using default reward node")
-		param.RewardNode = "SeizeDeliveryJobsFindTarget"
+		param.RewardNode = seizeDeliveryJobsDefaultRewardNode
 	}
 	if param.RewardNode == "" {
-		param.RewardNode = "SeizeDeliveryJobsFindTarget"
+		param.RewardNode = seizeDeliveryJobsDefaultRewardNode
 	}
 	return param
 }
@@ -174,7 +176,7 @@ func parseScanTargetParam(raw string) scanTargetParam {
 // Only node-name references are collected; inline recognition objects are skipped.
 func readRewardTierNodes(ctx *maa.Context, rewardNode string) ([]string, error) {
 	if rewardNode == "" {
-		rewardNode = "SeizeDeliveryJobsFindTarget"
+		rewardNode = seizeDeliveryJobsDefaultRewardNode
 	}
 	raw, err := ctx.GetNodeJSON(rewardNode)
 	if err != nil {
