@@ -886,5 +886,7 @@
     "resource/image/TrialOfSwordmancy/Point3": "4d85ec14d4721a1bda48c1dd74f9f3e94fbfb21e6d36303cb1497cda975c3d47",
     "resource/image/TrialOfSwordmancy/Point4": "674ff5da70161a9a26e0c1c2319e3c3dde605d41211d457ddc96b20df28c2e94",
     "resource/image/TrialOfSwordmancy/DoubleRewardSelected": "05c942eee1f284c003a7358bc7a260d4b21c28956d26ae3c639b15412f2a1dce",
-    "resource/image/Valuables/EmergencySpBoosterInCombat": "2ac5984d7e22c442759f79216260251f8a7626f673ec3049b8b36629ab1206e6"
+    "resource/image/Valuables/EmergencySpBoosterInCombat": "2ac5984d7e22c442759f79216260251f8a7626f673ec3049b8b36629ab1206e6",
+    "resource/image/EssenceFilter/EssenceFilterFourth": "ee8eee207cc5983ca9e6f808189488e1c6e5298713d09188350abbf8d1057bd3",
+    "resource/image/EssenceFilter/EssenceFilterWuling": "4d93ee0c5caca55528b25a82fcf15cbcdd07d8d8dd86a8f507ba1e6028c58230"
 }
