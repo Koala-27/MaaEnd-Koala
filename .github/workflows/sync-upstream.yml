@@ -36,8 +36,8 @@ jobs:
           # 初始默认状态为成功
           echo "sync_status=success" >> $GITHUB_ENV
           
-          # 从新起点 5e8500a4 开始，获取上游 v2 分支所有后续的新提交（由旧到新排序）
-          for commit in $(git log --reverse --format="%H" 5e8500a406f30c4df317c0df473649ddf87a313c..upstream/v2); do
+          # 从新起点 133 开始，获取上游 v2 分支所有后续的新提交（由旧到新排序）
+          for commit in $(git log --reverse --format="%H" 1334a2a69983276690e0c4567bcc8b51420b0431..upstream/v2); do
             
             # =================【黑名单配置区】=================
             # 如果某个 commit 是官方的 revert 或者是你不喜欢的改动，在下面添加对应的 ID 即可实现完全隔离
