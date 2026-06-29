@@ -1,4 +1,33 @@
-- name: sync-upstream
+name: sync-upstream
+
+on:
+  schedule:
+    # 国际标准时间 (UTC) 每天 00:00 对应北京时间 (GMT+8) 每天早晨 08:00
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 确保此项存在，用于开启网页端的 "Run workflow" 手动同步按钮
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 签出代码 (极速轻量化模式)
+        uses: actions/checkout@v4
+        # 默认只拉取当前仓库最新的一条历史，提升整体签出速度
+
+      - name: 配置 Git 用户信息
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: 添加上游仓库并定向深度拉取
+        run: |
+          git remote add upstream https://github.com/MaaEnd/MaaEnd.git
+          
+          # 定向拉取：只拉取从你的新起点 commit (5e8500a4) 到上游最新 v2 之间的变动历史，避免全量下载
+          git fetch origin v2 --unshallow || git fetch origin v2
+          git fetch upstream v2 --shallow-exclude=5e8500a406f30c4df317c0df473649ddf87a313c || git fetch upstream v2 --depth=100
+
+      - name: 自动拣选上游新提交并排除特定改动
         id: pick_step
         run: |
           # 确保切换到本地 v2 分支
@@ -11,6 +40,7 @@
           for commit in $(git log --reverse --format="%H" 5e8500a406f30c4df317c0df473649ddf87a313c..upstream/v2); do
             
             # =================【黑名单配置区】=================
+            # 如果某个 commit 是官方的 revert 或者是你不喜欢的改动，在下面添加对应的 ID 即可实现完全隔离
             if [ "$commit" = "db9ea20c1f7f4c2bf9c294274961dd16ac148993" ] || \
                [ "$commit" = "这里可以放另一个你不喜欢的Commit_ID" ]; then
               echo "【安全阻断】跳过不喜欢的提交: $commit"
@@ -19,7 +49,9 @@
             # ===================================================
             
             # =================【工作流智能过滤】=================
+            # 检查该 commit 修改的所有文件中，是否包含对工作流目录的修改
             if git diff-tree --no-commit-id --name-only -r $commit | grep -q "^\.github/workflows/"; then
+              # 如果该 commit 仅仅只动了 workflows，则直接跳过整个提交
               if ! git diff-tree --no-commit-id --name-only -r $commit | grep -qv "^\.github/workflows/"; then
                 echo "【智能跳过】该提交仅包含工作流配置变更，已忽略: $commit"
                 continue
@@ -40,7 +72,6 @@
               # 检查过滤工作流后是否还有代码需要提交
               if git diff --cached --quiet; then
                 echo "【智能识别】剔除工作流后无有效业务代码，正在跳过空提交..."
-                # 【核心修复】使用 git reset 清理暂存区，不再使用会引发报错的 --abort
                 git reset --hard HEAD
               else
                 # 重新完成真正的业务提交并保持原作者信息
@@ -48,7 +79,7 @@
                 echo "同步成功"
               fi
             else
-              # 如果直接冲突/失败了，检查是不是因为代码已存在导致的“空提交”
+              # 如果失败了，检查是不是因为代码已存在导致的“空提交”
               if git status | grep -E "nothing to commit|The previous cherry-pick is now empty"; then
                 echo "【智能识别】该提交的改动已存在，正在安全跳过空提交..."
                 git cherry-pick --skip
@@ -61,3 +92,8 @@
               fi
             fi
           done
+
+      - name: 推送更新到自己的仓库
+        if: env.sync_status == 'success'
+        run: |
+          git push origin v2
