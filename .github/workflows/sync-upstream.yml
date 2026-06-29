@@ -1,4 +1,4 @@
-- name: 自动拣选上游新提交并排除特定改动
+- name: sync-upstream
         id: pick_step
         run: |
           # 确保切换到本地 v2 分支
