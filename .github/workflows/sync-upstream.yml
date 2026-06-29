@@ -1,0 +1,81 @@
+name: 自动同步上游 v2 分支
+
+on:
+  schedule:
+    # 国际标准时间 (UTC) 每天 00:00 对应北京时间 (GMT+8) 每天早晨 08:00
+    - cron: '0 0 * * *'
+  workflow_dispatch: # 允许你在 GitHub 页面上手动点击 Run workflow 进行测试
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 签出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 获取完整历史记录，以便进行 cherry-pick
+
+      - name: 配置 Git 用户信息
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: 添加上游仓库并拉取
+        run: |
+          git remote add upstream https://github.com/MaaEnd/MaaEnd.git
+          git fetch upstream v2
+
+      - name: 自动拣选上游新提交并排除特定改动
+        id: pick_step
+        run: |
+          # 确保切换到本地 v2 分支
+          git checkout v2
+          
+          # 初始默认状态为成功
+          echo "sync_status=success" >> $GITHUB_ENV
+          
+          # 从你需要的 1334a2a6 开始，获取上游 v2 分支所有后续的新提交（由旧到新排序）
+          # 这样可以精准承接你需要的那个被官方隐藏/撤销的 commit
+          for commit in $(git log --reverse --format="%H" 1334a2a69983276690e0c4567bcc8b51420b0431..upstream/v2); do
+            
+            # =================【黑名单配置区】=================
+            # 如果某个 commit 是官方的 revert 或者是你不喜欢的改动，在下面添加对应的 ID 即可实现完全隔离
+            if [ "$commit" = "db9ea20c1f7f4c2bf9c294274961dd16ac148993" ] || \
+               [ "$commit" = "这里可以放另一个你不喜欢的Commit_ID" ]; then
+              echo "【安全阻断】跳过不喜欢的提交: $commit"
+              continue
+            fi
+            # ===================================================
+            
+            echo "正在同步上游提交: $commit"
+            if git cherry-pick $commit; then
+              echo "同步成功"
+            else
+              echo "【错误】检测到代码冲突！请稍后在本地手动介入解决。"
+              git cherry-pick --abort
+              echo "sync_status=failed" >> $GITHUB_ENV
+              exit 1
+            fi
+          done
+
+      - name: 物理防御：强制净化上游多余的工作流
+        if: env.sync_status == 'success'
+        run: |
+          cd .github/workflows/
+          
+          # 遍历当前目录下所有配置，除自己外全部强制抹除
+          for file in *.yml; do
+            if [ "$file" != "sync-upstream.yml" ]; then
+              echo "发现上游无关工作流 $file，正在强行剔除..."
+              rm -f "$file"
+            fi
+          done
+          
+          # 提交删除变动（如果没有多余文件，Git 会自动跳过不会报错）
+          git add .
+          git commit -m "chore: 物理净化，移除上游自带的 workflow 配置文件" || echo "工作流目录很干净，无需清理。"
+
+      - name: 推送更新到自己的仓库
+        if: env.sync_status == 'success'
+        run: |
+          git push origin v2
