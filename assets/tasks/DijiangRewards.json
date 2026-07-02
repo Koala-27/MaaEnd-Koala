@@ -34,18 +34,45 @@
                     "pipeline_override": {
                         "ReceptionRoomStartExchange": {
                             "enabled": true
+                        },
+                        "ReceptionRoomExchangeEndPollingWait": {
+                            "enabled": true
                         }
-                    }
+                    },
+                    "option": [
+                        "ExchangeEndPolling"
+                    ]
                 },
                 {
                     "name": "No",
                     "pipeline_override": {
                         "ReceptionRoomStartExchange": {
                             "enabled": false
+                        },
+                        "ReceptionRoomExchangeEndPollingWait": {
+                            "enabled": false
                         }
                     }
                 }
             ]
+        },
+        "ExchangeEndPolling": {
+            "type": "input",
+            "label": "$option.ExchangeEndPolling.label",
+            "description": "$option.ExchangeEndPolling.description",
+            "inputs": [
+                {
+                    "name": "ExchangeEndPollingMaxHit",
+                    "label": "$option.ExchangeEndPolling.ExchangeEndPollingMaxHit.label",
+                    "pipeline_type": "int",
+                    "default": "2"
+                }
+            ],
+            "pipeline_override": {
+                "ReceptionRoomExchangeEndPollingWait": {
+                    "max_hit": "{ExchangeEndPollingMaxHit}"
+                }
+            }
         },
         "StageTaskSetting": {
             "type": "switch",

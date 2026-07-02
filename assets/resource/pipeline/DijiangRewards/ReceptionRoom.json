@@ -25,8 +25,85 @@
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
+            "ReceptionRoomExchangeEndPollingWait",
             "ReceptionRoomClueExchangeWait",
             "ReceptionRoomViewWait"
+        ]
+    },
+    "ReceptionRoomExchangeEndPollingWait": {
+        "desc": "[会客室·线索] 自动开启交流时，持续轮询情报交流结束弹窗；每轮约 1300 秒，轮数由用户设置",
+        "enabled": false,
+        "max_hit": 2,
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "InReceptionRoom"
+                ]
+            }
+        },
+        "pre_wait_freezes": 100,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 5000,
+        "timeout": 1300000,
+        "anchor": {
+            "ReceptionRoomAfterClueCollectionOpen": "",
+            "ReceptionRoomAfterClueCollectionFullClose": ""
+        },
+        "next": [
+            "ReceptionRoomClueExchangeWait"
+        ],
+        "on_error": [
+            "ReceptionRoomExchangeEndPollingKeepAlive"
+        ]
+    },
+    "ReceptionRoomExchangeEndPollingKeepAlive": {
+        "desc": "[会客室·线索] 长轮询保活：定期打开并关闭线索收集侧栏，避免长时间无操作掉线",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "InReceptionRoom"
+                ]
+            }
+        },
+        "anchor": {
+            "ReceptionRoomAfterClueCollectionOpen": "ReceptionRoomSendCluesClueCollectionFullClose",
+            "ReceptionRoomAfterClueCollectionFullClose": "ReceptionRoomExchangeEndPollingReturn"
+        },
+        "pre_wait_freezes": 100,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "next": [
+            "ReceptionRoomSendCluesClueCollectionOpen"
+        ],
+        "on_error": [
+            "ReceptionRoomExchangeEndPollingWait"
+        ]
+    },
+    "ReceptionRoomExchangeEndPollingReturn": {
+        "desc": "[会客室·线索] 长轮询保活关闭侧栏后回到轮询；次数耗尽时回到会客室主流程",
+        "recognition": {
+            "type": "And",
+            "param": {
+                "all_of": [
+                    "InReceptionRoom"
+                ]
+            }
+        },
+        "pre_wait_freezes": 100,
+        "pre_delay": 0,
+        "post_delay": 0,
+        "rate_limit": 0,
+        "anchor": {
+            "ReceptionRoomAfterClueCollectionOpen": "",
+            "ReceptionRoomAfterClueCollectionFullClose": ""
+        },
+        "next": [
+            "ReceptionRoomExchangeEndPollingWait",
+            "ReceptionRoomViewIn"
         ]
     },
     "ReceptionRoomClueExchangeWait": {
@@ -149,6 +226,7 @@
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
+            "ReceptionRoomExchangeEndPollingWait",
             "ReceptionRoomClueExchangeWait",
             "ReceptionRoomViewIn"
         ],
@@ -187,6 +265,7 @@
             "[JumpBack]ReceptionRoomSetClues",
             "[JumpBack]ReceptionRoomStartExchange",
             "[JumpBack]ReceptionRoomSendCluesDirect",
+            "ReceptionRoomExchangeEndPollingWait",
             "ReceptionRoomClueExchangeWait",
             "ReceptionRoomExit"
         ],
@@ -252,6 +331,7 @@
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
+            "[Anchor]ReceptionRoomAfterClueCollectionOpen",
             "ReceptionRoomSendCluesClueCollectionFull",
             "ReceptionRoomSendCluesClueCollectionCollect"
         ]
@@ -364,6 +444,7 @@
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
+            "[Anchor]ReceptionRoomAfterClueCollectionFullClose",
             "ReceptionRoomSendCluesEntry"
         ]
     },
