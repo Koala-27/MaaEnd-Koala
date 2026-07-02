@@ -44,13 +44,13 @@
         },
         "pre_wait_freezes": 100,
         "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 5000,
-        "timeout": 1300000,
         "anchor": {
             "ReceptionRoomAfterClueCollectionOpen": "",
             "ReceptionRoomAfterClueCollectionFullClose": ""
         },
+        "post_delay": 0,
+        "timeout": 1300000,
+        "rate_limit": 5000,
         "next": [
             "ReceptionRoomClueExchangeWait"
         ],
@@ -68,12 +68,12 @@
                 ]
             }
         },
+        "pre_wait_freezes": 100,
+        "pre_delay": 0,
         "anchor": {
             "ReceptionRoomAfterClueCollectionOpen": "ReceptionRoomSendCluesClueCollectionFullClose",
             "ReceptionRoomAfterClueCollectionFullClose": "ReceptionRoomExchangeEndPollingReturn"
         },
-        "pre_wait_freezes": 100,
-        "pre_delay": 0,
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
@@ -95,12 +95,12 @@
         },
         "pre_wait_freezes": 100,
         "pre_delay": 0,
-        "post_delay": 0,
-        "rate_limit": 0,
         "anchor": {
             "ReceptionRoomAfterClueCollectionOpen": "",
             "ReceptionRoomAfterClueCollectionFullClose": ""
         },
+        "post_delay": 0,
+        "rate_limit": 0,
         "next": [
             "ReceptionRoomExchangeEndPollingWait",
             "ReceptionRoomViewIn"
