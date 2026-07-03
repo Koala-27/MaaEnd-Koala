@@ -62,18 +62,18 @@
                     "pattern_msg": "$option.ExchangeEndPolling.ExchangeEndPollingMaxHit.pattern_msg"
                 },
                 {
-                    "name": "ExchangeEndPollingTimeoutSeconds",
-                    "label": "$option.ExchangeEndPolling.ExchangeEndPollingTimeoutSeconds.label",
+                    "name": "ExchangeEndPollingTimeout",
+                    "label": "$option.ExchangeEndPolling.ExchangeEndPollingTimeout.label",
                     "pipeline_type": "int",
-                    "default": "1300",
+                    "default": "1300000",
                     "verify": "^[1-9]\\d*$",
-                    "pattern_msg": "$option.ExchangeEndPolling.ExchangeEndPollingTimeoutSeconds.pattern_msg"
+                    "pattern_msg": "$option.ExchangeEndPolling.ExchangeEndPollingTimeout.pattern_msg"
                 }
             ],
             "pipeline_override": {
                 "ReceptionRoomExchangeEndPollingWait1": {
                     "max_hit": "{ExchangeEndPollingMaxHit}",
-                    "timeout": "{ExchangeEndPollingTimeoutSeconds}000"
+                    "timeout": "{ExchangeEndPollingTimeout}"
                 }
             }
         },

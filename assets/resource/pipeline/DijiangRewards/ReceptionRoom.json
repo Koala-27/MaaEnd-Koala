@@ -26,7 +26,6 @@
         "rate_limit": 0,
         "next": [
             "ReceptionRoomExchangeEndPollingWait1",
-            "ReceptionRoomClueExchangeWait",
             "ReceptionRoomViewWait"
         ]
     },
@@ -115,8 +114,8 @@
     "ReceptionRoomExchangeEndPollingNextRound": {
         "desc": "[会客室·线索] 长轮询进入下一轮；次数耗尽时进入会客室主流程",
         "recognition": "DirectHit",
-        "action": "DoNothing",
         "pre_delay": 0,
+        "action": "DoNothing",
         "post_delay": 0,
         "rate_limit": 0,
         "next": [
