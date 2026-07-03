@@ -7,6 +7,7 @@
             "description": "$task.DijiangRewards.description",
             "option": [
                 "AutoStartExchange",
+                "ExchangeEndPolling",
                 "StageTaskSetting",
                 "ClueSetting",
                 "SelectToGrow"
@@ -46,6 +47,35 @@
                     }
                 }
             ]
+        },
+        "ExchangeEndPolling": {
+            "type": "input",
+            "label": "$option.ExchangeEndPolling.label",
+            "description": "$option.ExchangeEndPolling.description",
+            "inputs": [
+                {
+                    "name": "ExchangeEndPollingMaxHit",
+                    "label": "$option.ExchangeEndPolling.ExchangeEndPollingMaxHit.label",
+                    "pipeline_type": "int",
+                    "default": "1",
+                    "verify": "^[1-9]\\d*$",
+                    "pattern_msg": "$option.ExchangeEndPolling.ExchangeEndPollingMaxHit.pattern_msg"
+                },
+                {
+                    "name": "ExchangeEndPollingTimeoutSeconds",
+                    "label": "$option.ExchangeEndPolling.ExchangeEndPollingTimeoutSeconds.label",
+                    "pipeline_type": "int",
+                    "default": "1300",
+                    "verify": "^[1-9]\\d*$",
+                    "pattern_msg": "$option.ExchangeEndPolling.ExchangeEndPollingTimeoutSeconds.pattern_msg"
+                }
+            ],
+            "pipeline_override": {
+                "ReceptionRoomExchangeEndPollingWait1": {
+                    "max_hit": "{ExchangeEndPollingMaxHit}",
+                    "timeout": "{ExchangeEndPollingTimeoutSeconds}000"
+                }
+            }
         },
         "StageTaskSetting": {
             "type": "switch",
