@@ -49,9 +49,43 @@
             ]
         },
         "ExchangeEndPolling": {
-            "type": "input",
+            "type": "switch",
             "label": "$option.ExchangeEndPolling.label",
             "description": "$option.ExchangeEndPolling.description",
+            "default_case": "No",
+            "cases": [
+                {
+                    "name": "Yes",
+                    "option": [
+                        "ExchangeEndPollingSetting"
+                    ],
+                    "pipeline_override": {
+                        "ReceptionRoomMain": {
+                            "next": [
+                                "ReceptionRoomClueExchangeWait",
+                                "ReceptionRoomExchangeEndPollingWait1",
+                                "ReceptionRoomViewWait"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "No",
+                    "pipeline_override": {
+                        "ReceptionRoomMain": {
+                            "next": [
+                                "ReceptionRoomClueExchangeWait",
+                                "ReceptionRoomViewWait"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        "ExchangeEndPollingSetting": {
+            "type": "input",
+            "label": "$option.ExchangeEndPolling.ExchangeEndPollingSetting.label",
+            "description": "$option.ExchangeEndPolling.ExchangeEndPollingSetting.description",
             "inputs": [
                 {
                     "name": "ExchangeEndPollingMaxHit",
