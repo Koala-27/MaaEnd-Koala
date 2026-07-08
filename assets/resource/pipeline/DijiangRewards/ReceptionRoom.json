@@ -38,7 +38,7 @@
                 "all_of": [
                     "InReceptionRoom",
                     "FacilityDetails",
-                    "ExchangeTextTips"
+                    "ReceptionRoomExchangeEndPollingExchangeTextTips"
                 ],
                 "box_index": 1
             }

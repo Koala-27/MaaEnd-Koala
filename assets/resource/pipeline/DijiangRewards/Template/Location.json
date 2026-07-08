@@ -107,6 +107,27 @@
             }
         }
     },
+    "ReceptionRoomExchangeEndPollingExchangeTextTips": {
+        "desc": "[会客室·情报交流] 长轮询专用，仅识别情报交流中提示文本",
+        "recognition": {
+            "type": "OCR",
+            "param": {
+                "roi": [
+                    486,
+                    537,
+                    563,
+                    183
+                ],
+                "expected": [
+                    "情报交流中",
+                    "情報交流中",
+                    "(?i)Exchanging\\s*Clues",
+                    "情報共有中",
+                    "교류 진행"
+                ]
+            }
+        }
+    },
     "InReceptionRoomSetClues": {
         "desc": "[会客室·线索] 识别到会客室内的线索库存界面",
         "recognition": {
