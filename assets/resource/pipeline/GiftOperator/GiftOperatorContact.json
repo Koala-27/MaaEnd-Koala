@@ -298,8 +298,8 @@
                     255
                 ],
                 "connected": true,
-                "order_by": "Area",
-                "count": 10
+                "count": 10,
+                "order_by": "Area"
             }
         }
     },
