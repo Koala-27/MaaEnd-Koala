@@ -40,6 +40,16 @@ The `SubTask` implementation is located in `agent/go-service/subtask` and is use
 
 Example file: [`SubTask.json`](../../../assets/resource/pipeline/Interface/Example/SubTask.json)
 
+### FailureCollector
+
+`FailureCollector` is a generic failure collector shared across Pipeline nodes. Pipeline remains responsible for orchestration:
+
+- `FailureCollectorReset`: Clears one run's state using `key`.
+- `FailureCollectorRunTask`: Executes the single subtask specified by `task`. On failure, it records `failure_task` in occurrence order but returns success so Pipeline can continue; `recovery_task` runs optional failure recovery.
+- `FailureCollectorFinish`: Calls every recorded `failure_task` Pipeline notification node in order, then returns failure when any item failed. The Agent does not directly print user-facing messages.
+
+Use it for Pipelines that should continue after an individual subtask fails and report overall failure only after all subtasks finish. Callers must run `Reset` at entry, orchestrate multiple `RunTask` wrapper nodes through Pipeline `next`, and use a consistent, unique `key` throughout the flow.
+
 ### ClearHitCount
 
 The `ClearHitCount` implementation is located in `agent/go-service/clearhitcount` and is used to clear the hit count of specified nodes.
