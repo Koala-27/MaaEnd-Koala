@@ -46,13 +46,13 @@ CreditShopping/
 
 其他关联文件：
 
-| 路径                                              | 作用                                   |
-| ------------------------------------------------- | -------------------------------------- |
-| `assets/interface.json`                           | 任务挂载（`other_menu` / `daily` 组）  |
-| `assets/tasks/CreditShopping.json`                | 任务入口、三档购买、保留阈值、刷新选项 |
-| `assets/resource/pipeline/DijiangRewards/NeedCredit.json` | 信用不足时回基建补信用           |
-| `agent/go-service/common/attachregex/action.go`   | attach 关键词合并为 OCR 白名单正则     |
-| `assets/locales/interface/*.json`                 | 任务、选项与 focus 文案                |
+| 路径                                                      | 作用                                   |
+| --------------------------------------------------------- | -------------------------------------- |
+| `assets/interface.json`                                   | 任务挂载（`other_menu` / `daily` 组）  |
+| `assets/tasks/CreditShopping.json`                        | 任务入口、三档购买、保留阈值、刷新选项 |
+| `assets/resource/pipeline/DijiangRewards/NeedCredit.json` | 信用不足时回基建补信用                 |
+| `agent/go-service/common/attachregex/action.go`           | attach 关键词合并为 OCR 白名单正则     |
+| `assets/locales/interface/*.json`                         | 任务、选项与 focus 文案                |
 
 ## 执行流程
 
