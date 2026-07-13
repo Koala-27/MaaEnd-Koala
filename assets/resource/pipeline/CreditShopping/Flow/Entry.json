@@ -28,6 +28,7 @@
         "desc": "白名单初始化：合并所有档位 attach 生成 expected 正则（仅执行一次）",
         "max_hit": 1,
         "recognition": "DirectHit",
+        "pre_delay": 0,
         "action": "Custom",
         "custom_action": "AttachToExpectedRegexAction",
         "custom_action_param": {
@@ -41,7 +42,6 @@
             ]
         },
         "post_delay": 0,
-        "pre_delay": 0,
         "rate_limit": 0
     }
 }

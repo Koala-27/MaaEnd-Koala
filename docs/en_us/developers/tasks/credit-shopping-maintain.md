@@ -46,13 +46,13 @@ CreditShopping/
 
 Other related files:
 
-| Path                                              | Function                                                                    |
-| ------------------------------------------------- | --------------------------------------------------------------------------- |
-| `assets/interface.json`                           | Task mounting (`other_menu` / `daily` group)                                |
-| `assets/tasks/CreditShopping.json`                | Task entry, three-tier purchases, reserve threshold, refresh options        |
-| `assets/resource/pipeline/DijiangRewards/NeedCredit.json` | Return to base to replenish credit when insufficient               |
-| `agent/go-service/common/attachregex/action.go`   | Merge attach keywords into OCR whitelist regex                              |
-| `assets/locales/interface/*.json`                 | Task, option, and focus text                                                |
+| Path                                                      | Function                                                             |
+| --------------------------------------------------------- | -------------------------------------------------------------------- |
+| `assets/interface.json`                                   | Task mounting (`other_menu` / `daily` group)                         |
+| `assets/tasks/CreditShopping.json`                        | Task entry, three-tier purchases, reserve threshold, refresh options |
+| `assets/resource/pipeline/DijiangRewards/NeedCredit.json` | Return to base to replenish credit when insufficient                 |
+| `agent/go-service/common/attachregex/action.go`           | Merge attach keywords into OCR whitelist regex                       |
+| `assets/locales/interface/*.json`                         | Task, option, and focus text                                         |
 
 ## Execution Flow
 
