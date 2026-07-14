@@ -40,9 +40,7 @@ std::string TrimLeadingZeros(std::string value)
 
 bool IsSupportedMapImage(const fs::path& path)
 {
-    static constexpr std::array<std::string_view, 5> kMapImageExtensions {
-        ".png", ".jpg", ".jpeg", ".webp", ".bmp"
-    };
+    static constexpr std::array<std::string_view, 5> kMapImageExtensions { ".png", ".jpg", ".jpeg", ".webp", ".bmp" };
     std::string ext = path.extension().string();
     std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
     return std::ranges::any_of(kMapImageExtensions, [&ext](std::string_view candidate) { return candidate == ext; });
@@ -171,8 +169,11 @@ private:
         const std::string& expectedZoneSelector,
         const std::string& targetZoneId,
         const YoloCoarseResult& coarse) const;
-    std::optional<MapPosition>
-        tryGlobalSearchWithFallback(const cv::Mat& minimap, const std::string& targetZoneId, const SearchConstraint& constraint, MapPosition* outBestRaw = nullptr);
+    std::optional<MapPosition> tryGlobalSearchWithFallback(
+        const cv::Mat& minimap,
+        const std::string& targetZoneId,
+        const SearchConstraint& constraint,
+        MapPosition* outBestRaw = nullptr);
     MapPosition stabilizePosition(const MapPosition& raw);
     MapPosition acceptPosition(const MapPosition& raw, TimePoint now);
     void drainBackgroundGlobalSearchTasks();
@@ -429,8 +430,7 @@ std::optional<MapPosition> MapLocator::Impl::tryTracking(
                 if (auto last = motionTracker->getLastPos()) {
                     const double candAbsX = static_cast<double>(searchRect.x) + cand->loc.x + templ.cols / 2.0;
                     const double candAbsY = static_cast<double>(searchRect.y) + cand->loc.y + templ.rows / 2.0;
-                    scaleChangeAllowed =
-                        std::hypot(candAbsX - last->x, candAbsY - last->y) < kScaleChangeMaxPositionDelta;
+                    scaleChangeAllowed = std::hypot(candAbsX - last->x, candAbsY - last->y) < kScaleChangeMaxPositionDelta;
                 }
             }
         }
@@ -991,8 +991,7 @@ std::optional<MapPosition> MapLocator::Impl::tryGlobalSearchWithFallback(
         *outBestRaw = rawGlobalPrimaryPos;
     }
 
-    const bool shouldTryDualMode =
-        !globalResult && !isPathHeatmapZone && (constraint.yolo_validated || rawGlobalPrimaryPos.score > 0.1);
+    const bool shouldTryDualMode = !globalResult && !isPathHeatmapZone && (constraint.yolo_validated || rawGlobalPrimaryPos.score > 0.1);
     if (!shouldTryDualMode) {
         if (fallbackTask.valid()) {
             // Keep the future alive so its destructor cannot block the successful path.
@@ -1128,8 +1127,8 @@ LocateResult MapLocator::Impl::locate(const cv::Mat& minimap, const LocateOption
         if (bestRawGlobal.score > kSeamFallbackMinPeakScore) {
             bestRawGlobal.isHeld = true;
             globalResult = bestRawGlobal;
-            LogInfo << "Global gate low-confidence: releasing best raw peak (held) to avoid cold-start deadlock."
-                    << VAR(bestRawGlobal.x) << VAR(bestRawGlobal.y) << VAR(bestRawGlobal.score);
+            LogInfo << "Global gate low-confidence: releasing best raw peak (held) to avoid cold-start deadlock." << VAR(bestRawGlobal.x)
+                    << VAR(bestRawGlobal.y) << VAR(bestRawGlobal.score);
         }
         else {
             motionTracker->markLost();
