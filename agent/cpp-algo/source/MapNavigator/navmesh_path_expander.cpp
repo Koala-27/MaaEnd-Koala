@@ -59,12 +59,12 @@ struct BaseNavZoneAlias
     std::array<std::string_view, 2> prefixes;
 };
 
-constexpr std::array<BaseNavZoneAlias, 4> kBaseNavZoneAliases {{
+constexpr std::array<BaseNavZoneAlias, 4> kBaseNavZoneAliases { {
     { "map01base", { "map01", "ValleyIV" } },
     { "map02base", { "map02", "Wuling" } },
     { "base01", { "base01", "OMVBase" } },
     { "dung01", { "dung01", "Dung" } },
-}};
+} };
 
 constexpr std::array<double, 3> kDetourRadii { 3.0, 5.0, 7.0 };
 constexpr std::array<double, 8> kDetourHeadingOffsets { 30.0, -30.0, 50.0, -50.0, 70.0, -70.0, 90.0, -90.0 };
@@ -414,8 +414,8 @@ ProjectedTarget ResolveProjectedTarget(const navmesh::BaseNavPack& pack, const W
     }
     const auto projection = pack.projectToBase(waypoint.target_tier, waypoint.x, waypoint.y);
     if (!projection) {
-        LogWarn << "NAVMESH target_tier unknown; treating target as base-frame." << VAR(waypoint.target_tier)
-                << VAR(waypoint.x) << VAR(waypoint.y);
+        LogWarn << "NAVMESH target_tier unknown; treating target as base-frame." << VAR(waypoint.target_tier) << VAR(waypoint.x)
+                << VAR(waypoint.y);
         return { raw, navmesh::kBaseNavFloorYNone };
     }
     return { navmesh::WorldPoint { .x = projection->x, .y = projection->y }, pack.floorYForZoneName(waypoint.target_tier) };
@@ -487,14 +487,12 @@ bool AppendBlindTargetFallback(
         return false;
     }
     if (blind_gap > kBlindTargetMaxExtension) {
-        LogWarn << "NAVMESH blind-target fallback rejected: residual gap too large." << VAR(state.navmesh_zone)
-                << VAR(state.current_zone) << VAR(target.x) << VAR(target.y) << VAR(blind_gap)
-                << VAR(kBlindTargetMaxExtension);
+        LogWarn << "NAVMESH blind-target fallback rejected: residual gap too large." << VAR(state.navmesh_zone) << VAR(state.current_zone)
+                << VAR(target.x) << VAR(target.y) << VAR(blind_gap) << VAR(kBlindTargetMaxExtension);
         return false;
     }
 
-    const uint16_t approach_zone =
-        approach.triangles.empty() ? 0 : navmesh.planner.triangleZone(approach.triangles.front());
+    const uint16_t approach_zone = approach.triangles.empty() ? 0 : navmesh.planner.triangleZone(approach.triangles.front());
     if (!AppendGeneratedNavmeshWaypoints(approach.path, out_path, true, false, &navmesh.planner, approach_zone)) {
         return false;
     }
@@ -503,9 +501,8 @@ bool AppendBlindTargetFallback(
         out_path.back().strict_arrival = false;
     }
     state.route_start = target;
-    LogInfo << "NAVMESH blind-target fallback applied." << VAR(state.navmesh_zone) << VAR(state.current_zone)
-            << VAR(target.x) << VAR(target.y) << VAR(blind_gap) << VAR(approach.path.points.back().x)
-            << VAR(approach.path.points.back().y);
+    LogInfo << "NAVMESH blind-target fallback applied." << VAR(state.navmesh_zone) << VAR(state.current_zone) << VAR(target.x)
+            << VAR(target.y) << VAR(blind_gap) << VAR(approach.path.points.back().x) << VAR(approach.path.points.back().y);
     return true;
 }
 
@@ -523,9 +520,8 @@ bool AppendStartRecovery(
     const double radius = std::max(param.navmesh_snap_radius, kStartRecoveryMaxBlindWalk);
     const auto entry = navmesh.planner.snap(zone->zone_id, request.start, radius, request.start_floor_y);
     if (!entry) {
-        LogWarn << "NAVMESH start recovery rejected: no mesh point within the blind-walk budget."
-                << VAR(state.navmesh_zone) << VAR(state.current_zone) << VAR(request.start.x) << VAR(request.start.y)
-                << VAR(radius);
+        LogWarn << "NAVMESH start recovery rejected: no mesh point within the blind-walk budget." << VAR(state.navmesh_zone)
+                << VAR(state.current_zone) << VAR(request.start.x) << VAR(request.start.y) << VAR(radius);
         return false;
     }
 
@@ -536,9 +532,8 @@ bool AppendStartRecovery(
     out_path.emplace_back(entry->point.x, entry->point.y, ActionType::RUN);
     out_path.back().strict_arrival = false;
     state.route_start = entry->point;
-    LogInfo << "NAVMESH start off mesh; walking onto the nearest mesh point first." << VAR(state.navmesh_zone)
-            << VAR(state.current_zone) << VAR(request.start.x) << VAR(request.start.y) << VAR(entry->point.x)
-            << VAR(entry->point.y) << VAR(entry->distance);
+    LogInfo << "NAVMESH start off mesh; walking onto the nearest mesh point first." << VAR(state.navmesh_zone) << VAR(state.current_zone)
+            << VAR(request.start.x) << VAR(request.start.y) << VAR(entry->point.x) << VAR(entry->point.y) << VAR(entry->distance);
     return true;
 }
 
@@ -550,8 +545,8 @@ bool AppendNavmeshWaypoint(
     std::vector<Waypoint>& out_path)
 {
     const ProjectedTarget target = ResolveProjectedTarget(navmesh.pack, waypoint);
-    navmesh::BaseNavRouteRequest request = BuildRouteRequest(
-        param, navmesh.pack, state.current_zone, state.navmesh_zone, state.route_start, target.point, {}, target.floor_y);
+    navmesh::BaseNavRouteRequest request =
+        BuildRouteRequest(param, navmesh.pack, state.current_zone, state.navmesh_zone, state.route_start, target.point, {}, target.floor_y);
     auto route_result = navmesh.planner.findPath(request);
     if (!route_result.ok() && AppendStartRecovery(param, navmesh, request, state, out_path)) {
         request.start = state.route_start;
@@ -559,19 +554,17 @@ bool AppendNavmeshWaypoint(
     }
     if (!route_result.ok()) {
         LogWarn << "NAVMESH waypoint not directly reachable; attempting blind-target fallback." << VAR(state.navmesh_zone)
-                << VAR(state.current_zone) << VAR(target.point.x) << VAR(target.point.y)
-                << VAR(navmesh::ToString(route_result.status));
+                << VAR(state.current_zone) << VAR(target.point.x) << VAR(target.point.y) << VAR(navmesh::ToString(route_result.status));
         if (AppendBlindTargetFallback(param, navmesh, target.point, target.floor_y, state, out_path)) {
             return true;
         }
-        LogError << "Failed to plan NAVMESH waypoint." << VAR(state.navmesh_zone) << VAR(state.current_zone)
-                 << VAR(target.point.x) << VAR(target.point.y) << VAR(navmesh::ToString(route_result.status));
+        LogError << "Failed to plan NAVMESH waypoint." << VAR(state.navmesh_zone) << VAR(state.current_zone) << VAR(target.point.x)
+                 << VAR(target.point.y) << VAR(navmesh::ToString(route_result.status));
         return false;
     }
 
     LogGeneratedNavmeshPath(state, request, route_result);
-    const uint16_t drivable_zone =
-        route_result.triangles.empty() ? 0 : navmesh.planner.triangleZone(route_result.triangles.front());
+    const uint16_t drivable_zone = route_result.triangles.empty() ? 0 : navmesh.planner.triangleZone(route_result.triangles.front());
     if (!AppendGeneratedNavmeshWaypoints(route_result.path, out_path, true, false, &navmesh.planner, drivable_zone)) {
         LogError << "NAVMESH planning returned an empty path." << VAR(state.navmesh_zone);
         return false;
@@ -887,8 +880,8 @@ std::optional<navmesh::BaseNavRouteResult> PlanNavmeshDetourRoute(
                 continue;
             }
 
-            const double snap_distance = std::hypot(route_to_detour->path.points.back().x - candidate.x,
-                route_to_detour->path.points.back().y - candidate.y);
+            const double snap_distance =
+                std::hypot(route_to_detour->path.points.back().x - candidate.x, route_to_detour->path.points.back().y - candidate.y);
             const double backtrack_penalty = std::max(0.0, std::abs(heading_offset) - 120.0) / 60.0 * kDetourBacktrackPenalty;
             const double score = route_to_detour->cost + route_to_goal->cost + backtrack_penalty + snap_distance * kDetourSnapPenalty;
             if (score < best_score) {
@@ -896,7 +889,10 @@ std::optional<navmesh::BaseNavRouteResult> PlanNavmeshDetourRoute(
                 const size_t point_offset = best->path.points.size();
                 best_detour_vertex = best->path.points.back();
                 if (route_to_goal->path.points.size() > 1) {
-                    best->path.points.insert(best->path.points.end(), route_to_goal->path.points.begin() + 1, route_to_goal->path.points.end());
+                    best->path.points.insert(
+                        best->path.points.end(),
+                        route_to_goal->path.points.begin() + 1,
+                        route_to_goal->path.points.end());
                 }
                 for (size_t break_index : route_to_goal->path.segment_breaks) {
                     if (break_index != 0) {
@@ -928,12 +924,8 @@ std::optional<navmesh::BaseNavRouteResult> PlanNavmeshDetourRoute(
     return best;
 }
 
-std::optional<navmesh::WorldPoint> PlanUnstickTarget(
-    const NaviParam& param,
-    const NaviPosition& position,
-    double stuck_heading,
-    int attempt_index,
-    double* out_distance)
+std::optional<navmesh::WorldPoint>
+    PlanUnstickTarget(const NaviParam& param, const NaviPosition& position, double stuck_heading, int attempt_index, double* out_distance)
 {
     const std::string navmesh_zone = InferBaseNavZone(position.zone_id, param.map_name);
     if (navmesh_zone.empty()) {
@@ -960,7 +952,7 @@ std::optional<navmesh::WorldPoint> PlanUnstickTarget(
         const double bearing = NaviMath::NormalizeHeading(stuck_heading + kFan[(i + rot) % kFanCount]);
         double run = 0.0;
         double longest = 0.0;
-        double solid_start = -1.0;  // distance where the trailing contiguous on-mesh stretch begins
+        double solid_start = -1.0; // distance where the trailing contiguous on-mesh stretch begins
         for (double d = kUnstickSampleStepM; d <= kUnstickMaxDistanceM + 1e-9; d += kUnstickSampleStepM) {
             if (on_mesh(OffsetPoint(position, bearing, d))) {
                 if (solid_start < 0.0) {
@@ -986,8 +978,12 @@ std::optional<navmesh::WorldPoint> PlanUnstickTarget(
 }
 
 bool AppendGeneratedNavmeshWaypoints(
-    const navmesh::WorldPath& world_path, std::vector<Waypoint>& out_path, bool include_goal,
-    bool emit_interior_corners, const navmesh::BaseNavPlanner* drivability_planner, uint16_t drivable_zone_id,
+    const navmesh::WorldPath& world_path,
+    std::vector<Waypoint>& out_path,
+    bool include_goal,
+    bool emit_interior_corners,
+    const navmesh::BaseNavPlanner* drivability_planner,
+    uint16_t drivable_zone_id,
     bool strict_segment_breaks)
 {
     if (world_path.points.empty()) {
@@ -1015,8 +1011,7 @@ bool AppendGeneratedNavmeshWaypoints(
     size_t prev = 0; // the driven line starts at points[0] — the route origin / character's current position
     const auto restore_corners_to = [&](size_t anchor) {
         if (drivability_planner == nullptr || anchor <= prev + 1
-            || drivability_planner->isRouteSegmentDrivable(
-                drivable_zone_id, world_path.points[prev], world_path.points[anchor])) {
+            || drivability_planner->isRouteSegmentDrivable(drivable_zone_id, world_path.points[prev], world_path.points[anchor])) {
             return;
         }
         for (size_t corner = prev + 1; corner < anchor; ++corner) {
@@ -1055,22 +1050,37 @@ bool AppendGeneratedNavmeshWaypoints(
 }
 
 bool AppendGeneratedNavmeshWaypoints(
-    const NaviParam& param, const std::string& locator_zone, const navmesh::BaseNavRouteResult& route,
-    std::vector<Waypoint>& out_path, bool include_goal, bool emit_interior_corners, bool strict_segment_breaks)
+    const NaviParam& param,
+    const std::string& locator_zone,
+    const navmesh::BaseNavRouteResult& route,
+    std::vector<Waypoint>& out_path,
+    bool include_goal,
+    bool emit_interior_corners,
+    bool strict_segment_breaks)
 {
     const std::string navmesh_zone = InferBaseNavZone(locator_zone, param.map_name);
     const std::shared_ptr<CachedNavmesh> navmesh =
         navmesh_zone.empty() ? nullptr : LoadCachedNavmesh(ResolveNavmeshFile(param.navmesh_file), navmesh_zone);
     if (!navmesh) {
-        LogWarn << "Generated navmesh waypoints emitted without a drivability check." << VAR(locator_zone)
-                << VAR(navmesh_zone);
-        return AppendGeneratedNavmeshWaypoints(route.path, out_path, include_goal, emit_interior_corners, nullptr, 0,
-                                               strict_segment_breaks);
+        LogWarn << "Generated navmesh waypoints emitted without a drivability check." << VAR(locator_zone) << VAR(navmesh_zone);
+        return AppendGeneratedNavmeshWaypoints(
+            route.path,
+            out_path,
+            include_goal,
+            emit_interior_corners,
+            nullptr,
+            0,
+            strict_segment_breaks);
     }
-    const uint16_t drivable_zone =
-        route.triangles.empty() ? route.path.zone_id : navmesh->planner.triangleZone(route.triangles.front());
-    return AppendGeneratedNavmeshWaypoints(route.path, out_path, include_goal, emit_interior_corners, &navmesh->planner,
-                                           drivable_zone, strict_segment_breaks);
+    const uint16_t drivable_zone = route.triangles.empty() ? route.path.zone_id : navmesh->planner.triangleZone(route.triangles.front());
+    return AppendGeneratedNavmeshWaypoints(
+        route.path,
+        out_path,
+        include_goal,
+        emit_interior_corners,
+        &navmesh->planner,
+        drivable_zone,
+        strict_segment_breaks);
 }
 
 } // namespace mapnavigator
