@@ -1,7 +1,7 @@
 /**
  * 检测 zmdmap 缓存数据中缺失或未完整适配的环境监测观察点。
  * 运行方式（在仓库根目录）：
- *   node .claude/skills/environment-monitoring-add-route/check_missing.mjs
+ *   node .agents/skills/environment-monitoring-add-route/check_missing.mjs
  */
 import {
     buildGeneratedIdIndex,
