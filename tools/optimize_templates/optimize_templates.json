@@ -917,5 +917,7 @@
     "resource/image/MapTracker/map/map02_lv008_tier_386": "e4103171f14d174e2d9da9990c73b9cd02e6dd55fe1df31feb6d4c0884f86387",
     "resource/image/MapTracker/map/map02_lv008_tier_379": "7966199bc39d6798a71f99b583ca552179e58d49bf8e139b7c2798a1042858dc",
     "resource/image/MapTracker/MiniMapIcons/IconCampfire": "12a5e311f048f41a8fd886ac45629a19ba7dd3659cd60474cccee808ffa07a46",
-    "resource/image/ClaimDijiangRewards/ClueLibraryButton": "589b9a6b84dc1ab01ef006044932b7882210c3c602fa419cfd3d8f3d5f754df4"
+    "resource/image/ClaimDijiangRewards/ClueLibraryButton": "589b9a6b84dc1ab01ef006044932b7882210c3c602fa419cfd3d8f3d5f754df4",
+    "resource/image/AutoStockpile/Goods/Wuling/XiraniteBridge.Tier2": "ebdd8cde2b61ae6f30264284ed3f82e4fe8a150f81a6a3a27c05054bf9b3d849",
+    "resource/image/AutoStockpile/Goods/Wuling/SwordmancerForge.Tier2": "6a092b26d76699d4dac1cfcd435f0d451cfc522cb65ee9437bf6c79195a6e176"
 }
