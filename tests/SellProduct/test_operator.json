@@ -18,26 +18,37 @@
             "image": "四号谷地_地区建设_据点_联络干员_派驻.png",
             "hits": [
                 "SellProductInOperatorLiaison",
-                "SellProductInfrastructureOutpostConfirmTargetOperator",
-                "SellProductInfrastructureOutpostConfirmRestoreOperator",
-                "SellProductInfrastructureOutpostCloseTargetOperatorLiaison",
-                "SellProductInfrastructureOutpostCloseRestoreOperatorLiaison"
+                "SellProductInfraStationConfirmTargetOperator",
+                "SellProductInfraStationConfirmRestoreOperator",
+                "SellProductInfraStationCloseTargetOperatorLiaison",
+                "SellProductInfraStationCloseRestoreOperatorLiaison"
             ]
         },
         {
             "image": "四号谷地_地区建设_据点_联络干员_撤下.png",
             "hits": [
                 "SellProductInOperatorLiaison",
-                "SellProductInfrastructureOutpostCloseTargetOperatorLiaison",
-                "SellProductInfrastructureOutpostCloseRestoreOperatorLiaison"
+                "SellProductInfraStationCloseTargetOperatorLiaison",
+                "SellProductInfraStationCloseRestoreOperatorLiaison"
             ]
         },
         {
             "image": "武陵_地区建设_据点_联络干员_撤下.png",
             "hits": [
                 "SellProductInOperatorLiaison",
-                "SellProductInfrastructureOutpostCloseTargetOperatorLiaison",
-                "SellProductInfrastructureOutpostCloseRestoreOperatorLiaison"
+                "SellProductInfraStationCloseTargetOperatorLiaison",
+                "SellProductInfraStationCloseRestoreOperatorLiaison"
+            ]
+        },
+        {
+            "image": "四号谷地_地区建设_据点_重建指挥部_联络干员_确认更改派驻.png",
+            "hits": [
+                "SellProductInOperatorLiaison",
+                "SellProductInfraStationConfirmTargetOperator",
+                "SellProductInfraStationConfirmRestoreOperator",
+                "SellProductInfraStationCloseTargetOperatorLiaison",
+                "SellProductInfraStationCloseRestoreOperatorLiaison",
+                "SellProductOperatorAlreadyAssignedPrompt"
             ]
         }
     ]
