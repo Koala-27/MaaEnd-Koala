@@ -111,7 +111,9 @@ void PolyMesh::buildNb(std::vector<uint8_t>* dup)
             }
         }
     }
-    const auto dst = [&](int32_t s) { return T[static_cast<size_t>(s / 3)][(s % 3 + 1) % 3]; };
+    const auto dst = [&](int32_t s) {
+        return T[static_cast<size_t>(s / 3)][(s % 3 + 1) % 3];
+    };
     ParallelChunks(m, NavWorkerCount(m), [&](size_t, int64_t lo_i, int64_t hi_i) {
         for (int64_t i = lo_i; i < hi_i; ++i) {
             for (int64_t k = 0; k < 3; ++k) {
@@ -145,6 +147,7 @@ void PolyMesh::buildGrid()
     {
         int64_t x0, y0, x1, y1;
     };
+
     const auto box = [&](size_t i) {
         const WorldPoint a = v(T[i][0]);
         const WorldPoint b = v(T[i][1]);
@@ -223,8 +226,7 @@ std::vector<int32_t> PolyMesh::trisInBox(double x0, double y0, double x1, double
     return out;
 }
 
-ZoneClean::ZoneClean(
-    const BaseNavPack& pack, const BaseNavPlanner& planner, const std::string& zone_name, uint32_t walkable_flags_in)
+ZoneClean::ZoneClean(const BaseNavPack& pack, const BaseNavPlanner& planner, const std::string& zone_name, uint32_t walkable_flags_in)
 {
     name = zone_name;
     walkable_flags = walkable_flags_in;
@@ -241,8 +243,7 @@ ZoneClean::ZoneClean(
     // 坐标是不是导出侧精确焊过的,认 BGEO 段 —— 那是这一代包才有的几何段,带它的包
     // 顶点身份已经定死,再按 0.05 网格 round 一遍并二次焊接只会挪动坐标。BSRF 只是
     // 可选的取证段,拿它当几何判据的话,一个纯可走包(不带 BSRF)会被误判成老包。
-    const bool source_exact = pack.section("BGEO") != nullptr
-        || (!pack.surfaces().empty() && pack.surfaces().size() == ptris.size());
+    const bool source_exact = pack.section("BGEO") != nullptr || (!pack.surfaces().empty() && pack.surfaces().size() == ptris.size());
     const bool has_source_surfaces = !pack.surfaces().empty() && pack.surfaces().size() == ptris.size();
 
     // 源语义:BSRF 里那 32 位 flags 说了算,掩码没命中的三角不是可走面。就地打标,不压缩、
@@ -301,7 +302,9 @@ ZoneClean::ZoneClean(
         std::vector<int32_t> order(static_cast<size_t>(nv));
         std::iota(order.begin(), order.end(), 0);
         std::stable_sort(order.begin(), order.end(), [&](int32_t a, int32_t b) { return kk[a] < kk[b]; });
-        const auto CH = [&](int32_t i) { return static_cast<double>(CV[static_cast<size_t>(i)].height); };
+        const auto CH = [&](int32_t i) {
+            return static_cast<double>(CV[static_cast<size_t>(i)].height);
+        };
         for (size_t s0 = 0; s0 < order.size();) {
             size_t e0 = s0 + 1;
             while (e0 < order.size() && kk[order[e0]] == kk[order[s0]]) {
@@ -344,8 +347,7 @@ ZoneClean::ZoneClean(
 
     // 同一条有向边出现两次以上的槽, 与邻接一趟分桶顺带标出
     std::vector<uint8_t> dup;
-    mesh = source_exact ? PolyMesh(pverts.data() + vmin, nv, std::move(CT2), &dup)
-                        : PolyMesh(std::move(CV), std::move(CT2), &dup);
+    mesh = source_exact ? PolyMesh(pverts.data() + vmin, nv, std::move(CT2), &dup) : PolyMesh(std::move(CV), std::move(CT2), &dup);
     const auto& T = mesh.T;
     auto& NB = mesh.NB;
     const int64_t m = static_cast<int64_t>(T.size());
@@ -491,10 +493,8 @@ ZoneClean::ZoneClean(
         }
     }
     stats = source_exact ? "source-exact " : "weld " + std::to_string(n_weld) + "v ";
-    stats += "mask " + std::to_string(walkable_flags) + " masked " + std::to_string(n_masked) + " cut "
-             + std::to_string(n_mask_cut) + ", ";
-    stats += "dup-sever " + std::to_string(n_dup) + ", link-mask cut " + std::to_string(n_cut) + ", comps "
-             + std::to_string(ncomps);
+    stats += "mask " + std::to_string(walkable_flags) + " masked " + std::to_string(n_masked) + " cut " + std::to_string(n_mask_cut) + ", ";
+    stats += "dup-sever " + std::to_string(n_dup) + ", link-mask cut " + std::to_string(n_cut) + ", comps " + std::to_string(ncomps);
 }
 
 void ZoneClean::release()

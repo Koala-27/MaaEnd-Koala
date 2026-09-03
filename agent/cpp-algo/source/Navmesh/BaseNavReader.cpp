@@ -135,8 +135,7 @@ bool ParseOffMeshSection(const uint8_t* data, size_t size, std::vector<BaseNavOf
     const uint16_t record_size = ReadU16(cursor);
     const uint32_t count = ReadU32(cursor);
     (void)ReadU32(cursor);
-    if (version != kOffMeshSectionVersion || record_size != kOffMeshRecordSize
-        || count != (size - kOffMeshHeaderSize) / kOffMeshRecordSize
+    if (version != kOffMeshSectionVersion || record_size != kOffMeshRecordSize || count != (size - kOffMeshHeaderSize) / kOffMeshRecordSize
         || size != kOffMeshHeaderSize + static_cast<size_t>(count) * kOffMeshRecordSize) {
         return false;
     }
@@ -176,8 +175,7 @@ bool ParseSurfaceSection(const uint8_t* data, size_t size, std::vector<BaseNavSu
     const uint16_t record_size = ReadU16(cursor);
     const uint32_t count = ReadU32(cursor);
     (void)ReadU32(cursor);
-    if (version != kSurfaceSectionVersion || record_size != kSurfaceRecordSize
-        || count != (size - kSurfaceHeaderSize) / kSurfaceRecordSize
+    if (version != kSurfaceSectionVersion || record_size != kSurfaceRecordSize || count != (size - kSurfaceHeaderSize) / kSurfaceRecordSize
         || size != kSurfaceHeaderSize + static_cast<size_t>(count) * kSurfaceRecordSize) {
         return false;
     }
@@ -1030,7 +1028,10 @@ BaseNavLoadResult LoadBaseNavPack(const std::filesystem::path& path, std::string
         const uint32_t selected_vertex_count = zone_scoped ? (triangles.empty() ? 0 : last_vertex - first_vertex + 1) : vertex_count;
         vertices.resize(selected_vertex_count);
         if (selected_vertex_count != 0) {
-            std::memcpy(vertices.data(), vertex_bytes + static_cast<size_t>(first_vertex) * kVertexSize, selected_vertex_count * kVertexSize);
+            std::memcpy(
+                vertices.data(),
+                vertex_bytes + static_cast<size_t>(first_vertex) * kVertexSize,
+                selected_vertex_count * kVertexSize);
         }
         link_table.resize(link_count);
         std::memcpy(link_table.data(), link_bytes, static_cast<size_t>(link_count) * kLinkSize);
@@ -1116,24 +1117,21 @@ BaseNavLoadResult LoadBaseNavPack(const std::filesystem::path& path, std::string
     std::vector<BaseNavSurface> surfaces;
     for (size_t i = 0; i < sections.size(); ++i) {
         if (std::memcmp(sections[i].tag.data(), kSurfaceSectionTag, 4) == 0) {
-            if (!ParseSurfaceSection(section_raw[i].first, section_raw[i].second, &surfaces)
-                || surfaces.size() != triangle_count) {
+            if (!ParseSurfaceSection(section_raw[i].first, section_raw[i].second, &surfaces) || surfaces.size() != triangle_count) {
                 return Fail(BaseNavLoadStatus::InvalidSize, "nav surface section is malformed");
             }
         }
     }
     if (zone_scoped && !surfaces.empty()) {
-        std::vector<BaseNavSurface> scoped(
-            surfaces.begin() + selected_first_triangle,
-            surfaces.begin() + selected_triangle_end);
+        std::vector<BaseNavSurface> scoped(surfaces.begin() + selected_first_triangle, surfaces.begin() + selected_triangle_end);
         surfaces = std::move(scoped);
     }
     if (zone_scoped) {
         std::erase_if(off_mesh_links, [&](const BaseNavOffMeshLink& link) { return link.zone_id != selected_zone->zone_id; });
     }
     for (const BaseNavOffMeshLink& link : off_mesh_links) {
-        const bool known_zone = std::any_of(
-            zones.begin(), zones.end(), [&](const BaseNavZone& zone) { return zone.zone_id == link.zone_id; });
+        const bool known_zone =
+            std::any_of(zones.begin(), zones.end(), [&](const BaseNavZone& zone) { return zone.zone_id == link.zone_id; });
         if (!known_zone) {
             return Fail(BaseNavLoadStatus::InvalidSize, "nav off-mesh link refers to an unknown zone");
         }

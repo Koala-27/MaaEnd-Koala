@@ -115,6 +115,7 @@ private:
     std::vector<uint64_t> bridge_links_;
     std::vector<uint32_t> natural_component_ids_;
     std::vector<uint32_t> natural_component_sizes_;
+
     // 空间分箱索引:(zone_id, bin_x, bin_y) → 该格覆盖的三角形下标。使 snap/pointOnMesh 从全区线性
     // 扫描降为 O(邻近候选);剔除条件不变,结果与线性扫描完全一致。对齐 Python basenav_lib 的 bins。
     // 存法是每区一张按包围盒铺满的格偏移表(格内三角按下标升序), 格外即空格。整包不到 50 万格,
@@ -129,6 +130,7 @@ private:
         std::vector<uint32_t> offsets; // nx*ny+1, 行主序 (bin_x - bx0) * ny + (bin_y - by0)
         std::vector<uint32_t> triangles;
     };
+
     std::vector<BinGrid> bin_grids_;
 
     void buildIndex();

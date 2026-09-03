@@ -37,12 +37,12 @@ struct RecastPlanResult
     {
         struct Timing
         {
-            double window_ms = 0.0; // 建窗
+            double window_ms = 0.0;   // 建窗
             double topology_ms = 0.0; // 硬约束基线 + 通道拓扑
             double geometry_ms = 0.0; // 走廊内带视线重解
-            double pull_ms = 0.0; // 取直
+            double pull_ms = 0.0;     // 取直
             double assemble_ms = 0.0; // 端点拼接、去重、共线去冗
-            double lift_ms = 0.0; // 拐角抬升
+            double lift_ms = 0.0;     // 拐角抬升
             double total_ms = 0.0;
         } timing;
 
@@ -54,12 +54,12 @@ struct RecastPlanResult
         // 采信的是第几档窗口 (0 = 端点包围盒外扩的最小一档), 以及前面各档被否掉的原因。
         int tier = 0;
         std::vector<std::string> tier_notes;
-        std::vector<WorldPoint> topology_cells; // 拓扑那一层的逐格路径
-        std::vector<double> topology_heights; // 与 topology_cells 同长的所在面高度
-        std::vector<WorldPoint> taut_points; // 几何搜索交出的父链折线, 取直之前
-        std::vector<WorldPoint> pulled_points; // 取直之后
+        std::vector<WorldPoint> topology_cells;   // 拓扑那一层的逐格路径
+        std::vector<double> topology_heights;     // 与 topology_cells 同长的所在面高度
+        std::vector<WorldPoint> taut_points;      // 几何搜索交出的父链折线, 取直之前
+        std::vector<WorldPoint> pulled_points;    // 取直之后
         std::vector<WorldPoint> assembled_points; // 拼上端点并去冗之后, 抬升之前
-        std::vector<WorldPoint> planned_points; // 终线
+        std::vector<WorldPoint> planned_points;   // 终线
         std::optional<WorldPoint> gap_start;
         std::optional<WorldPoint> gap_goal;
         std::optional<double> gap_distance;
@@ -113,11 +113,12 @@ private:
     struct ZoneEntry
     {
         std::unique_ptr<ZoneClean> zc;
-        std::unique_ptr<FieldsZone> fz; // 该区的分量图与留墙表, 与 zc 同进同出
-        std::string fields_error; // fz 为空时的原因
-        uint64_t used_at = 0; // zoneEntry 的调用序号, 淘汰最久没用的
+        std::unique_ptr<FieldsZone> fz;                    // 该区的分量图与留墙表, 与 zc 同进同出
+        std::string fields_error;                          // fz 为空时的原因
+        uint64_t used_at = 0;                              // zoneEntry 的调用序号, 淘汰最久没用的
         std::unordered_map<uint32_t, ZoneBoundsPx> bounds; // 每类的格范围, 整类量, 算一次
     };
+
     // 每个 ZoneClean 常驻几十到两百 MB, 只留最近用过的两个(通常是一层 base 加一层 tier)
     static constexpr size_t kZoneCacheMax = 2;
 
@@ -138,7 +139,7 @@ private:
     std::mutex mutex_;
     std::unordered_map<std::string, ZoneEntry> zones_;
     uint64_t zone_clock_ = 0;
-    GridPack grid_; // 包里的预烘格图,没有它就没法规划
+    GridPack grid_;     // 包里的预烘格图,没有它就没法规划
     FieldsPack fields_; // 旁包里的预烘场, 同样缺不得
     std::string grid_error_;
 };

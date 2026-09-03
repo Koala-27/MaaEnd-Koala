@@ -146,8 +146,12 @@ RasterCells Rasterize(
 {
     RasterCells out;
     const double hcs = kCS * 0.5;
-    const auto P = [V](int32_t i) { return WorldPoint { static_cast<double>(V[i].u), static_cast<double>(V[i].v) }; };
-    const auto H = [V](int32_t i) { return static_cast<double>(V[i].height); };
+    const auto P = [V](int32_t i) {
+        return WorldPoint { static_cast<double>(V[i].u), static_cast<double>(V[i].v) };
+    };
+    const auto H = [V](int32_t i) {
+        return static_cast<double>(V[i].height);
+    };
     std::vector<int64_t> kept;
     kept.reserve(T.size());
     for (int64_t ti = 0; ti < static_cast<int64_t>(T.size()); ++ti) {
@@ -956,8 +960,10 @@ bool Visibility::crossesStep(const WorldPoint& p, const WorldPoint& q) const
     int64_t px = ax;
     int64_t py = ay;
     for (int64_t k = 1; k <= n; ++k) {
-        const int64_t cx = ax + static_cast<int64_t>(std::nearbyint(static_cast<double>(bx - ax) * static_cast<double>(k) / static_cast<double>(n)));
-        const int64_t cy = ay + static_cast<int64_t>(std::nearbyint(static_cast<double>(by - ay) * static_cast<double>(k) / static_cast<double>(n)));
+        const int64_t cx =
+            ax + static_cast<int64_t>(std::nearbyint(static_cast<double>(bx - ax) * static_cast<double>(k) / static_cast<double>(n)));
+        const int64_t cy =
+            ay + static_cast<int64_t>(std::nearbyint(static_cast<double>(by - ay) * static_cast<double>(k) / static_cast<double>(n)));
         if (cx == px && cy == py) {
             continue;
         }
@@ -1141,8 +1147,8 @@ std::optional<std::vector<int64_t>> SpanAstar(
                 if (p >= 0 && mult.v(static_cast<size_t>(cv)) <= 1.0F) {
                     const int64_t cp = st.sp_cell[static_cast<size_t>(p)];
                     if (mult.v(static_cast<size_t>(cp)) <= 1.0F) {
-                        const double cd = dist[static_cast<size_t>(p)]
-                            + std::hypot(static_cast<double>(a - cp % nx), static_cast<double>(b - cp / nx));
+                        const double cd =
+                            dist[static_cast<size_t>(p)] + std::hypot(static_cast<double>(a - cp % nx), static_cast<double>(b - cp / nx));
                         if (cd < ndp - 1e-12) {
                             np = p;
                             ndp = cd;
@@ -1197,8 +1203,12 @@ std::optional<std::vector<int64_t>> SpanAstar(
         const float ha = st.sp_h[static_cast<size_t>(corn[i - 1])];
         const float hb = st.sp_h[static_cast<size_t>(corn[i])];
         for (int64_t k = 1; k < n; ++k) {
-            const int64_t cx = axx + static_cast<int64_t>(std::nearbyint(static_cast<double>(bxx - axx) * static_cast<double>(k) / static_cast<double>(n)));
-            const int64_t cy = ayy + static_cast<int64_t>(std::nearbyint(static_cast<double>(byy - ayy) * static_cast<double>(k) / static_cast<double>(n)));
+            const int64_t cx =
+                axx
+                + static_cast<int64_t>(std::nearbyint(static_cast<double>(bxx - axx) * static_cast<double>(k) / static_cast<double>(n)));
+            const int64_t cy =
+                ayy
+                + static_cast<int64_t>(std::nearbyint(static_cast<double>(byy - ayy) * static_cast<double>(k) / static_cast<double>(n)));
             const int64_t cc = cy * nx + cx;
             if (cc == st.sp_cell[static_cast<size_t>(out.back())]) {
                 continue;
@@ -1238,9 +1248,7 @@ namespace
 
 // 最近源点两遍扫描: 每格从已定好的邻格里接过离自己最近的那个源点。前一遍铺左上半个邻域,
 // 后一遍反向铺右下半个, 两遍合起来每格的八个方向都问过。没有源点的格留 -1。
-void NearestSource(
-    const std::vector<uint8_t>& src, int64_t nx, int64_t ny,
-    std::vector<int32_t>& fx, std::vector<int32_t>& fy)
+void NearestSource(const std::vector<uint8_t>& src, int64_t nx, int64_t ny, std::vector<int32_t>& fx, std::vector<int32_t>& fy)
 {
     const int64_t n = nx * ny;
     fx.assign(static_cast<size_t>(n), -1);

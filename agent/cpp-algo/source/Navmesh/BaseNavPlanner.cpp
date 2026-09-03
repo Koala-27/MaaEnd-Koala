@@ -186,19 +186,23 @@ void BaseNavPlanner::buildNaturalComponents()
 void BaseNavPlanner::buildSpatialIndex()
 {
     const auto& triangles = pack_.triangles();
+
     // 三趟同一套遍历: 量各区格包围盒 → 数每格三角数 → 按三角升序回填。三角按区连续, 区槽缓存着查。
     struct BinRect
     {
         int32_t x0, x1, y0, y1;
     };
+
     const auto bin_rect = [this](uint32_t triangle_index) -> BinRect {
         const auto points = trianglePoints(triangle_index);
         const double left = std::min({ points[0].x, points[1].x, points[2].x });
         const double right = std::max({ points[0].x, points[1].x, points[2].x });
         const double top = std::min({ points[0].y, points[1].y, points[2].y });
         const double bottom = std::max({ points[0].y, points[1].y, points[2].y });
-        return { static_cast<int32_t>(std::floor(left / kIndexBinSize)), static_cast<int32_t>(std::floor(right / kIndexBinSize)),
-                 static_cast<int32_t>(std::floor(top / kIndexBinSize)), static_cast<int32_t>(std::floor(bottom / kIndexBinSize)) };
+        return { static_cast<int32_t>(std::floor(left / kIndexBinSize)),
+                 static_cast<int32_t>(std::floor(right / kIndexBinSize)),
+                 static_cast<int32_t>(std::floor(top / kIndexBinSize)),
+                 static_cast<int32_t>(std::floor(bottom / kIndexBinSize)) };
     };
     // 区号 → 区槽。区外三角形(区号 0)不入索引, 与 Python _build_index 一致。
     bin_grids_.clear();
@@ -227,8 +231,13 @@ void BaseNavPlanner::buildSpatialIndex()
         });
     };
     std::vector<std::vector<BinRect>> bounds(
-        workers, std::vector<BinRect>(nslots, { std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::min(),
-                                              std::numeric_limits<int32_t>::max(), std::numeric_limits<int32_t>::min() }));
+        workers,
+        std::vector<BinRect>(
+            nslots,
+            { std::numeric_limits<int32_t>::max(),
+              std::numeric_limits<int32_t>::min(),
+              std::numeric_limits<int32_t>::max(),
+              std::numeric_limits<int32_t>::min() }));
     for_each_tri([&bounds](size_t w, size_t slot, const BinRect& r, uint32_t) {
         BinRect& b = bounds[w][slot];
         b.x0 = std::min(b.x0, r.x0);
@@ -320,7 +329,8 @@ std::vector<uint32_t> BaseNavPlanner::candidateTriangles(uint16_t zone_id, const
     }
     for (int32_t bin_x = std::max(bin_x0, grid->bx0); bin_x <= std::min(bin_x1, grid->bx0 + grid->nx - 1); ++bin_x) {
         for (int32_t bin_y = std::max(bin_y0, grid->by0); bin_y <= std::min(bin_y1, grid->by0 + grid->ny - 1); ++bin_y) {
-            const size_t c = static_cast<size_t>(bin_x - grid->bx0) * static_cast<size_t>(grid->ny) + static_cast<size_t>(bin_y - grid->by0);
+            const size_t c =
+                static_cast<size_t>(bin_x - grid->bx0) * static_cast<size_t>(grid->ny) + static_cast<size_t>(bin_y - grid->by0);
             result.insert(result.end(), grid->triangles.begin() + grid->offsets[c], grid->triangles.begin() + grid->offsets[c + 1]);
         }
     }
@@ -537,9 +547,10 @@ std::optional<BaseNavSnapResult> BaseNavPlanner::snap(uint16_t zone_id, const Wo
         // 底图像素是俯视图上的一点,那点看得见的就是最上面那层。原来的「取最小三角号」在这里
         // 是任意的 —— 重烘一次三角顺序一换,起点就可能吸到桥下/水下那层,与终点分属两个分量,
         // A* 直接报不连通。非打平的候选不受影响,distance 仍排在高度前面。
-        const std::tuple<int, double, double, uint32_t> key {
-            is_small_island(triangle_index) ? 1 : 0, distance, -triangleHeight(triangle_index), triangle_index
-        };
+        const std::tuple<int, double, double, uint32_t> key { is_small_island(triangle_index) ? 1 : 0,
+                                                              distance,
+                                                              -triangleHeight(triangle_index),
+                                                              triangle_index };
         if (!best_key || key < *best_key) {
             best_key = key;
             best = BaseNavSnapResult { .triangle = triangle_index, .point = snapped, .distance = distance };
@@ -605,7 +616,7 @@ double BaseNavPlanner::triangleHeight(uint32_t triangle_index) const
     const auto& vertices = pack_.vertices();
     return (static_cast<double>(vertices[triangle.vertices[0]].height) + static_cast<double>(vertices[triangle.vertices[1]].height)
             + static_cast<double>(vertices[triangle.vertices[2]].height))
-        / 3.0;
+           / 3.0;
 }
 
 uint32_t BaseNavPlanner::componentId(uint32_t triangle_index) const

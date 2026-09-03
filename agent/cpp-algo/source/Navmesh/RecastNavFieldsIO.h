@@ -42,12 +42,12 @@ struct FieldsZoneDir
 // 一块瓦的六列, 与主包同一块瓦解出的记录逐条对位。
 struct FieldsTile
 {
-    std::vector<uint32_t> scc;     // 类内分量号 1..n_scc; 填充记录为 0
-    std::vector<uint8_t> steps2x;  // 重判禁步位 XOR 主包 steps 位
-    std::vector<uint8_t> seg;      // bit0 = c→b 出段, bit1 = b→c 出段; 只有正交两向有值
-    std::vector<uint8_t> tax;      // 台阶税边位: 方向 i 的正向在 bit 2i, 反向在 bit 2i+1
-    std::vector<uint16_t> clr2d;   // 主包 clr 减去封缝后净空 (≥ 0), 平方格数
-    std::vector<uint8_t> medial;   // bit0 = 该格在类内的中轴上
+    std::vector<uint32_t> scc;    // 类内分量号 1..n_scc; 填充记录为 0
+    std::vector<uint8_t> steps2x; // 重判禁步位 XOR 主包 steps 位
+    std::vector<uint8_t> seg;     // bit0 = c→b 出段, bit1 = b→c 出段; 只有正交两向有值
+    std::vector<uint8_t> tax;     // 台阶税边位: 方向 i 的正向在 bit 2i, 反向在 bit 2i+1
+    std::vector<uint16_t> clr2d;  // 主包 clr 减去封缝后净空 (≥ 0), 平方格数
+    std::vector<uint8_t> medial;  // bit0 = 该格在类内的中轴上
 };
 
 // 一个区的整类量。

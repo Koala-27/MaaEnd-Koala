@@ -515,8 +515,7 @@ json::object DiagnosticToJson(const mapnavigator::NavmeshRouteDiagnostic& diagno
         { "topology_cells", DiagnosticPointsToJson(diagnostic.topology_cells, diagnostic.topology_cells, diagnostic.topology_heights) },
         { "taut_points", DiagnosticPointsToJson(diagnostic.taut_points, diagnostic.topology_cells, diagnostic.topology_heights) },
         { "pulled_points", DiagnosticPointsToJson(diagnostic.pulled_points, diagnostic.topology_cells, diagnostic.topology_heights) },
-        { "assembled_points",
-          DiagnosticPointsToJson(diagnostic.assembled_points, diagnostic.topology_cells, diagnostic.topology_heights) },
+        { "assembled_points", DiagnosticPointsToJson(diagnostic.assembled_points, diagnostic.topology_cells, diagnostic.topology_heights) },
         { "planned_points", DiagnosticPointsToJson(diagnostic.planned_points, diagnostic.topology_cells, diagnostic.topology_heights) },
         { "warnings", std::move(warnings) },
     };

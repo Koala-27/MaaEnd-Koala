@@ -663,7 +663,8 @@ std::optional<navmesh::BaseNavRouteResult> PlanNavmeshRouteImpl(
         blocked_points,
         navmesh::kBaseNavFloorYNone,
         goal_deck_y,
-        start_floor_y);    const auto plan_started_at = std::chrono::steady_clock::now();
+        start_floor_y);
+    const auto plan_started_at = std::chrono::steady_clock::now();
     const auto route_result = PlanCorridorRoute(*navmesh, request, {}, out_diagnostic);
     const int64_t plan_ms =
         std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - plan_started_at).count();
@@ -762,7 +763,15 @@ bool AppendBlindTargetFallback(
             continue;
         }
         auto request = BuildRouteRequest(
-            navmesh.pack, state.current_zone, state.navmesh_zone, start, entry->point, {}, {}, goal_floor_y, std::nullopt,
+            navmesh.pack,
+            state.current_zone,
+            state.navmesh_zone,
+            start,
+            entry->point,
+            {},
+            {},
+            goal_floor_y,
+            std::nullopt,
             state.route_start_floor_y);
         NavmeshRouteDiagnostic diagnostic;
         const auto route = PlanCorridorRoute(navmesh, request, should_stop, out_diagnostics == nullptr ? nullptr : &diagnostic);
@@ -1520,10 +1529,8 @@ std::optional<NavmeshSnap> NavmeshSnapAt(
     return NavmeshSnap { .distance = entry->distance, .height = navmesh->planner.triangleHeight(entry->triangle) };
 }
 
-std::vector<std::vector<uint32_t>> NavmeshRegionsNear(
-    const NaviParam& param,
-    const std::string& locator_zone,
-    const std::vector<navmesh::WorldPoint>& points)
+std::vector<std::vector<uint32_t>>
+    NavmeshRegionsNear(const NaviParam& param, const std::string& locator_zone, const std::vector<navmesh::WorldPoint>& points)
 {
     const std::string navmesh_zone = InferBaseNavZone(locator_zone, param.map_name);
     if (navmesh_zone.empty()) {

@@ -41,9 +41,9 @@ struct WindowInfo
     // 就是让两张全窗口的图白白活过整个 routeWindow。
     Mask lay;
     Mask core;
-    Grid<float> dist; // 无封堵: 旁包烘好的封缝净空; 有封堵: 按盖过的核心重算
-    Mask whit; // 只在有封堵时算, 无封堵的腿不需要它
-    Mask medial; // 旁包烘好的中轴, 有封堵时不可信、留空
+    Grid<float> dist;    // 无封堵: 旁包烘好的封缝净空; 有封堵: 按盖过的核心重算
+    Mask whit;           // 只在有封堵时算, 无封堵的腿不需要它
+    Mask medial;         // 旁包烘好的中轴, 有封堵时不可信、留空
     EdgeBits step_edges; // 旁包烘好的台阶税边, 与封堵无关
     bool blocked = false;
     StepBarrier sev;
@@ -108,6 +108,7 @@ struct GridWindow
     std::vector<uint8_t> seg; // bit0/1 = 立面段, bit7 = 中轴
     std::vector<uint8_t> tax;
 };
+
 constexpr uint8_t kGwMedialBit = 0x80U;
 
 // fp/fz 给了就连旁包的六列一起解; 定类那两小块不需要它们, 传空。
@@ -819,8 +820,10 @@ double SegMinClr(const Grid<float>& d, double x0, double y0, const WorldPoint& a
     const int64_t n = std::max<int64_t>(std::max(std::abs(bx - ax), std::abs(by - ay)), 1);
     double m = std::numeric_limits<double>::infinity();
     for (int64_t k = 0; k <= n; ++k) {
-        const int64_t cx = ax + static_cast<int64_t>(std::nearbyint(static_cast<double>(bx - ax) * static_cast<double>(k) / static_cast<double>(n)));
-        const int64_t cy = ay + static_cast<int64_t>(std::nearbyint(static_cast<double>(by - ay) * static_cast<double>(k) / static_cast<double>(n)));
+        const int64_t cx =
+            ax + static_cast<int64_t>(std::nearbyint(static_cast<double>(bx - ax) * static_cast<double>(k) / static_cast<double>(n)));
+        const int64_t cy =
+            ay + static_cast<int64_t>(std::nearbyint(static_cast<double>(by - ay) * static_cast<double>(k) / static_cast<double>(n)));
         if (cx < 0 || cy < 0 || cx >= d.nx || cy >= d.ny) {
             continue;
         }
@@ -877,9 +880,7 @@ void LiftCorners(
             continue;
         }
         const double here = static_cast<double>(d.at(cy0, cx0));
-        const double keep = std::min(
-            SegMinClr(d, x0, y0, P[i - 1], P[i]),
-            SegMinClr(d, x0, y0, P[i], P[i + 1]));
+        const double keep = std::min(SegMinClr(d, x0, y0, P[i - 1], P[i]), SegMinClr(d, x0, y0, P[i], P[i + 1]));
         // 候选按净空降序, 同净空按线性格序破平 —— 顺序全序, 出线因此逐位可复现
         std::vector<std::pair<double, int64_t>> cand;
         for (int64_t dy = -rad; dy <= rad; ++dy) {
@@ -900,14 +901,11 @@ void LiftCorners(
         std::sort(cand.begin(), cand.end());
         float hnext = hv0;
         for (const auto& c : cand) {
-            const WorldPoint w {
-                x0 + (static_cast<double>(c.second % d.nx) + 0.5) * kCS,
-                y0 + (static_cast<double>(c.second / d.nx) + 0.5) * kCS
-            };
+            const WorldPoint w { x0 + (static_cast<double>(c.second % d.nx) + 0.5) * kCS,
+                                 y0 + (static_cast<double>(c.second / d.nx) + 0.5) * kCS };
             // 挪到与邻点重合就出零长段, 跟随层从零长段上取不到方向。阈值取半格: 严格小于
             // 任意两个不同格心的间距, 于是拦得住重合又碰不到合法的一格位移。
-            if (std::hypot(w.x - P[i - 1].x, w.y - P[i - 1].y) < kCS * 0.5
-                || std::hypot(w.x - P[i + 1].x, w.y - P[i + 1].y) < kCS * 0.5) {
+            if (std::hypot(w.x - P[i - 1].x, w.y - P[i - 1].y) < kCS * 0.5 || std::hypot(w.x - P[i + 1].x, w.y - P[i + 1].y) < kCS * 0.5) {
                 continue;
             }
             if (std::min(SegMinClr(d, x0, y0, P[i - 1], w), SegMinClr(d, x0, y0, w, P[i + 1])) < keep - 1e-9) {
@@ -915,8 +913,7 @@ void LiftCorners(
             }
             // 隔一段的自交:中间那一小段比位移还短时, 挪一下就把它翻了过去。父链本身是树不自交,
             // 只有这一类新交点需要挡, 挡在这里比事后去环便宜, 也不用再引一段几何工序。
-            if ((i >= 2 && SegCross(w, P[i + 1], P[i - 2], P[i - 1]))
-                || (i + 2 < P.size() && SegCross(P[i - 1], w, P[i + 1], P[i + 2]))) {
+            if ((i >= 2 && SegCross(w, P[i + 1], P[i - 2], P[i - 1])) || (i + 2 < P.size() && SegCross(P[i - 1], w, P[i + 1], P[i + 2]))) {
                 continue;
             }
             const auto h1 = lyo.walk({ P[i - 1], w }, ha);
@@ -1313,7 +1310,6 @@ std::optional<std::vector<WorldPoint>> routeWindow(
         }
     };
 
-
     const EdgeBits* faces = &info.sev.steps;
 
     struct Topo
@@ -1334,7 +1330,9 @@ std::optional<std::vector<WorldPoint>> routeWindow(
     const auto linked = [&](const Mask& lim) {
         const int64_t sc = as_->y * nx + as_->x;
         const int64_t gc = ag_->y * nx + ag_->x;
-        const auto in = [&](int64_t c) { return info.core.v[static_cast<size_t>(c)] != 0 && lim.v[static_cast<size_t>(c)] != 0; };
+        const auto in = [&](int64_t c) {
+            return info.core.v[static_cast<size_t>(c)] != 0 && lim.v[static_cast<size_t>(c)] != 0;
+        };
         if (!in(sc) || !in(gc)) {
             return false;
         }
@@ -1490,8 +1488,7 @@ std::optional<std::vector<WorldPoint>> routeWindow(
     // 一端的可达 span 集。展开判据与 SpanAstar 逐字相同: 格掩膜、对角切角、立面禁步、RiseOk。
     // backward 那一路走的是 v→u 这个方向 —— 禁行边与抬升判据都是有向的, 拿正向去问会把单向的
     // 台阶说成两边都能过。
-    const auto reachFrom = [&](const std::vector<int64_t>& seeds, const std::vector<uint8_t>& use, const Mask& ok2,
-                               bool backward) {
+    const auto reachFrom = [&](const std::vector<int64_t>& seeds, const std::vector<uint8_t>& use, const Mask& ok2, bool backward) {
         std::vector<uint8_t> seen(st3.sp_h.size(), 0);
         std::vector<int64_t> frontier;
         for (const int64_t v : seeds) {
@@ -1535,8 +1532,7 @@ std::optional<std::vector<WorldPoint>> routeWindow(
                                 continue;
                             }
                             const float hv = st3.sp_h[static_cast<size_t>(v)];
-                            if (!(backward ? RiseOk(st3, nx, ny, cv, -dx, -dy, hv, hu)
-                                           : RiseOk(st3, nx, ny, cu, dx, dy, hu, hv))) {
+                            if (!(backward ? RiseOk(st3, nx, ny, cv, -dx, -dy, hv, hu) : RiseOk(st3, nx, ny, cu, dx, dy, hu, hv))) {
                                 continue;
                             }
                             seen[static_cast<size_t>(v)] = 1;
@@ -1895,8 +1891,7 @@ std::optional<std::vector<WorldPoint>> routeWindow(
     std::vector<WorldPoint> taut = cen(by_corn ? gq : *q);
     dg.taut_points = taut;
     if (taut.size() >= 2) {
-        taut = StringPull(taut, blk_gray, hs.empty() ? nullptr : &lyo, hs.empty() ? nullptr : &hs,
-            by_corn ? &vis_geo : nullptr);
+        taut = StringPull(taut, blk_gray, hs.empty() ? nullptr : &lyo, hs.empty() ? nullptr : &hs, by_corn ? &vis_geo : nullptr);
     }
     dg.pulled_points = taut;
     dg.timing.pull_ms = nowMs() - t_pull0;
@@ -1987,7 +1982,7 @@ std::optional<std::vector<WorldPoint>> routeWindow(
     return out;
 }
 
-}
+} // namespace
 
 RecastNavEngine::RecastNavEngine(const BaseNavPack& pack, const BaseNavPlanner& planner)
     : pack_(pack)
@@ -2017,7 +2012,9 @@ RecastNavEngine::ZoneEntry& RecastNavEngine::zoneEntry(const std::string& name)
         // 包里没有的区只会得到一条错误串, 不占位; 淘汰时也先淘汰这种空条目。
         const BaseNavZone* zone = pack_.findZoneByName(name);
         const bool real = zone != nullptr && zone->triangle_count > 0;
-        auto rank = [](const ZoneEntry& e) { return e.zc->valid() ? e.used_at : 0; };
+        auto rank = [](const ZoneEntry& e) {
+            return e.zc->valid() ? e.used_at : 0;
+        };
         while (real && zones_.size() >= kZoneCacheMax) {
             auto victim = zones_.begin();
             for (auto z = zones_.begin(); z != zones_.end(); ++z) {
@@ -2231,11 +2228,13 @@ RecastPlanResult RecastNavEngine::planLocked(
     // 整类洪水补齐; 只有"窗内不通而整类可达"才退到整类窗口。最坏耗时与内存由上限定住。
     constexpr int64_t kTrustMargin = 64; // 可信余量(格), 须盖过净空截断 kEdtCells 与中轴邻域
     constexpr int64_t kLocalMaxCells = 3'000'000;
-    constexpr double kRatio0 = 2.0; // 首档允许的 代价/直线 比; 语料里过半的腿一档就过
+    constexpr double kRatio0 = 2.0;      // 首档允许的 代价/直线 比; 语料里过半的腿一档就过
     constexpr double kRatioStep = 2.0;
     constexpr double kCostSlack = 200.0; // 短腿的固定余裕(格): 吸附偏移、接入链、栅格化
     static_assert(kTrustMargin > kEdtCells + 8);
-    const auto cellOf = [](double v) { return static_cast<int64_t>(std::floor(v / kCS)); };
+    const auto cellOf = [](double v) {
+        return static_cast<int64_t>(std::floor(v / kCS));
+    };
     const int64_t bx0 = std::min({ cellOf(start.x), cellOf(ss->point.x), cellOf(goal.x) });
     const int64_t bx1 = std::max({ cellOf(start.x), cellOf(ss->point.x), cellOf(goal.x) });
     const int64_t by0 = std::min({ cellOf(start.y), cellOf(ss->point.y), cellOf(goal.y) });
@@ -2264,11 +2263,14 @@ RecastPlanResult RecastNavEngine::planLocked(
     const double fgy = goal.y / kCS;
     const double leg = std::hypot(fgx - fsx, fgy - fsy);
     const double ang = std::atan2(fgy - fsy, fgx - fsx);
+
     struct Rect
     {
         int64_t x0 = 0, y0 = 0, nx = 0, ny = 0;
+
         int64_t cells() const { return nx * ny; }
     };
+
     const auto rectFor = [&](double cost) {
         const double a = cost / 2.0;
         const double b = std::sqrt(std::max(cost * cost - leg * leg, 0.0)) / 2.0;
@@ -2288,8 +2290,8 @@ RecastPlanResult RecastNavEngine::planLocked(
     enum class Kind
     {
         Tentative, // 小窗, 全套验收
-        Capped, // 封顶档: 面积到上限, 窗口大小相关的验收关掉
-        Full // 整类窗口, 不做验收
+        Capped,    // 封顶档: 面积到上限, 窗口大小相关的验收关掉
+        Full       // 整类窗口, 不做验收
     };
     const Rect region_rect { rgx0, rgy0, rnx, rny };
     const auto tierRect = [&](int tier) -> std::pair<Rect, Kind> {
@@ -2365,8 +2367,25 @@ RecastPlanResult RecastNavEngine::planLocked(
         const int64_t margin = local ? kTrustMargin : 0;
 
         const double t_win0 = nowMs();
-        info = buildWindow(grid_, *gz, fields_, *fzd, *fz, zc, start, ss->point, goal, h0, region, x0, y0, x1, y1,
-            blocked_local, blocked_points, err);
+        info = buildWindow(
+            grid_,
+            *gz,
+            fields_,
+            *fzd,
+            *fz,
+            zc,
+            start,
+            ss->point,
+            goal,
+            h0,
+            region,
+            x0,
+            y0,
+            x1,
+            y1,
+            blocked_local,
+            blocked_points,
+            err);
         const double window_ms = nowMs() - t_win0;
         const uint16_t zone_id = zc.zone_id;
         if (!info.has_value()) {
@@ -2467,4 +2486,4 @@ RecastPlanResult RecastNavEngine::planLocked(
     }
 }
 
-}
+} // namespace navmesh::recast

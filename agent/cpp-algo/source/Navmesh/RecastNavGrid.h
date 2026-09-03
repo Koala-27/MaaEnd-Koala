@@ -16,24 +16,24 @@
 namespace navmesh::recast
 {
 
-inline constexpr double kCS = 0.25;                // 体素边长 px
-inline constexpr double kClimb = 3.0;              // 相邻格可连通最大高差 px
-inline constexpr double kSlope = 1.0;              // 可攀爬坡度上限 tanθ, 抬升超过水平位移的这个倍数即立面
-inline constexpr double kStepUp = 0.5;             // 可直接迈上的台阶高 px, 是角色属性所以不跟体素边长挂钩
-inline constexpr double kBumpUp = 1.25;            // 跨过路面窄凸起/浅坑允许的抬升 px, 仅在落差不延伸时生效
-inline constexpr int64_t kBumpCells = 3;           // 前探格数: 抬升在这么多格内回到出发高度即窄凸起
-inline constexpr int64_t kDipCells = 2;            // 后探格数: 目标高度在身后这么多格内出现即浅坑
-inline constexpr double kWallH = 1.25;             // 禁步边同时挡住拉直视线所需的落差 px, 取路面起伏上限
-inline constexpr double kMergeH = kSlope * kCS;    // 同列 span 合并容差 px, 取一格坡面起伏
-inline constexpr double kQH = 1.0;                 // 体素取样高差容差 px, 需装下斜面单格起伏与格心取样偏差
-inline constexpr double kEdtCap = 12.0;            // 距离场截断 px
-inline constexpr double kR = 1.75;                 // 期望余量上限 px
-inline constexpr double kMaxErr = 0.5;             // 轮廓 DP 容差 px
-inline constexpr double kMcHBand = 8.0;            // 层高度带(边界边筛/盖章)px
-inline constexpr double kBkt = 4.0;                // 挡线索引桶边长 px
-inline constexpr double kBktPad = 1e-6;            // 入桶时给挡线包围盒的放量 px, 需盖过相交判据放给挡线两端的余量
-inline constexpr double kSnapRadius = 8.0;         // 起终点吸附半径 px
-inline constexpr double kDeckBand = 2.0;           // 声明面高度匹配容差 px, 需远小于相邻面间距
+inline constexpr double kCS = 0.25;             // 体素边长 px
+inline constexpr double kClimb = 3.0;           // 相邻格可连通最大高差 px
+inline constexpr double kSlope = 1.0;           // 可攀爬坡度上限 tanθ, 抬升超过水平位移的这个倍数即立面
+inline constexpr double kStepUp = 0.5;          // 可直接迈上的台阶高 px, 是角色属性所以不跟体素边长挂钩
+inline constexpr double kBumpUp = 1.25;         // 跨过路面窄凸起/浅坑允许的抬升 px, 仅在落差不延伸时生效
+inline constexpr int64_t kBumpCells = 3;        // 前探格数: 抬升在这么多格内回到出发高度即窄凸起
+inline constexpr int64_t kDipCells = 2;         // 后探格数: 目标高度在身后这么多格内出现即浅坑
+inline constexpr double kWallH = 1.25;          // 禁步边同时挡住拉直视线所需的落差 px, 取路面起伏上限
+inline constexpr double kMergeH = kSlope * kCS; // 同列 span 合并容差 px, 取一格坡面起伏
+inline constexpr double kQH = 1.0;              // 体素取样高差容差 px, 需装下斜面单格起伏与格心取样偏差
+inline constexpr double kEdtCap = 12.0;         // 距离场截断 px
+inline constexpr double kR = 1.75;              // 期望余量上限 px
+inline constexpr double kMaxErr = 0.5;          // 轮廓 DP 容差 px
+inline constexpr double kMcHBand = 8.0;         // 层高度带(边界边筛/盖章)px
+inline constexpr double kBkt = 4.0;             // 挡线索引桶边长 px
+inline constexpr double kBktPad = 1e-6;         // 入桶时给挡线包围盒的放量 px, 需盖过相交判据放给挡线两端的余量
+inline constexpr double kSnapRadius = 8.0;      // 起终点吸附半径 px
+inline constexpr double kDeckBand = 2.0;        // 声明面高度匹配容差 px, 需远小于相邻面间距
 inline constexpr double kBlockedPointRadius = 1.0; // 封堵点盖章半径 px
 inline constexpr int64_t kHoleMaxCells = 32;       // 封闭小洞填充上限(格 = 2px²)
 // 整类窗口在类范围外留的圈(格)。场都是局部算子, 依赖半径合起来不到这一圈, 留出它,
@@ -170,8 +170,8 @@ void AppendSeamBridge(RasterCells& rc, int64_t nx, int64_t ny);
 SpanTable BuildSpans(const std::vector<int64_t>& cell, const std::vector<float>& h);
 
 // flags / aux 是与 cell 同长的随行列, 按同一置换重排后写回原处。
-SpanTable PackSpans(
-    std::vector<int32_t> cell, std::vector<float> h, std::vector<uint8_t>* flags = nullptr, std::vector<uint32_t>* aux = nullptr);
+SpanTable
+    PackSpans(std::vector<int32_t> cell, std::vector<float> h, std::vector<uint8_t>* flags = nullptr, std::vector<uint32_t>* aux = nullptr);
 
 std::vector<uint8_t> Flood(int64_t seed, const SpanTable& st, int64_t nx);
 
@@ -305,10 +305,7 @@ struct PriceField
         return static_cast<float>(hi / std::min(std::max(static_cast<double>(dist->v[i]), lo), hi));
     }
 
-    float at(int64_t y, int64_t x) const
-    {
-        return dist == nullptr ? 1.0F : v(static_cast<size_t>(y * dist->nx + x));
-    }
+    float at(int64_t y, int64_t x) const { return dist == nullptr ? 1.0F : v(static_cast<size_t>(y * dist->nx + x)); }
 };
 
 std::optional<std::vector<CellPt>> CostAstar(
@@ -364,8 +361,10 @@ private:
     friend class Blockers;
 
     void buildIndex() const;
+
     // 段包围盒是两端点的逐分量 min/max, 存成表只是把同一个数再摊一份内存。
     WorldPoint lo(size_t i) const { return { std::min(a_[i].x, b_[i].x), std::min(a_[i].y, b_[i].y) }; }
+
     WorldPoint hi(size_t i) const { return { std::max(a_[i].x, b_[i].x), std::max(a_[i].y, b_[i].y) }; }
 
     std::vector<WorldPoint> a_;

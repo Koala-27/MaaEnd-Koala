@@ -58,9 +58,9 @@ struct PolyMesh
     double h(int32_t i) const { return static_cast<double>(verts()[i].height); }
 
     void buildNb(std::vector<uint8_t>* dup);
-    void foldNb(); // NB → bnd, 然后释放 NB
-    std::vector<int32_t> trisNear(const WorldPoint& p, double r) const;                // 升序去重
-    std::vector<int32_t> trisInBox(double x0, double y0, double x1, double y1) const;  // 升序去重
+    void foldNb();                                                                    // NB → bnd, 然后释放 NB
+    std::vector<int32_t> trisNear(const WorldPoint& p, double r) const;               // 升序去重
+    std::vector<int32_t> trisInBox(double x0, double y0, double x1, double y1) const; // 升序去重
 
     // 三角按 24px 方格分桶。桶号在包围盒内连续, 所以只存一张偏移表, 查询按下标直接落桶。
     static constexpr double kGridCell = 24.0;
@@ -78,7 +78,10 @@ private:
 class ZoneClean
 {
 public:
-    ZoneClean(const BaseNavPack& pack, const BaseNavPlanner& planner, const std::string& zone_name,
+    ZoneClean(
+        const BaseNavPack& pack,
+        const BaseNavPlanner& planner,
+        const std::string& zone_name,
         uint32_t walkable_flags = kWalkableFlagsDefault);
 
     bool valid() const { return error_.empty(); }

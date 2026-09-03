@@ -128,16 +128,16 @@
                         "recognition": {
                             "type": "OCR",
                             "param": {
-                                "expected": [
-                                    "快捷使用",
-                                    "Quick Use",
-                                    "恢复理智"
-                                ],
                                 "roi": [
                                     180,
                                     180,
                                     200,
                                     100
+                                ],
+                                "expected": [
+                                    "快捷使用",
+                                    "Quick Use",
+                                    "恢复理智"
                                 ]
                             }
                         }

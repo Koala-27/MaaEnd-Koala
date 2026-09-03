@@ -234,11 +234,13 @@ bool FieldsPack::load(const std::filesystem::path& path, const BaseNavPack& main
         err = "旁包段目录越界";
         return false;
     }
+
     struct Sec
     {
         const uint8_t* p = nullptr;
         size_t len = 0;
     };
+
     std::unordered_map<std::string, Sec> secs;
     for (uint32_t i = 0; i < section_count; ++i) {
         const uint8_t* e = base + dir_off + static_cast<size_t>(i) * kSectionEntrySize;
@@ -295,8 +297,8 @@ bool FieldsPack::load(const std::filesystem::path& path, const BaseNavPack& main
         const uint64_t scc_off = peekU64(p + 24), scc_len = peekU64(p + 32);
         const uint64_t wal_off = peekU64(p + 40), wal_len = peekU64(p + 48);
         p += 56;
-        if (spn_off > spn.len || spn_len > spn.len - spn_off || scc_off > scc.len || scc_len > scc.len - scc_off
-            || wal_off > wal.len || wal_len > wal.len - wal_off) {
+        if (spn_off > spn.len || spn_len > spn.len - spn_off || scc_off > scc.len || scc_len > scc.len - scc_off || wal_off > wal.len
+            || wal_len > wal.len - wal_off) {
             err = "旁包区 " + z.name + " 的段范围越界";
             return false;
         }
@@ -382,8 +384,8 @@ bool FieldsPack::decodeTile(const FieldsTileRef& t, FieldsTile& out) const
     // 六条流依次: 分量号(zigzag 差分 varint)、禁步 XOR、段位、税边位、净空差(varint)、中轴位。
     std::vector<uint8_t> s0;
     std::vector<uint8_t> s4;
-    if (!rd.stream(s0) || !rd.stream(out.steps2x) || !rd.stream(out.seg) || !rd.stream(out.tax) || !rd.stream(s4)
-        || !rd.stream(out.medial) || !rd.done()) {
+    if (!rd.stream(s0) || !rd.stream(out.steps2x) || !rd.stream(out.seg) || !rd.stream(out.tax) || !rd.stream(s4) || !rd.stream(out.medial)
+        || !rd.done()) {
         return false;
     }
     if (out.steps2x.size() != n || out.seg.size() != n || out.tax.size() != n || out.medial.size() != n) {

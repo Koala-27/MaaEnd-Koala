@@ -33,8 +33,7 @@ BakedWalls BakeWalls(const ZoneClean& zc, double x0, double y0, int64_t nx, int6
             const int32_t b = mesh.T[i][(k + 1) % 3];
             const WorldPoint p0 = mesh.v(a);
             const WorldPoint p1 = mesh.v(b);
-            if (std::max(p0.x, p1.x) >= bx0 && std::min(p0.x, p1.x) <= bx1 && std::max(p0.y, p1.y) >= by0
-                && std::min(p0.y, p1.y) <= by1) {
+            if (std::max(p0.x, p1.x) >= bx0 && std::min(p0.x, p1.x) <= bx1 && std::max(p0.y, p1.y) >= by0 && std::min(p0.y, p1.y) <= by1) {
                 out.p0.push_back(p0);
                 out.p1.push_back(p1);
                 out.h0.push_back(mesh.h(a));
