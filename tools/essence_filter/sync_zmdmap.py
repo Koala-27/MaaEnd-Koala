@@ -13,7 +13,9 @@ from urllib.request import Request, urlopen
 
 
 VERSION_API = "https://api.zmdmap.com/api/v1/endfield/version"
-DATA_BASE_URL = "https://assets.zmdmap.com/data/entity"
+# zmdmap 数据 CI 已把精简游戏数据发布到 assets.fz.wiki/output_maaend（旧地址
+# assets.zmdmap.com/data/entity 已停用），下载时需带 ?ver=<version>。
+DATA_BASE_URL = "https://assets.fz.wiki/output_maaend"
 LANGS = ("CN", "TC", "EN", "JP", "KR")
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -25,7 +27,8 @@ TARGETS = {
 
 
 def _url(url: str) -> str:
-    return f"{url}?{urlencode({'source': 'MaaEnd', 't': time.time_ns() // 1_000_000})}"
+    sep = "&" if "?" in url else "?"
+    return f"{url}{sep}{urlencode({'source': 'MaaEnd', 't': time.time_ns() // 1_000_000})}"
 
 
 def _download_json(url: str) -> Any | None:
@@ -74,7 +77,8 @@ def _download_sources(version: str) -> dict[str, Any] | None:
     }
     result: dict[str, Any] = {}
     for filename, validator in validators.items():
-        url = f"{DATA_BASE_URL}/{quote(version, safe='')}/{filename}"
+        # output_maaend 使用查询参数 ?ver=<version> 指定数据版本（与 fetch-data.mjs 一致）。
+        url = f"{DATA_BASE_URL}/{filename}?ver={quote(version, safe='')}"
         data = _download_json(url)
         if not validator(data):
             print(f"[EssenceFilter] 跳过同步：{filename} 为空或结构无效")
